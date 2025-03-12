@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --img-transform: scale(1);
+}
+
+.image-container img {
+  transform: var(--img-transform);
+  transition: transform 0.5s ease-in-out;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+section[id] {
+  scroll-margin-top: 5rem; /* Adjust this value based on your navbar height */
+}
+
+/* Prevent unwanted blur effects on mobile devices */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Add hardware acceleration to fixed elements */
+.fixed,
+.sticky,
+.header,
+.logo {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Prevent SVG rendering issues on mobile */
+svg {
+  filter: none;
+  shape-rendering: geometricPrecision;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+.hero-button {
+  white-space: nowrap;
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .hero-button-text {
+    font-size: 0.875rem;
+  }
+  
+  .hero-button {
+    padding: 0.5rem 1rem;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}

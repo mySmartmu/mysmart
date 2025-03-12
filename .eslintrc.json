@@ -1,0 +1,8 @@
+// .eslintrc.json
+{
+    "extends": "next/core-web-vitals",
+    "rules": {
+      // Add this to disable the apostrophe rule if needed
+      "react/no-unescaped-entities": "off"
+    }
+  }

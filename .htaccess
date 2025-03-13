@@ -1,0 +1,48 @@
+apacheCopy# Enable mod_rewrite for redirects
+RewriteEngine On
+
+# Redirect HTTP to HTTPS
+RewriteCond %{HTTPS} off 
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirect www to non-www (optional - remove if you don't want this)
+RewriteCond %{HTTP_HOST} ^www\.mysmart\.mu [NC]
+RewriteRule ^(.*)$ https://mysmart.mu/$1 [L,R=301]
+
+# Enable browser caching with Expires headers
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Default expiration: 1 month after request
+  ExpiresDefault "access plus 1 month"
+  # CSS, JavaScript, JSON
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType application/json "access plus 1 year"
+  # Images
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  # Fonts
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  
+  # HTML - shorter cache time
+  ExpiresByType text/html "access plus 1 day"
+</IfModule>
+
+# Add correct content-type for webfonts
+<IfModule mod_mime.c>
+  AddType application/font-woff2 .woff2
+  AddType application/font-woff .woff
+</IfModule>
+
+# Set CORS headers for fonts
+<IfModule mod_headers.c>
+  <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font.css)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>

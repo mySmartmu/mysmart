@@ -196,7 +196,7 @@ export default function MobileMenu({ links }: MobileMenuProps) {
                 ))}
               </nav>
               
-              <motion.div 
+              {/* <motion.div 
                 className="p-6 bg-gray-50 mt-auto"
                 variants={itemVariants}
               >
@@ -210,7 +210,7 @@ export default function MobileMenu({ links }: MobileMenuProps) {
                   </svg>
                   Shop
                 </Link>
-              </motion.div>
+              </motion.div> */}
             </div>
           </motion.div>
         )}

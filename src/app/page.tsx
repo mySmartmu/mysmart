@@ -35,11 +35,11 @@ const HomeIcon = () => (
   </svg>
 );
 
-const ShopIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-  </svg>
-);
+// const ShopIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+//   </svg>
+// );
 
 // const ProductIcon = () => (
 //   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -150,7 +150,7 @@ export default function Home() {
       {/* Logo */}
       <div className="h-8 w-10 relative mr-2">
         <OptimizedImage
-          src="/images/logo.png" 
+          src="/images/logo.webp" 
           alt="mySmart Logo"
           width={40}
           height={40}
@@ -175,12 +175,12 @@ export default function Home() {
           {link.label}
         </Link>
       ))}
-      <Link 
+      {/* <Link 
         href="/shop" 
         className="bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2 px-3 lg:px-4 rounded-md flex items-center transition-colors ml-2"
       >
         <ShopIcon /> <span className="ml-1">Shop</span>
-      </Link>
+      </Link> */}
     </nav>
     
     {/* Mobile Menu - show on smaller screens */}
@@ -188,30 +188,47 @@ export default function Home() {
   </div>
 </header>
 
-      {/* Hero Section with simplified background approach */}
+ {/* Hero Section with performance optimizations */}
 <section 
-  className="relative min-h-[80vh] flex items-center bg-cover bg-center z-0"
+  className="relative min-h-[80vh] flex items-center z-0"
   style={{
-    backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.45)), url('/images/hero/herobg1.jpg')`
+    backgroundColor: '#333' // Fallback color while image loads
   }}
 >
-  {/* Content */}
+  {/* IMPORTANT: Add this to your <head> in _document.js or layout.js */}
+  <link 
+    rel="preload" 
+    href="/images/hero/herobg1.webp" 
+    as="image" 
+    fetchPriority="high"
+    type="image/webp"
+  />
+  
+  {/* Background image - loaded in a way that doesn't block rendering */}
+  <div 
+    className="absolute inset-0 z-0 bg-cover bg-center"
+    style={{
+      backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.45)), url('/images/hero/herobg1.webp')`
+    }}
+  />
+  
+  {/* Content - with h1 immediately visible */}
   <div className="relative z-10 max-w-7xl mx-auto px-6 py-12">
     <div className="max-w-3xl">
-      <ScrollAnimation direction="up" delay={0.1}>
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-          Smart IT & Automation Solutions for your Business and Home
-        </h1>
-      </ScrollAnimation>
+      {/* Heading is visible immediately but still animated */}
+      <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white immediate-visible">
+        Smart IT & Automation Solutions for your Business and Home
+      </h1>
       
-      <ScrollAnimation direction="up" delay={0.3}>
+      {/* Secondary content can still animate in */}
+      <div className="animate-fade-up">
         <p className="text-lg md:text-xl mb-8 text-gray-200">
           From tailor-made software to optimised hardware solutions and complete smart home automation,
           mySmart empowers you with cutting-edge solutions.
         </p>
-      </ScrollAnimation>
+      </div>
       
-      <ScrollAnimation direction="up" delay={0.5}>
+      <div className="animate-fade-up-delay">
         <div className="flex gap-3">
           <Link 
             href="#services" 
@@ -219,17 +236,14 @@ export default function Home() {
           >
             Learn more
           </Link>
-          <Link 
+          {/* <Link 
             href="/shop" 
             className="inline-flex items-center justify-center bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2.5 px-5 rounded-md min-w-[120px]"
           >
-            {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-            </svg> */}
             Our shop
-          </Link>
+          </Link> */}
         </div>
-      </ScrollAnimation>
+      </div>
     </div>
   </div>
 </section>
@@ -464,9 +478,9 @@ export default function Home() {
               <Link href="/legal" className="text-gray-300 hover:text-white transition-colors">
                 Legal Disclaimer
               </Link>
-              <Link href="/shop" className="text-gray-300 hover:text-white transition-colors">
+              {/* <Link href="/shop" className="text-gray-300 hover:text-white transition-colors">
                 Shop
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

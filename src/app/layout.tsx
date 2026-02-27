@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "mySmart Ltd - AI & IoT Solutions",
+  title: "mySmart - AI, App, Cloud and IoT",
   description: "Simplifying and Streamlining with Smart Technology. Digital transformation, IT Software, and Smart IoT Ecosystems.",
   icons: {
     icon: [

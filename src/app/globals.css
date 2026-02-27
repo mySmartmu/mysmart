@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fcfcfa;
+  --foreground: #053446;
+  --smart-dark: #053446;
+  --smart-blue: #71cff3;
+  --smart-gray: #95969a;
+  --smart-white: #fcfcfa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-smart-dark: var(--smart-dark);
+  --color-smart-blue: var(--smart-blue);
+  --color-smart-gray: var(--smart-gray);
+  --color-smart-white: var(--smart-white);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #fcfcfa;
+    --foreground: #053446;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Performance optimizations for marquee animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hardware acceleration for smooth animations */
+.hardware-accelerated {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

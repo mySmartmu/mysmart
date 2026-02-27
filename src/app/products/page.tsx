@@ -293,16 +293,6 @@ const Products: React.FC = () => {
               <RevealOnScroll key={product.id} delay={0.1 * (index % 4)}>
                 <div className="group relative bg-white rounded-3xl border border-[#053446]/10 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[#71cff3]/10 hover:border-[#71cff3]/30 hover:-translate-y-2">
 
-                  {/* Popular Badge */}
-                  {product.popular && (
-                    <div className="absolute top-6 right-6 z-20">
-                      <div className="flex items-center gap-2 px-4 py-2 bg-[#71cff3] text-white rounded-full text-xs font-bold shadow-lg">
-                        <Sparkles size={14} />
-                        POPULAR
-                      </div>
-                    </div>
-                  )}
-
                   {/* Gradient Background Blob */}
                   <div
                     className="absolute top-0 right-0 w-80 h-80 rounded-full blur-[100px] opacity-10 transition-opacity duration-500 group-hover:opacity-20"
@@ -311,11 +301,21 @@ const Products: React.FC = () => {
 
                   <div className="relative z-10 p-8">
 
+                    {/* Popular Badge */}
+                    {product.popular && (
+                      <div className="flex justify-end mb-4">
+                        <div className="flex items-center gap-2 px-4 py-2 bg-[#71cff3] text-white rounded-full text-xs font-bold shadow-lg">
+                          <Sparkles size={14} />
+                          POPULAR
+                        </div>
+                      </div>
+                    )}
+
                     {/* Header Section */}
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex items-center gap-4">
                         <div
-                          className="w-16 h-16 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+                          className="w-16 h-16 rounded-2xl flex-shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
                           style={{ backgroundColor: `${product.color}15` }}
                         >
                           <img src={product.logo} alt={product.name} className="w-12 h-12 object-contain" />

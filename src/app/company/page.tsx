@@ -51,10 +51,6 @@ const Company = () => {
             {/* Twahir Nuckcheddy */}
             <RevealOnScroll delay={0.1}>
               <div className="bg-[#fcfcfa] border border-[#053446]/10 rounded-2xl p-8 h-full transition-all duration-500 hover:shadow-lg hover:border-[#71cff3]/30">
-                {/* Profile photo placeholder */}
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#71cff3]/20 to-[#053446]/10 flex items-center justify-center mb-6">
-                  <Users size={36} className="text-[#053446]/30" />
-                </div>
                 <h3 className="text-2xl font-bold text-[#53b8d8] mb-1">Twahir Nuckcheddy</h3>
                 <p className="text-sm font-semibold text-[#95969a] mb-4">Co-Founder & CEO</p>
                 <p className="text-[#555] leading-relaxed">
@@ -68,10 +64,6 @@ const Company = () => {
             {/* Ibraheem Nuckcheddy */}
             <RevealOnScroll delay={0.2}>
               <div className="bg-[#fcfcfa] border border-[#053446]/10 rounded-2xl p-8 h-full transition-all duration-500 hover:shadow-lg hover:border-[#71cff3]/30">
-                {/* Profile photo placeholder */}
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#71cff3]/20 to-[#053446]/10 flex items-center justify-center mb-6">
-                  <Users size={36} className="text-[#053446]/30" />
-                </div>
                 <h3 className="text-2xl font-bold text-[#53b8d8] mb-1">Ibraheem Nuckcheddy</h3>
                 <p className="text-sm font-semibold text-[#95969a] mb-4">Co-Founder & CTO</p>
                 <p className="text-[#555] leading-relaxed">

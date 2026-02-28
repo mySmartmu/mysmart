@@ -321,7 +321,7 @@ const HomeClient: React.FC = () => {
                 </div>
                 <div className="relative z-10 w-full md:w-auto flex items-center justify-center">
                   <img
-                    src="https://cdn.prod.website-files.com/6895b1f7baeb5ed49b7144a3/69a1a40978b80c2cc84bec7f_Screenshot%202026-02-27%20175949.png"
+                    src="https://cdn.prod.website-files.com/6895b1f7baeb5ed49b7144a3/69a1a40978b80c2cc84bec7f_ef19ecedd16d12629184870c4b9b2870_Screenshot%202026-02-27%20175949.png"
                     alt="myInvoice Pro Preview"
                     className="h-32 w-auto object-contain"
                   />
@@ -454,7 +454,7 @@ const HomeClient: React.FC = () => {
               </RevealOnScroll>
               <RevealOnScroll delay={0.2}>
                 <div className="space-y-6 text-[#95969a] text-lg leading-relaxed">
-                  <p>At <span className="text-white font-medium">mySmart Ltd</span>, we reimagine business processes.</p>
+                  <p>At <span className="text-white font-medium">mySmart</span>, we reimagine business processes.</p>
                   <p>We transition legacy systems into <span className="text-[#71cff3]">intelligent digital ecosystems</span> with custom software and hardware integration.</p>
                 </div>
               </RevealOnScroll>
@@ -497,7 +497,7 @@ const HomeClient: React.FC = () => {
                 <p className="text-lg md:text-xl text-[#95969a] mb-12 max-w-2xl mx-auto">
                   Let's architect an intelligent ecosystem that streamlines your operations.
                 </p>
-                <Link href="/contact" className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-[#053446] text-lg font-semibold rounded-full transition-all">
+                <Link href="/contact" className="group inline-flex items-center justify-center gap-3 px-6 md:px-10 py-5 bg-white text-[#053446] text-base md:text-lg font-semibold rounded-full transition-all whitespace-nowrap">
                   Get Your Free Consultation
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </Link>

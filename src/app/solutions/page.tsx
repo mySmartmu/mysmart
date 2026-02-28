@@ -29,7 +29,22 @@ const Solutions = () => {
       {/* 1. HERO SECTION */}
       <section className="relative px-6 overflow-hidden mb-12">
         <div className="max-w-7xl mx-auto pt-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[70vh]">
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[70vh]">
+
+            {/* Mobile: Abstract background overlay */}
+            <div className="absolute inset-0 lg:hidden overflow-hidden">
+              <div className="absolute inset-0">
+                <div className="absolute top-[8%] right-[5%] w-[85%] h-[80%] rounded-[50%_50%_45%_55%/55%_45%_55%_45%] bg-gradient-to-br from-[#71cff3]/12 to-[#053446]/8 blur-[1px]" style={{ animation: 'solMorph 14s ease-in-out infinite' }} />
+                <div className="absolute top-[12%] right-[8%] w-[90px] h-[90px] rounded-[24px] bg-gradient-to-br from-[#71cff3]/20 to-[#71cff3]/8 border border-[#71cff3]/20 shadow-lg rotate-6" style={{ animation: 'solFloat 6s ease-in-out infinite' }} />
+                <div className="absolute top-[35%] left-[5%] w-[75px] h-[75px] rounded-[20px] bg-gradient-to-tr from-[#053446]/12 to-[#71cff3]/15 border border-[#053446]/10 shadow-lg -rotate-12" style={{ animation: 'solFloat 8s ease-in-out infinite reverse' }} />
+                <div className="absolute bottom-[15%] right-[12%] w-[70px] h-[70px] rounded-full bg-gradient-to-bl from-[#ff9f43]/15 to-[#a55eea]/10 shadow-md" style={{ animation: 'solFloat 5s ease-in-out infinite reverse' }} />
+                <div className="absolute top-[25%] left-[40%] w-3 h-3 rounded-full bg-[#71cff3] shadow-[0_0_14px_rgba(113,207,243,0.4)]" style={{ animation: 'solPulse 3s ease-in-out infinite' }} />
+                <div className="absolute bottom-[25%] left-[20%] w-2 h-2 rounded-full bg-[#ff9f43] shadow-[0_0_10px_rgba(255,159,67,0.3)]" style={{ animation: 'solPulse 4s ease-in-out infinite 1s' }} />
+              </div>
+              {/* Glass overlay for text readability */}
+              <div className="absolute inset-0 bg-[#fcfcfa]/20 backdrop-blur-[1px]" />
+            </div>
+
             {/* Left: Text - left aligned */}
             <div className="text-left relative z-10">
               <RevealOnScroll>

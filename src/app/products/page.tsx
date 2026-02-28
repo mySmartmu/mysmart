@@ -184,7 +184,22 @@ const Products: React.FC = () => {
       {/* Enhanced Hero Section */}
       <section className="pb-8 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center min-h-[420px]">
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-0 items-center min-h-[320px] lg:min-h-[420px]">
+
+            {/* Mobile: 3D Abstract as background overlay */}
+            <div className="absolute inset-0 lg:hidden overflow-hidden">
+              <div className="absolute inset-0">
+                <div className="absolute top-[5%] left-[10%] w-[90%] h-[85%] rounded-[60%_40%_50%_45%] bg-gradient-to-br from-[#71cff3]/15 to-[#053446]/10 blur-[1px]" style={{ animation: 'morph 12s ease-in-out infinite' }} />
+                <div className="absolute top-[15%] left-[20%] w-[70%] h-[65%] rounded-[45%_55%_40%_60%] bg-gradient-to-tr from-[#053446]/12 to-[#71cff3]/20 blur-[1px]" style={{ animation: 'morph 10s ease-in-out infinite reverse' }} />
+                <div className="absolute top-[10%] right-[5%] w-[120px] h-[120px] rounded-[25px] bg-gradient-to-tr from-[#053446]/15 to-[#71cff3]/25 rotate-12 shadow-xl" style={{ animation: 'float 8s ease-in-out infinite' }} />
+                <div className="absolute bottom-[10%] left-[5%] w-[100px] h-[100px] rounded-full bg-gradient-to-bl from-[#ff9f43]/20 to-[#a55eea]/15 shadow-lg" style={{ animation: 'float 5s ease-in-out infinite reverse' }} />
+                <div className="absolute top-[40%] left-[20%] w-3 h-3 rounded-full bg-[#71cff3] shadow-[0_0_15px_rgba(113,207,243,0.4)]" style={{ animation: 'float 4s ease-in-out infinite' }} />
+                <div className="absolute bottom-[20%] right-[15%] w-2 h-2 rounded-full bg-[#ff9f43] shadow-[0_0_10px_rgba(255,159,67,0.4)]" style={{ animation: 'float 3s ease-in-out infinite reverse' }} />
+              </div>
+              {/* Glass overlay for text readability */}
+              <div className="absolute inset-0 bg-[#fcfcfa]/35 backdrop-blur-[2px]" />
+            </div>
+
             {/* Left: Text Content */}
             <div className="text-left relative z-10">
               <RevealOnScroll>
@@ -205,7 +220,7 @@ const Products: React.FC = () => {
               </RevealOnScroll>
             </div>
 
-            {/* Right: 3D Abstract Gradient Visual */}
+            {/* Right: 3D Abstract Gradient Visual (Desktop only) */}
             <RevealOnScroll delay={0.2}>
               <div className="relative w-full h-[420px] hidden lg:block overflow-visible">
                 {/* Fade overlay on the left edge to blend into text */}
@@ -251,12 +266,12 @@ const Products: React.FC = () => {
       <section className="pb-10 px-6">
         <div className="max-w-7xl mx-auto">
           <RevealOnScroll delay={0.3}>
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-3">
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 ${
+                  className={`px-6 py-3 rounded-full font-semibold text-sm whitespace-nowrap transition-all duration-300 ${
                     selectedCategory === category.id
                       ? 'bg-[#053446] text-white shadow-lg scale-105'
                       : 'bg-white text-[#053446] border border-[#053446]/10 hover:border-[#71cff3] hover:shadow-md'

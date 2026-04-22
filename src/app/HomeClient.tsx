@@ -180,14 +180,16 @@ const HomeClient: React.FC = () => {
           { logo: "Choco'she.png", name: "Choco'She", showName: true },
           { logo: 'ACE.png', name: 'Aux Champs Elysées', showName: true },
           { logo: 'adonis.png', name: 'Adonis Management Consulting', showName: true },
-          { logo: 'frotcom.png', name: 'Frotcom Indian Ocean', showName: true }
+          { logo: 'frotcom.png', name: 'Frotcom Indian Ocean', showName: true },
+          { logo: 'ninety_six_logo.png', name: '', showName: false, height: 'h-9' },
+          { logo: 'AVINYA_logo.png', name: '', showName: false, height: 'h-10' }
         ].map((client, idx) => (
           <div key={`set1-${idx}`} className="client-item">
             <div className="flex items-center gap-3 cursor-default group">
               <img
                 src={`/client/${client.logo}`}
                 alt={client.name || 'Partner'}
-                className="client-logo h-8 w-auto object-contain"
+                className={`client-logo ${'height' in client ? client.height : 'h-8'} w-auto object-contain`}
                 loading="lazy"
                 width="auto"
                 height="32"
@@ -214,14 +216,16 @@ const HomeClient: React.FC = () => {
           { logo: "Choco'she.png", name: "Choco'She", showName: true },
           { logo: 'ACE.png', name: 'Aux Champs Elysées', showName: true },
           { logo: 'adonis.png', name: 'Adonis Management Consulting', showName: true },
-          { logo: 'frotcom.png', name: 'Frotcom Indian Ocean', showName: true }
+          { logo: 'frotcom.png', name: 'Frotcom Indian Ocean', showName: true },
+          { logo: 'ninety_six_logo.png', name: '', showName: false, height: 'h-9' },
+          { logo: 'AVINYA_logo.png', name: '', showName: false, height: 'h-10' }
         ].map((client, idx) => (
           <div key={`set2-${idx}`} className="client-item">
             <div className="flex items-center gap-3 cursor-default group">
               <img
                 src={`/client/${client.logo}`}
                 alt={client.name || 'Partner'}
-                className="client-logo h-8 w-auto object-contain"
+                className={`client-logo ${'height' in client ? client.height : 'h-8'} w-auto object-contain`}
                 loading="lazy"
                 width="auto"
                 height="32"

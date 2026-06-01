@@ -32,6 +32,10 @@ const Footer: React.FC = () => {
               Products
               <ArrowUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />
             </Link>
+            <Link href="/mycloud" className="font-bold text-lg hover:text-[#71cff3] transition-colors flex items-center gap-1 group">
+              myCloud
+              <ArrowUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Link>
             <Link href="/solutions" className="font-bold text-lg hover:text-[#71cff3] transition-colors flex items-center gap-1 group">
               Solutions
               <ArrowUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />

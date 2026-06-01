@@ -362,7 +362,7 @@ const HomeClient: React.FC = () => {
             </RevealOnScroll>
           </div>
 
-          {/* mySmartCloud */}
+          {/* myCloud */}
           <div className="md:col-span-2 md:row-span-1 h-full">
             <RevealOnScroll delay={0.35} className="h-full">
               <div className="group h-full bg-[#053446] rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative">
@@ -371,7 +371,7 @@ const HomeClient: React.FC = () => {
                   <Cloud size={22} />
                 </div>
                 <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-white mb-2">mySmartCloud</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">myCloud</h3>
                   <p className="text-white/80 text-sm leading-relaxed">Secure cloud storage with daily backups and 99.9% uptime.</p>
                 </div>
               </div>

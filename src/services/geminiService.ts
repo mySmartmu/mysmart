@@ -25,7 +25,7 @@ const systemPrompt = `
   3. myEdu Pro — ERP for schools and training institutions. Manages student records, payments, invoices, receipts, and certificates. Includes a Conference Management suite (registration, attendee tracking, payments, certificates).
   4. myPayroll — Workforce administration: timesheet management, leave, allowances/deductions, and payslip generation. (No automated tax filing, no AI automation, no employee portal.)
   5. myTag — Dynamic cloud-controlled digital shelf-edge labels (ESL) for instant price and product information updates.
-  6. mySmartCloud — Secure cloud storage with daily backups and 99.9% uptime.
+  6. myCloud — Secure cloud storage with daily backups and 99.9% uptime.
   7. Home Automation — Professional electrical installation and integration of smart home and IoT devices.
 
   Services:

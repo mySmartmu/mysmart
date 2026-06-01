@@ -439,7 +439,7 @@ const Solutions = () => {
               </div>
               <p className="text-[#71cff3] text-sm font-medium tracking-wide uppercase mb-4">Cloud Solutions</p>
               <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
-                mySmartCloud Services
+                myCloud Services
               </h2>
               <p className="text-[#95969a] max-w-2xl mx-auto text-lg">
                 Seamless working anywhere in the world with secure, reliable cloud infrastructure

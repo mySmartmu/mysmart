@@ -365,16 +365,22 @@ const HomeClient: React.FC = () => {
           {/* myCloud */}
           <div className="md:col-span-2 md:row-span-1 h-full">
             <RevealOnScroll delay={0.35} className="h-full">
-              <div className="group h-full bg-[#053446] rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative">
+              <Link
+                href="/mycloud"
+                className="group h-full bg-[#053446] rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative cursor-pointer"
+              >
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#71cff3]/20 rounded-full blur-2xl" />
                 <div className="w-11 h-11 rounded-xl bg-[#71cff3]/20 flex items-center justify-center text-[#71cff3] mb-4">
                   <Cloud size={22} />
                 </div>
                 <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-white mb-2">myCloud</h3>
+                  <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                    myCloud
+                    <ArrowRight size={18} className="opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 text-[#71cff3]" />
+                  </h3>
                   <p className="text-white/80 text-sm leading-relaxed">Secure cloud storage with daily backups and 99.9% uptime.</p>
                 </div>
-              </div>
+              </Link>
             </RevealOnScroll>
           </div>
 

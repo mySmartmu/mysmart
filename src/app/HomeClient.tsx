@@ -164,8 +164,8 @@ const HomeClient: React.FC = () => {
   </p>
 
   <div className="relative">
-    <div className="absolute left-0 top-0 bottom-0 w-24 md:w-32 bg-gradient-to-r from-[#fcfcfa] via-[#fcfcfa] to-transparent z-10 pointer-events-none" />
-    <div className="absolute right-0 top-0 bottom-0 w-24 md:w-32 bg-gradient-to-l from-[#fcfcfa] via-[#fcfcfa] to-transparent z-10 pointer-events-none" />
+    <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-[#fcfcfa] via-[#fcfcfa] to-transparent z-10 pointer-events-none" />
+    <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-[#fcfcfa] via-[#fcfcfa] to-transparent z-10 pointer-events-none" />
     
     <div className="marquee-container">
       <div className="marquee-track">
@@ -191,8 +191,6 @@ const HomeClient: React.FC = () => {
                 alt={client.name || 'Partner'}
                 className={`client-logo ${'height' in client ? client.height : 'h-8'} w-auto object-contain`}
                 loading="lazy"
-                width="auto"
-                height="32"
                 decoding="async"
                 draggable="false"
               />
@@ -227,8 +225,6 @@ const HomeClient: React.FC = () => {
                 alt={client.name || 'Partner'}
                 className={`client-logo ${'height' in client ? client.height : 'h-8'} w-auto object-contain`}
                 loading="lazy"
-                width="auto"
-                height="32"
                 decoding="async"
                 draggable="false"
               />

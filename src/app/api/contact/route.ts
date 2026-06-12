@@ -3,6 +3,15 @@ import nodemailer from 'nodemailer';
 
 export const runtime = 'nodejs';
 
+const DEFAULT_EMAIL_TIMEOUT_MS = 15000;
+
+class EmailTimeoutError extends Error {
+  constructor(timeoutMs: number) {
+    super(`Email send timed out after ${timeoutMs}ms`);
+    this.name = 'EmailTimeoutError';
+  }
+}
+
 const escapeHtml = (value: string) =>
   value
     .replace(/&/g, '&amp;')
@@ -10,6 +19,31 @@ const escapeHtml = (value: string) =>
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+
+const getPositiveIntegerEnv = (key: string, fallback: number) => {
+  const rawValue = process.env[key];
+  if (!rawValue) return fallback;
+
+  const value = Number(rawValue);
+  return Number.isInteger(value) && value > 0 ? value : fallback;
+};
+
+const withTimeout = async <T,>(operation: Promise<T>, timeoutMs: number) => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+  try {
+    return await Promise.race([
+      operation,
+      new Promise<T>((_, reject) => {
+        timeoutId = setTimeout(() => reject(new EmailTimeoutError(timeoutMs)), timeoutMs);
+      }),
+    ]);
+  } finally {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+  }
+};
 
 export async function POST(request: Request) {
   try {
@@ -35,33 +69,49 @@ export async function POST(request: Request) {
     }
 
     const smtpUser = process.env.SMTP_USER!;
+    const emailTimeoutMs = getPositiveIntegerEnv('SMTP_TIMEOUT_MS', DEFAULT_EMAIL_TIMEOUT_MS);
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: smtpPort,
       secure: smtpPort === 465,
+      connectionTimeout: emailTimeoutMs,
+      greetingTimeout: emailTimeoutMs,
+      socketTimeout: emailTimeoutMs,
       auth: {
         user: smtpUser,
         pass: process.env.SMTP_PASS,
       },
     });
 
-    await transporter.sendMail({
-      from: `"mySmart Website" <${smtpUser}>`,
-      to: smtpUser,
-      replyTo: email,
-      subject: `New enquiry from ${name}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Message:</strong></p>
-        <p style="white-space:pre-wrap;">${escapeHtml(message)}</p>
-      `,
-    });
+    try {
+      await withTimeout(
+        transporter.sendMail({
+          from: `"mySmart Website" <${smtpUser}>`,
+          to: smtpUser,
+          replyTo: email,
+          subject: `New enquiry from ${name}`,
+          html: `
+            <h2>New Contact Form Submission</h2>
+            <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+            <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+            <p><strong>Message:</strong></p>
+            <p style="white-space:pre-wrap;">${escapeHtml(message)}</p>
+          `,
+        }),
+        emailTimeoutMs
+      );
+    } finally {
+      transporter.close();
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    if (error instanceof EmailTimeoutError) {
+      console.error('Email send timed out:', error.message);
+      return NextResponse.json({ error: 'Email service timed out. Please try again later.' }, { status: 504 });
+    }
+
     console.error('Email send error:', error);
     return NextResponse.json({ error: 'Failed to send message. Please try again.' }, { status: 500 });
   }

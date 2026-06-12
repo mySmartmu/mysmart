@@ -4,6 +4,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, Sparkles, MessageSquare, Loader2 } from 'lucide-react';
 import { askCompanyAI } from '@/services/geminiService';
 
+const CONTACT_REQUEST_TIMEOUT_MS = 20000;
+
 const Contact: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'form' | 'ai'>('form');
 
@@ -14,12 +16,18 @@ const Contact: React.FC = () => {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('loading');
+
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), CONTACT_REQUEST_TIMEOUT_MS);
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       });
+
       if (res.ok) {
         setFormStatus('success');
         setFormData({ name: '', email: '', message: '' });
@@ -28,6 +36,8 @@ const Contact: React.FC = () => {
       }
     } catch {
       setFormStatus('error');
+    } finally {
+      window.clearTimeout(timeoutId);
     }
   };
 

@@ -73,7 +73,7 @@ const HomeClient: React.FC = () => {
       </section>
 
 {/* 2. TRUSTED BY */}
-<section className="py-12 border-y border-[#053446]/5 bg-[#fcfcfa]">
+<section className="py-14 border-y border-[#053446]/5 bg-[#fcfcfa]">
   <style jsx>{`
     @keyframes marquee-scroll-desktop {
       0% {
@@ -140,11 +140,11 @@ const HomeClient: React.FC = () => {
       flex-shrink: 0;
       transform: translate3d(0, 0, 0);
       will-change: transform;
-      padding: 0 1.5rem;
+      padding: 0 2rem;
     }
-    
+
     .client-logo {
-      filter: grayscale(100%) brightness(0) opacity(0.4);
+      filter: grayscale(100%) brightness(0) opacity(0.55);
       transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       transform: translateZ(0);
       backface-visibility: hidden;
@@ -195,21 +195,21 @@ const HomeClient: React.FC = () => {
           { logo: 'ACE.png', name: 'Aux Champs Elysées', showName: true },
           { logo: 'adonis.png', name: 'Adonis Management Consulting', showName: true },
           { logo: 'frotcom.png', name: 'Frotcom Indian Ocean', showName: true },
-          { logo: 'ninety_six_logo.png', name: '', showName: false, height: 'h-9' },
-          { logo: 'AVINYA_logo.png', name: '', showName: false, height: 'h-10' }
+          { logo: 'ninety_six_logo.png', name: '', showName: false, height: 'h-11' },
+          { logo: 'AVINYA_logo.png', name: '', showName: false, height: 'h-12' }
         ].map((client, idx) => (
           <div key={`set1-${idx}`} className="client-item">
             <div className="flex items-center gap-3 cursor-default group">
               <img
                 src={`/client/${client.logo}`}
                 alt={client.name || 'Partner'}
-                className={`client-logo ${'height' in client ? client.height : 'h-8'} w-auto object-contain`}
+                className={`client-logo ${'height' in client ? client.height : 'h-10'} w-auto object-contain`}
                 loading="lazy"
                 decoding="async"
                 draggable="false"
               />
               {client.showName && (
-                <span className="text-[#053446]/40 group-hover:text-[#053446] transition-colors duration-300 font-semibold text-sm md:text-base tracking-wide whitespace-nowrap">
+                <span className="text-[#053446]/55 group-hover:text-[#053446] transition-colors duration-300 font-semibold text-base md:text-lg tracking-wide whitespace-nowrap">
                   {client.name}
                 </span>
               )}
@@ -229,21 +229,21 @@ const HomeClient: React.FC = () => {
           { logo: 'ACE.png', name: 'Aux Champs Elysées', showName: true },
           { logo: 'adonis.png', name: 'Adonis Management Consulting', showName: true },
           { logo: 'frotcom.png', name: 'Frotcom Indian Ocean', showName: true },
-          { logo: 'ninety_six_logo.png', name: '', showName: false, height: 'h-9' },
-          { logo: 'AVINYA_logo.png', name: '', showName: false, height: 'h-10' }
+          { logo: 'ninety_six_logo.png', name: '', showName: false, height: 'h-11' },
+          { logo: 'AVINYA_logo.png', name: '', showName: false, height: 'h-12' }
         ].map((client, idx) => (
           <div key={`set2-${idx}`} className="client-item">
             <div className="flex items-center gap-3 cursor-default group">
               <img
                 src={`/client/${client.logo}`}
                 alt={client.name || 'Partner'}
-                className={`client-logo ${'height' in client ? client.height : 'h-8'} w-auto object-contain`}
+                className={`client-logo ${'height' in client ? client.height : 'h-10'} w-auto object-contain`}
                 loading="lazy"
                 decoding="async"
                 draggable="false"
               />
               {client.showName && (
-                <span className="text-[#053446]/40 group-hover:text-[#053446] transition-colors duration-300 font-semibold text-sm md:text-base tracking-wide whitespace-nowrap">
+                <span className="text-[#053446]/55 group-hover:text-[#053446] transition-colors duration-300 font-semibold text-base md:text-lg tracking-wide whitespace-nowrap">
                   {client.name}
                 </span>
               )}

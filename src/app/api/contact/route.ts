@@ -1,6 +1,16 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+export const runtime = 'nodejs';
+
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
 export async function POST(request: Request) {
   try {
     const { name, email, message } = await request.json();
@@ -9,27 +19,44 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'All fields are required.' }, { status: 400 });
     }
 
+    const requiredEnv = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS'] as const;
+    const missing = requiredEnv.filter((key) => !process.env[key]);
+
+    if (missing.length > 0) {
+      console.error(`Missing email configuration: ${missing.join(', ')}`);
+      return NextResponse.json({ error: 'Email service is not configured.' }, { status: 500 });
+    }
+
+    const smtpPort = Number(process.env.SMTP_PORT);
+
+    if (!Number.isInteger(smtpPort)) {
+      console.error(`Invalid SMTP_PORT: ${process.env.SMTP_PORT}`);
+      return NextResponse.json({ error: 'Email service is not configured.' }, { status: 500 });
+    }
+
+    const smtpUser = process.env.SMTP_USER!;
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: true,
+      port: smtpPort,
+      secure: smtpPort === 465,
       auth: {
-        user: process.env.SMTP_USER,
+        user: smtpUser,
         pass: process.env.SMTP_PASS,
       },
     });
 
     await transporter.sendMail({
-      from: `"mySmart Website" <${process.env.SMTP_USER}>`,
-      to: process.env.SMTP_USER,
+      from: `"mySmart Website" <${smtpUser}>`,
+      to: smtpUser,
       replyTo: email,
       subject: `New enquiry from ${name}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
         <p><strong>Message:</strong></p>
-        <p style="white-space:pre-wrap;">${message}</p>
+        <p style="white-space:pre-wrap;">${escapeHtml(message)}</p>
       `,
     });
 

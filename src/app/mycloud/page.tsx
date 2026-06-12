@@ -334,10 +334,10 @@ const MyCloud: React.FC = () => {
         <div className="max-w-7xl mx-auto relative z-10">
           <RevealOnScroll>
             <p className="text-sm font-bold text-[#71cff3] uppercase tracking-[0.15em] mb-3 text-center">
-              What's Included
+              What&apos;s Included
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight text-center mb-4">
-              Everything you need, nothing you don't
+              Everything you need, nothing you don&apos;t
             </h2>
             <p className="text-lg text-[#95969a] text-center max-w-2xl mx-auto mb-16">
               Every myCloud plan comes fully loaded — no add-ons, no surprises.
@@ -529,7 +529,7 @@ const MyCloud: React.FC = () => {
               Ready to move to <span className="text-[#71cff3]">myCloud?</span>
             </h2>
             <p className="text-lg text-[#95969a] mb-10 max-w-2xl mx-auto leading-relaxed">
-              Zero hardware to buy, zero IT to manage. Tell us your team size and we'll
+              Zero hardware to buy, zero IT to manage. Tell us your team size and we&apos;ll
               have your space ready in minutes.
             </p>
             <a

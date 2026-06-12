@@ -468,7 +468,7 @@ const HomeClient: React.FC = () => {
                 <p className="text-[#71cff3] text-sm font-medium tracking-wide uppercase mb-6">About Us</p>
                 <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 leading-[1.1]">
                   Architecting<br />
-                  <span className="text-[#71cff3]">Tomorrow's</span><br />
+                  <span className="text-[#71cff3]">Tomorrow&apos;s</span><br />
                   Operations
                 </h2>
               </RevealOnScroll>
@@ -515,7 +515,7 @@ const HomeClient: React.FC = () => {
                   <span className="text-[#71cff3]">Your Business?</span>
                 </h2>
                 <p className="text-lg md:text-xl text-[#95969a] mb-12 max-w-2xl mx-auto">
-                  Let's architect an intelligent ecosystem that streamlines your operations.
+                  Let&apos;s architect an intelligent ecosystem that streamlines your operations.
                 </p>
                 <Link href="/contact" className="group inline-flex items-center justify-center gap-3 px-6 md:px-10 py-5 bg-white text-[#053446] text-base md:text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#71cff3]/20 active:scale-95 whitespace-nowrap">
                   Get Your Free Consultation

@@ -1,10 +1,12 @@
+process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+
 const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
 
 // Get port from environment variable or use 3000 as default
 const port = parseInt(process.env.PORT, 10) || 3000;
-const dev = process.env.NODE_ENV !== 'production';
+const dev = process.env.NODE_ENV === 'development';
 
 // Initialize Next.js app - don't specify hostname to bind to all interfaces
 const app = next({ dev });

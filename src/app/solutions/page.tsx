@@ -634,7 +634,7 @@ const Solutions = () => {
                   Ready to Get Started?
                 </h2>
                 <p className="text-lg md:text-xl text-[#95969a] mb-12 max-w-2xl mx-auto">
-                  Let's discuss how our solutions can transform your business operations.
+                  Let&apos;s discuss how our solutions can transform your business operations.
                 </p>
                 <Link href="/contact" className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-[#053446] text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#71cff3]/20 active:scale-95">
                   Schedule Free Consultation

@@ -9,7 +9,7 @@ const Legal: React.FC = () => {
         <div className="space-y-4">
           <p>
             <strong>1. Acceptance of Terms</strong><br />
-            By accessing and using mySmart Ltd's platform, hardware (Electronic Shelf Labels), and associated API services, you accept and agree to be bound by the terms and provision of this agreement.
+            By accessing and using mySmart Ltd&apos;s platform, hardware (Electronic Shelf Labels), and associated API services, you accept and agree to be bound by the terms and provision of this agreement.
           </p>
           <p>
             <strong>2. SaaS License & Access</strong><br />

@@ -245,7 +245,7 @@ const Company = () => {
                 Ready to Transform Your Operations?
               </h2>
               <p className="text-lg text-[#95969a] mb-10 max-w-2xl mx-auto">
-                Let's discuss how our solutions can streamline your business or home.
+                Let&apos;s discuss how our solutions can streamline your business or home.
               </p>
               <Link href="/contact" className="group sheen inline-flex items-center gap-3 px-10 py-4 bg-[#053446] text-white text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:bg-[#053446]/90 hover:shadow-lg hover:shadow-[#053446]/20 active:scale-95">
                 Schedule Free Consultation

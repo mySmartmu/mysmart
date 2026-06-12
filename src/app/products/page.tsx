@@ -451,9 +451,9 @@ const Products: React.FC = () => {
             </div>
 
             <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white tracking-tight leading-tight">
-              Don't See What You Need?
+              Don&apos;t See What You Need?
               <br />
-              <span className="text-[#71cff3]">Let's Build It Together.</span>
+              <span className="text-[#71cff3]">Let&apos;s Build It Together.</span>
             </h2>
 
             <p className="text-lg md:text-xl text-[#95969a] mb-12 max-w-3xl mx-auto leading-relaxed">

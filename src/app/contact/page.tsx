@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Sparkles, MessageSquare, Loader2 } from 'lucide-react';
-import { askCompanyAI, ChatMessage } from '@/services/geminiService';
+import { askCompanyAI } from '@/services/geminiService';
 
 const Contact: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'form' | 'ai'>('form');
@@ -56,7 +56,7 @@ const Contact: React.FC = () => {
     try {
       const response = await askCompanyAI(userMsg, messages);
       setMessages(prev => [...prev, { role: 'ai', content: response }]);
-    } catch (error) {
+    } catch {
       setMessages(prev => [...prev, { role: 'ai', content: "Sorry, I'm having trouble connecting to the network." }]);
     } finally {
       setIsLoading(false);
@@ -68,7 +68,7 @@ const Contact: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
         {/* Left Side: Info */}
         <div>
-          <h1 className="text-4xl md:text-5xl font-bold text-smart-dark mb-6">Let's build something smart together.</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-smart-dark mb-6">Let&apos;s build something smart together.</h1>
           <p className="text-lg md:text-xl text-smart-gray mb-6 md:mb-12">
             Whether you want to digitise your operations, build a custom AI-powered application, or explore our product suite, our team is ready.
           </p>
@@ -159,11 +159,11 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                     className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:border-smart-blue transition-colors h-32 resize-none"
-                    placeholder="I'm interested in..."
+                    placeholder="I&apos;m interested in..."
                   />
                 </div>
                 {formStatus === 'success' && (
-                  <p className="text-green-600 text-sm font-medium">Message sent! We'll be in touch shortly.</p>
+                  <p className="text-green-600 text-sm font-medium">Message sent! We&apos;ll be in touch shortly.</p>
                 )}
                 {formStatus === 'error' && (
                   <p className="text-red-500 text-sm font-medium">Something went wrong. Please try again or email us directly.</p>

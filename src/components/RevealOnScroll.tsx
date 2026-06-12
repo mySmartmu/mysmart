@@ -48,14 +48,12 @@ export const RevealOnScroll: React.FC<Props> = ({ children, delay = 0, className
     <div
       ref={ref}
       style={style}
-      // Enhanced Zoom Effect:
-      // Starts at scale-90 (90% size) creates a distinct "zoom in" as it enters.
-      // translate-y-10 adds a subtle upward float.
-      // blur-sm keeps the "focus" reveal effect.
-      className={`transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] transform will-change-transform ${
+      // Gentle rise + focus reveal: slight upward float, soft zoom, and a blur
+      // that resolves as the element enters — subtler scale keeps it elegant.
+      className={`transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] transform will-change-transform ${
         isVisible
           ? 'opacity-100 translate-y-0 scale-100 blur-0'
-          : 'opacity-0 translate-y-10 scale-90 blur-sm'
+          : 'opacity-0 translate-y-8 scale-[0.96] blur-[3px]'
       } ${className}`}
     >
       {children}

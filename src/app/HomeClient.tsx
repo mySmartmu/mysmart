@@ -22,12 +22,26 @@ const HomeClient: React.FC = () => {
 
       {/* 1. HERO SECTION */}
       <section className="relative px-6 max-w-7xl mx-auto min-h-[70vh] flex flex-col justify-center items-center text-center mb-12">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#71cff3]/10 rounded-full blur-[120px] -z-10" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#71cff3]/10 rounded-full blur-[120px] -z-10 animate-glow" />
+
+        {/* Floating decorative accents */}
+        <div className="hidden md:block absolute top-[16%] left-[7%] -z-10" style={{ animation: 'float-soft 7s ease-in-out infinite' }}>
+          <div className="w-16 h-16 rounded-[20px] bg-gradient-to-br from-[#71cff3]/25 to-[#71cff3]/5 border border-[#71cff3]/20 rotate-12 shadow-lg" />
+        </div>
+        <div className="hidden md:block absolute top-[58%] right-[8%] -z-10" style={{ animation: 'float-soft 9s ease-in-out infinite reverse' }}>
+          <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-[#053446]/10 to-[#71cff3]/20 shadow-lg" />
+        </div>
+        <div className="hidden md:block absolute bottom-[14%] left-[16%] -z-10" style={{ animation: 'float-soft 8s ease-in-out infinite' }}>
+          <div className="w-10 h-10 rounded-[12px] bg-gradient-to-bl from-[#053446]/15 to-[#71cff3]/10 border border-[#053446]/10 -rotate-12 shadow-md" />
+        </div>
+        <div className="absolute top-[28%] right-[18%] w-3 h-3 rounded-full bg-[#71cff3] shadow-[0_0_14px_rgba(113,207,243,0.5)] -z-10" style={{ animation: 'pulse-dot 3s ease-in-out infinite' }} />
+        <div className="absolute bottom-[26%] left-[12%] w-2 h-2 rounded-full bg-[#71cff3]/70 shadow-[0_0_10px_rgba(113,207,243,0.4)] -z-10" style={{ animation: 'pulse-dot 4s ease-in-out infinite 1s' }} />
+        <div className="absolute top-[20%] left-[34%] w-2 h-2 rounded-full bg-[#053446]/30 -z-10" style={{ animation: 'pulse-dot 3.5s ease-in-out infinite 0.5s' }} />
 
         <RevealOnScroll delay={0.1}>
           <h1 className="text-5xl md:text-7xl font-extrabold text-[#053446] tracking-tight mb-8 leading-[1.1]">
             Simplifying and Streamlining <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] to-[#71cff3]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] animate-gradient-text">
               with Smart Technology.
             </span>
           </h1>
@@ -43,14 +57,14 @@ const HomeClient: React.FC = () => {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/contact"
-              className="px-8 py-4 bg-[#053446] text-white rounded-full font-semibold hover:bg-[#053446]/90 transition-all hover:scale-105 flex items-center justify-center gap-2"
+              className="group sheen px-8 py-4 bg-[#053446] text-white rounded-full font-semibold hover:bg-[#053446]/90 transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#053446]/20 active:scale-95 flex items-center justify-center gap-2"
             >
               Free Consultation
-              <ArrowRight size={18} />
+              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href="/products"
-              className="px-8 py-4 bg-white border border-[#95969a]/20 text-[#053446] rounded-full font-semibold hover:bg-[#fcfcfa] transition-all hover:scale-105"
+              className="px-8 py-4 bg-white border border-[#95969a]/20 text-[#053446] rounded-full font-semibold hover:bg-[#fcfcfa] hover:border-[#71cff3]/40 transition-all hover:scale-105 active:scale-95"
             >
               View Services
             </Link>
@@ -503,7 +517,7 @@ const HomeClient: React.FC = () => {
                 <p className="text-lg md:text-xl text-[#95969a] mb-12 max-w-2xl mx-auto">
                   Let's architect an intelligent ecosystem that streamlines your operations.
                 </p>
-                <Link href="/contact" className="group inline-flex items-center justify-center gap-3 px-6 md:px-10 py-5 bg-white text-[#053446] text-base md:text-lg font-semibold rounded-full transition-all whitespace-nowrap">
+                <Link href="/contact" className="group inline-flex items-center justify-center gap-3 px-6 md:px-10 py-5 bg-white text-[#053446] text-base md:text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#71cff3]/20 active:scale-95 whitespace-nowrap">
                   Get Your Free Consultation
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </Link>

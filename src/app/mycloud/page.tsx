@@ -15,6 +15,7 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import { RevealOnScroll } from '@/components/RevealOnScroll';
+import { SpotlightCard } from '@/components/SpotlightCard';
 
 const heroStats = [
   { value: '99%', label: 'Uptime SLA' },
@@ -134,7 +135,18 @@ const MyCloud: React.FC = () => {
 
       {/* Hero Section */}
       <section className="relative px-6 overflow-hidden pt-32 pb-12">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#71cff3]/10 rounded-full blur-[140px] -z-10" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#71cff3]/10 rounded-full blur-[140px] -z-10 animate-glow" />
+
+        {/* Modern dot-grid backdrop, fading out toward the edges */}
+        <div
+          className="absolute inset-0 -z-10 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(5, 52, 70, 0.10) 1px, transparent 1px)',
+            backgroundSize: '28px 28px',
+            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 35%, black 30%, transparent 75%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 35%, black 30%, transparent 75%)',
+          }}
+        />
 
         <div className="max-w-7xl mx-auto">
           <div className="relative grid grid-cols-1 lg:grid-cols-[0.9fr_1.3fr] gap-4 items-center min-h-[64vh]">
@@ -166,7 +178,7 @@ const MyCloud: React.FC = () => {
                   <br />
                   Zero hardware.
                   <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] to-[#71cff3]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] animate-gradient-text">
                     Zero headache.
                   </span>
                 </h1>
@@ -183,14 +195,14 @@ const MyCloud: React.FC = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a
                     href="#pricing"
-                    className="group px-8 py-4 bg-[#053446] text-white rounded-full font-semibold hover:bg-[#053446]/90 transition-all hover:scale-105 flex items-center justify-center gap-2"
+                    className="group sheen px-8 py-4 bg-[#053446] text-white rounded-full font-semibold hover:bg-[#053446]/90 transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#053446]/20 active:scale-95 flex items-center justify-center gap-2"
                   >
                     See pricing
                     <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                   </a>
                   <a
                     href="/contact"
-                    className="px-8 py-4 bg-white border border-[#95969a]/20 text-[#053446] rounded-full font-semibold hover:bg-[#fcfcfa] transition-all hover:scale-105 flex items-center justify-center"
+                    className="px-8 py-4 bg-white border border-[#95969a]/20 text-[#053446] rounded-full font-semibold hover:bg-[#fcfcfa] hover:border-[#71cff3]/40 transition-all hover:scale-105 active:scale-95 flex items-center justify-center"
                   >
                     Talk to us
                   </a>
@@ -280,9 +292,10 @@ const MyCloud: React.FC = () => {
               {heroStats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="bg-white border border-[#053446]/10 rounded-2xl py-6 px-4 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-[#71cff3]/10 hover:-translate-y-1 text-center"
+                  className="group relative overflow-hidden bg-white border border-[#053446]/10 rounded-2xl py-6 px-4 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-[#71cff3]/10 hover:-translate-y-1 hover:border-[#71cff3]/30 text-center"
                 >
-                  <div className="text-3xl md:text-4xl font-bold text-[#053446] mb-1">{stat.value}</div>
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[3px] w-12 rounded-b-full bg-gradient-to-r from-transparent via-[#71cff3] to-transparent opacity-60 transition-all duration-500 group-hover:w-24 group-hover:opacity-100" />
+                  <div className="text-3xl md:text-4xl font-bold text-[#053446] mb-1 transition-colors duration-300">{stat.value}</div>
                   <div className="text-sm text-[#95969a] uppercase tracking-wide">{stat.label}</div>
                 </div>
               ))}
@@ -334,13 +347,13 @@ const MyCloud: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <RevealOnScroll key={feature.title} delay={0.1 * (index % 3)}>
-                <div className="group h-full bg-white/[0.03] backdrop-blur-sm rounded-2xl border border-white/10 p-8 transition-all duration-500 hover:bg-white/[0.08] hover:border-[#71cff3]/30 hover:-translate-y-1">
-                  <div className="w-12 h-12 rounded-xl bg-[#71cff3]/15 flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110">
+                <SpotlightCard className="group h-full bg-white/[0.03] backdrop-blur-sm rounded-2xl border border-white/10 p-8 transition-all duration-500 hover:bg-white/[0.08] hover:border-[#71cff3]/30 hover:-translate-y-1">
+                  <div className="w-12 h-12 rounded-xl bg-[#71cff3]/15 flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                     <feature.icon size={24} className="text-[#71cff3]" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
                   <p className="text-[#95969a] leading-relaxed">{feature.description}</p>
-                </div>
+                </SpotlightCard>
               </RevealOnScroll>
             ))}
           </div>
@@ -359,17 +372,22 @@ const MyCloud: React.FC = () => {
             </h2>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {steps.map((step, index) => (
-              <RevealOnScroll key={step.number} delay={0.1 * index}>
-                <div className="relative h-full bg-[#fcfcfa] rounded-2xl border border-[#053446]/10 p-8">
-                  <div className="h-1 w-12 bg-[#71cff3] rounded-full mb-6" />
-                  <div className="text-5xl font-extrabold text-[#053446]/15 mb-4">{step.number}</div>
-                  <h3 className="text-lg font-bold text-[#053446] mb-3">{step.title}</h3>
-                  <p className="text-sm text-[#95969a] leading-relaxed">{step.description}</p>
-                </div>
-              </RevealOnScroll>
-            ))}
+          <div className="relative">
+            {/* Dashed connector visible in the gaps between step cards (desktop) */}
+            <div className="hidden lg:block absolute top-20 left-[10%] right-[10%] border-t-2 border-dashed border-[#71cff3]/30" aria-hidden="true" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {steps.map((step, index) => (
+                <RevealOnScroll key={step.number} delay={0.1 * index}>
+                  <div className="group relative h-full bg-[#fcfcfa] rounded-2xl border border-[#053446]/10 p-8 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#71cff3]/10 hover:border-[#71cff3]/30">
+                    <div className="h-1 w-12 bg-[#71cff3] rounded-full mb-6 transition-all duration-500 group-hover:w-20" />
+                    <div className="text-5xl font-extrabold text-[#053446]/15 mb-4 transition-colors duration-500 group-hover:text-[#71cff3]/40">{step.number}</div>
+                    <h3 className="text-lg font-bold text-[#053446] mb-3">{step.title}</h3>
+                    <p className="text-sm text-[#95969a] leading-relaxed">{step.description}</p>
+                  </div>
+                </RevealOnScroll>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -389,21 +407,39 @@ const MyCloud: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
             {plans.map((plan, index) => (
               <RevealOnScroll key={plan.name} delay={0.1 * index}>
-                <div
-                  className={`relative flex h-full flex-col rounded-3xl p-8 transition-all duration-300 ${
-                    plan.popular
-                      ? 'bg-[#053446] text-white shadow-2xl shadow-[#053446]/20 lg:scale-105'
-                      : 'bg-white border border-[#053446]/10 hover:shadow-xl hover:shadow-[#71cff3]/10'
-                  }`}
-                >
+                <div className={`relative h-full ${plan.popular ? 'lg:scale-105' : ''}`}>
                   {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
                       <div className="px-5 py-1.5 bg-[#71cff3] text-[#053446] rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
                         Most Popular
                       </div>
                     </div>
                   )}
 
+                  <div
+                    className={`relative h-full rounded-3xl ${
+                      plan.popular
+                        ? 'p-[2px] overflow-hidden bg-[#71cff3]/20 shadow-2xl shadow-[#71cff3]/20'
+                        : ''
+                    }`}
+                  >
+                    {plan.popular && (
+                      <div
+                        className="absolute -inset-[150%] animate-spin-slow"
+                        style={{
+                          background:
+                            'conic-gradient(from 0deg, transparent 0deg, transparent 50deg, rgba(113, 207, 243, 0.9) 90deg, transparent 130deg, transparent 360deg)',
+                        }}
+                      />
+                    )}
+
+                    <div
+                      className={`relative flex h-full flex-col rounded-3xl p-8 transition-all duration-300 ${
+                        plan.popular
+                          ? 'bg-[#053446] text-white'
+                          : 'bg-white border border-[#053446]/10 hover:shadow-xl hover:shadow-[#71cff3]/10 hover:-translate-y-1'
+                      }`}
+                    >
                   <h3 className={`text-xl font-bold mb-4 ${plan.popular ? 'text-white' : 'text-[#053446]'}`}>
                     {plan.name}
                   </h3>
@@ -443,7 +479,7 @@ const MyCloud: React.FC = () => {
 
                   <a
                     href="/contact"
-                    className={`flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl font-bold transition-all duration-300 group/btn ${
+                    className={`flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl font-bold transition-all duration-300 hover:shadow-lg active:scale-[0.98] group/btn ${
                       plan.popular
                         ? 'bg-[#71cff3] text-[#053446] hover:bg-white'
                         : 'bg-[#053446] text-white hover:bg-[#053446]/90'
@@ -452,6 +488,8 @@ const MyCloud: React.FC = () => {
                     {plan.price === 'Contact us' ? 'Contact us' : 'Get started'}
                     <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1" />
                   </a>
+                    </div>
+                  </div>
                 </div>
               </RevealOnScroll>
             ))}
@@ -467,13 +505,25 @@ const MyCloud: React.FC = () => {
 
       {/* CTA Section */}
       <section className="bg-[#053446] py-28 px-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#71cff3]/10 rounded-full blur-[150px]" />
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#71cff3]/10 rounded-full blur-[150px] animate-glow" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <RevealOnScroll>
             <div className="flex justify-center gap-8 mb-8 text-[#71cff3]">
-              <HardDrive size={28} />
-              <RefreshCw size={28} />
-              <ShieldCheck size={28} />
+              {[HardDrive, RefreshCw, ShieldCheck].map((Icon, i) => (
+                <div
+                  key={i}
+                  className="p-3 rounded-2xl bg-[#71cff3]/10 border border-[#71cff3]/20"
+                  style={{ animation: `cloudFloat ${5 + i}s ease-in-out infinite`, animationDelay: `${i * 0.5}s` }}
+                >
+                  <Icon size={28} />
+                </div>
+              ))}
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
               Ready to move to <span className="text-[#71cff3]">myCloud?</span>
@@ -484,7 +534,7 @@ const MyCloud: React.FC = () => {
             </p>
             <a
               href="/contact"
-              className="group inline-flex px-10 py-5 bg-[#71cff3] text-[#053446] rounded-full font-bold transition-all duration-300 hover:bg-white hover:shadow-2xl hover:shadow-[#71cff3]/20 hover:scale-105 items-center justify-center gap-3"
+              className="group inline-flex px-10 py-5 bg-[#71cff3] text-[#053446] rounded-full font-bold transition-all duration-300 hover:bg-white hover:shadow-2xl hover:shadow-[#71cff3]/20 hover:scale-105 active:scale-95 items-center justify-center gap-3"
             >
               Get started today
               <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />

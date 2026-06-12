@@ -206,7 +206,7 @@ const Products: React.FC = () => {
                 <h1 className="text-5xl md:text-7xl font-extrabold text-[#053446] tracking-tight mb-6 leading-[1.1]">
                   Solutions Built for
                   <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] to-[#71cff3]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] animate-gradient-text">
                     Your Success
                   </span>
                 </h1>
@@ -271,7 +271,7 @@ const Products: React.FC = () => {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-6 py-3 rounded-full font-semibold text-sm whitespace-nowrap transition-all duration-300 ${
+                  className={`px-4 md:px-6 py-3 rounded-full font-semibold text-sm whitespace-nowrap transition-all duration-300 active:scale-95 ${
                     selectedCategory === category.id
                       ? 'bg-[#053446] text-white shadow-lg scale-105'
                       : 'bg-white text-[#053446] border border-[#053446]/10 hover:border-[#71cff3] hover:shadow-md'
@@ -418,7 +418,7 @@ const Products: React.FC = () => {
                     <div className="mt-8">
                       <a
                         href="/contact"
-                        className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold transition-all duration-300 group/btn"
+                        className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold transition-all duration-300 hover:shadow-lg hover:brightness-105 active:scale-[0.98] group/btn"
                         style={{
                           backgroundColor: product.color,
                           color: 'white'
@@ -463,7 +463,7 @@ const Products: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button className="group px-10 py-5 bg-[#71cff3] text-[#053446] rounded-full font-bold transition-all duration-300 hover:bg-white hover:shadow-2xl hover:shadow-[#71cff3]/20 hover:scale-105 flex items-center justify-center gap-3">
+              <button className="group px-10 py-5 bg-[#71cff3] text-[#053446] rounded-full font-bold transition-all duration-300 hover:bg-white hover:shadow-2xl hover:shadow-[#71cff3]/20 hover:scale-105 active:scale-95 flex items-center justify-center gap-3">
                 Book a free consultation
                 <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
               </button>

@@ -57,7 +57,7 @@ const Solutions = () => {
               <RevealOnScroll delay={0.1}>
                 <h1 className="text-5xl md:text-7xl font-extrabold text-[#053446] tracking-tight mb-8 leading-[1.1]">
                   Tailored Solutions for{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] to-[#71cff3]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] animate-gradient-text">
                     Every Business Need
                   </span>
                 </h1>
@@ -73,14 +73,14 @@ const Solutions = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/contact"
-                    className="px-8 py-4 bg-[#053446] text-white rounded-full font-semibold hover:bg-[#053446]/90 transition-all hover:scale-105 flex items-center justify-center gap-2"
+                    className="group sheen px-8 py-4 bg-[#053446] text-white rounded-full font-semibold hover:bg-[#053446]/90 transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#053446]/20 active:scale-95 flex items-center justify-center gap-2"
                   >
                     Contact Us
-                    <ArrowRight size={18} />
+                    <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                   </Link>
                   <Link
                     href="/products"
-                    className="px-8 py-4 bg-white border border-[#95969a]/20 text-[#053446] rounded-full font-semibold hover:bg-[#fcfcfa] transition-all hover:scale-105"
+                    className="px-8 py-4 bg-white border border-[#95969a]/20 text-[#053446] rounded-full font-semibold hover:bg-[#fcfcfa] hover:border-[#71cff3]/40 transition-all hover:scale-105 active:scale-95"
                   >
                     View Products
                   </Link>
@@ -636,7 +636,7 @@ const Solutions = () => {
                 <p className="text-lg md:text-xl text-[#95969a] mb-12 max-w-2xl mx-auto">
                   Let's discuss how our solutions can transform your business operations.
                 </p>
-                <Link href="/contact" className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-[#053446] text-lg font-semibold rounded-full transition-all hover:scale-105">
+                <Link href="/contact" className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-[#053446] text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#71cff3]/20 active:scale-95">
                   Schedule Free Consultation
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </Link>

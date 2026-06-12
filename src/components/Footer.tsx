@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
             <p className="text-gray-400 max-w-sm mb-6">
               We develop AI-powered applications and custom software that help businesses streamline operations, automate workflows, and thrive in the digital age.
             </p>
-            <div className="hidden flex gap-4">
+            <div className="hidden gap-4">
               {[Linkedin, Twitter, Facebook].map((Icon, i) => (
                 <a key={i} href="#" className="p-2 rounded-full border border-white/10 hover:bg-smart-blue hover:text-smart-dark transition-all text-white">
                   <Icon size={18} />
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-row gap-8 items-center">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <Link href="/products" className="font-bold text-lg hover:text-[#71cff3] transition-colors flex items-center gap-1 group">
               Products
               <ArrowUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />

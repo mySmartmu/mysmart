@@ -202,7 +202,9 @@ export const CLIENTS: ClientLogo[] = [
   { logo: 'pooltec-v1.png', name: 'Pooltec', showName: false, width: 133, height: 96 },
   { logo: 'speedlink-v1.png', name: 'SpeedLink', showName: true, width: 83, height: 91 },
   { logo: 'RAIS-v1.png', name: 'Rais Enterprises', showName: true, width: 146, height: 96 },
-  { logo: 'antrick-v1.png', name: 'Antrick Global', showName: false, width: 214, height: 168, heightClass: 'h-14' },
+  // This is a taller, stacked mark. Give it enough height for the wordmark
+  // beneath the emblem to remain legible alongside the wide partner logos.
+  { logo: 'antrick-v1.png', name: 'Antrick Global', showName: false, width: 214, height: 168, heightClass: 'h-24' },
   { logo: 'Chocoshe-v1.png', name: "Choco'She", showName: true, width: 116, height: 96 },
   { logo: 'ACE-v1.png', name: 'Aux Champs Elysées', showName: true, width: 132, height: 96 },
   { logo: 'adonis-v1.png', name: 'Adonis Management Consulting', showName: true, width: 107, height: 96 },

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Check,
   ArrowRight,
@@ -40,7 +41,7 @@ const Products: React.FC = () => {
         'Get paid faster with automated reminders'
       ],
       icon: Receipt,
-      logo: '/images/01myInvoicePro.png',
+      logo: '/images/01myInvoicePro-v1.png',
       color: '#71cff3',
       category: 'finance',
       popular: true
@@ -63,7 +64,7 @@ const Products: React.FC = () => {
         'Reduce overselling incidents'
       ],
       icon: Store,
-      logo: '/images/02myPOS.png',
+      logo: '/images/02myPOS-v1.png',
       color: '#ff9f43',
       category: 'retail',
       popular: false
@@ -85,7 +86,7 @@ const Products: React.FC = () => {
         'Streamline enrollment and payments'
       ],
       icon: GraduationCap,
-      logo: '/images/03myEdupro.png',
+      logo: '/images/03myEdupro-v1.png',
       color: '#a55eea',
       category: 'education',
       popular: true
@@ -108,7 +109,7 @@ const Products: React.FC = () => {
         'Track loan balances automatically'
       ],
       icon: Clock,
-      logo: '/images/04myPayroll.png',
+      logo: '/images/04myPayroll-v1.png',
       color: '#26de81',
       category: 'hr',
       popular: false
@@ -131,7 +132,7 @@ const Products: React.FC = () => {
         'Reduce pricing errors to zero'
       ],
       icon: Tag,
-      logo: '/images/05myTag.png',
+      logo: '/images/05myTag-v1.png',
       color: '#71cff3',
       category: 'retail',
       popular: true
@@ -154,7 +155,7 @@ const Products: React.FC = () => {
         'Professional installation included'
       ],
       icon: Zap,
-      logo: '/images/06HomeAutomation.png',
+      logo: '/images/06HomeAutomation-v1.png',
       color: '#ff9f43',
       category: 'iot',
       popular: false
@@ -333,7 +334,7 @@ const Products: React.FC = () => {
                           className="w-16 h-16 rounded-2xl flex-shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
                           style={{ backgroundColor: `${product.color}15` }}
                         >
-                          <img src={product.logo} alt={product.name} className="w-12 h-12 object-contain" />
+                          <Image src={product.logo} alt={product.name} width={160} height={160} sizes="48px" className="w-12 h-12 object-contain" />
                         </div>
                         <div>
                           <h3 className="text-2xl font-bold text-[#053446] mb-1">{product.name}</h3>

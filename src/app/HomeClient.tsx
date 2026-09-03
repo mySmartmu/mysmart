@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowRight,
   Code,
@@ -38,7 +39,7 @@ const HomeClient: React.FC = () => {
         <div className="absolute bottom-[26%] left-[12%] w-2 h-2 rounded-full bg-[#71cff3]/70 shadow-[0_0_10px_rgba(113,207,243,0.4)] -z-10" style={{ animation: 'pulse-dot 4s ease-in-out infinite 1s' }} />
         <div className="absolute top-[20%] left-[34%] w-2 h-2 rounded-full bg-[#053446]/30 -z-10" style={{ animation: 'pulse-dot 3.5s ease-in-out infinite 0.5s' }} />
 
-        <RevealOnScroll delay={0.1}>
+        <RevealOnScroll delay={0.1} initiallyVisible>
           <h1 className="text-5xl md:text-7xl font-extrabold text-[#053446] tracking-tight mb-8 leading-[1.1]">
             Simplifying and Streamlining <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] animate-gradient-text">
@@ -47,16 +48,17 @@ const HomeClient: React.FC = () => {
           </h1>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.2}>
+        <RevealOnScroll delay={0.2} initiallyVisible>
           <p className="text-xl text-[#95969a] max-w-2xl mx-auto mb-10">
             We transition businesses from manual processes to efficient digital systems, helping you adapt and thrive in the digital age.
           </p>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.3}>
+        <RevealOnScroll delay={0.3} initiallyVisible>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/contact"
+              prefetch={false}
               className="group sheen px-8 py-4 bg-[#053446] text-white rounded-full font-semibold hover:bg-[#053446]/90 transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#053446]/20 active:scale-95 flex items-center justify-center gap-2"
             >
               Free Consultation
@@ -64,6 +66,7 @@ const HomeClient: React.FC = () => {
             </Link>
             <Link
               href="/products"
+              prefetch={false}
               className="px-8 py-4 bg-white border border-[#95969a]/20 text-[#053446] rounded-full font-semibold hover:bg-[#fcfcfa] hover:border-[#71cff3]/40 transition-all hover:scale-105 active:scale-95"
             >
               View Services
@@ -185,25 +188,28 @@ const HomeClient: React.FC = () => {
       <div className="marquee-track">
         {/* First set */}
         {[
-          { logo: 'Sensoria.png', name: '', showName: false },
-          { logo: 'acropolis.png', name: 'Acropolis Training Institution', showName: true },
-          { logo: 'Toolmaster.png', name: '', showName: false },
-          { logo: 'pooltec.png', name: '', showName: false },
-          { logo: 'speedlink.png', name: 'SpeedLink', showName: true },
-          { logo: 'RAIS.png', name: 'Rais Enterprises', showName: true },
-          { logo: "Choco'she.png", name: "Choco'She", showName: true },
-          { logo: 'ACE.png', name: 'Aux Champs Elysées', showName: true },
-          { logo: 'adonis.png', name: 'Adonis Management Consulting', showName: true },
-          { logo: 'frotcom.png', name: 'Frotcom Indian Ocean', showName: true },
-          { logo: 'ninety_six_logo.png', name: '', showName: false, height: 'h-11' },
-          { logo: 'AVINYA_logo.png', name: '', showName: false, height: 'h-12' }
+          { logo: 'Sensoria-v1.png', name: '', showName: false, width: 230, height: 68 },
+          { logo: 'acropolis-v1.png', name: 'Acropolis Training Institution', showName: true, width: 96, height: 96 },
+          { logo: 'Toolmaster-v1.png', name: '', showName: false, width: 202, height: 96 },
+          { logo: 'pooltec-v1.png', name: '', showName: false, width: 133, height: 96 },
+          { logo: 'speedlink-v1.png', name: 'SpeedLink', showName: true, width: 83, height: 91 },
+          { logo: 'RAIS-v1.png', name: 'Rais Enterprises', showName: true, width: 146, height: 96 },
+          { logo: 'Chocoshe-v1.png', name: "Choco'She", showName: true, width: 116, height: 96 },
+          { logo: 'ACE-v1.png', name: 'Aux Champs Elysées', showName: true, width: 132, height: 96 },
+          { logo: 'adonis-v1.png', name: 'Adonis Management Consulting', showName: true, width: 107, height: 96 },
+          { logo: 'frotcom-v1.png', name: 'Frotcom Indian Ocean', showName: true, width: 119, height: 96 },
+          { logo: 'ninety_six_logo-v1.png', name: '', showName: false, width: 435, height: 96, heightClass: 'h-11' },
+          { logo: 'AVINYA_logo-v1.png', name: '', showName: false, width: 153, height: 96, heightClass: 'h-12' }
         ].map((client, idx) => (
           <div key={`set1-${idx}`} className="client-item">
             <div className="flex items-center gap-3 cursor-default group">
-              <img
+              <Image
                 src={`/client/${client.logo}`}
                 alt={client.name || 'Partner'}
-                className={`client-logo ${'height' in client ? client.height : 'h-10'} w-auto object-contain`}
+                width={client.width}
+                height={client.height}
+                sizes="(max-width: 768px) 180px, 240px"
+                className={`client-logo ${'heightClass' in client ? client.heightClass : 'h-10'} w-auto object-contain`}
                 loading="lazy"
                 decoding="async"
                 draggable="false"
@@ -219,25 +225,28 @@ const HomeClient: React.FC = () => {
         
         {/* Second set - Exact duplicate for seamless loop */}
         {[
-          { logo: 'Sensoria.png', name: '', showName: false },
-          { logo: 'acropolis.png', name: 'Acropolis Training Institution', showName: true },
-          { logo: 'Toolmaster.png', name: '', showName: false },
-          { logo: 'pooltec.png', name: '', showName: false },
-          { logo: 'speedlink.png', name: 'SpeedLink', showName: true },
-          { logo: 'RAIS.png', name: 'Rais Enterprises', showName: true },
-          { logo: "Choco'she.png", name: "Choco'She", showName: true },
-          { logo: 'ACE.png', name: 'Aux Champs Elysées', showName: true },
-          { logo: 'adonis.png', name: 'Adonis Management Consulting', showName: true },
-          { logo: 'frotcom.png', name: 'Frotcom Indian Ocean', showName: true },
-          { logo: 'ninety_six_logo.png', name: '', showName: false, height: 'h-11' },
-          { logo: 'AVINYA_logo.png', name: '', showName: false, height: 'h-12' }
+          { logo: 'Sensoria-v1.png', name: '', showName: false, width: 230, height: 68 },
+          { logo: 'acropolis-v1.png', name: 'Acropolis Training Institution', showName: true, width: 96, height: 96 },
+          { logo: 'Toolmaster-v1.png', name: '', showName: false, width: 202, height: 96 },
+          { logo: 'pooltec-v1.png', name: '', showName: false, width: 133, height: 96 },
+          { logo: 'speedlink-v1.png', name: 'SpeedLink', showName: true, width: 83, height: 91 },
+          { logo: 'RAIS-v1.png', name: 'Rais Enterprises', showName: true, width: 146, height: 96 },
+          { logo: 'Chocoshe-v1.png', name: "Choco'She", showName: true, width: 116, height: 96 },
+          { logo: 'ACE-v1.png', name: 'Aux Champs Elysées', showName: true, width: 132, height: 96 },
+          { logo: 'adonis-v1.png', name: 'Adonis Management Consulting', showName: true, width: 107, height: 96 },
+          { logo: 'frotcom-v1.png', name: 'Frotcom Indian Ocean', showName: true, width: 119, height: 96 },
+          { logo: 'ninety_six_logo-v1.png', name: '', showName: false, width: 435, height: 96, heightClass: 'h-11' },
+          { logo: 'AVINYA_logo-v1.png', name: '', showName: false, width: 153, height: 96, heightClass: 'h-12' }
         ].map((client, idx) => (
           <div key={`set2-${idx}`} className="client-item">
             <div className="flex items-center gap-3 cursor-default group">
-              <img
+              <Image
                 src={`/client/${client.logo}`}
                 alt={client.name || 'Partner'}
-                className={`client-logo ${'height' in client ? client.height : 'h-10'} w-auto object-contain`}
+                width={client.width}
+                height={client.height}
+                sizes="(max-width: 768px) 180px, 240px"
+                className={`client-logo ${'heightClass' in client ? client.heightClass : 'h-10'} w-auto object-contain`}
                 loading="lazy"
                 decoding="async"
                 draggable="false"
@@ -326,7 +335,7 @@ const HomeClient: React.FC = () => {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#71cff3]/5 rounded-full blur-3xl transition-all duration-500 group-hover:bg-[#71cff3]/10" />
                 <div className="flex-1 relative z-10">
                   <div className="w-11 h-11 rounded-xl bg-[#71cff3]/10 flex items-center justify-center text-[#71cff3] mb-5 group-hover:scale-110 transition-transform duration-300">
-                    <img src="/images/01myInvoicePro.png" alt="myInvoice Pro" className="w-10 h-10 object-contain" />
+                    <Image src="/images/01myInvoicePro-v1.png" alt="myInvoice Pro" width={139} height={160} sizes="40px" className="w-10 h-10 object-contain" />
                   </div>
                   <h3 className="text-2xl font-bold text-[#053446] mb-2">myInvoice Pro</h3>
                   <p className="text-[#95969a] text-sm leading-relaxed max-w-sm">
@@ -334,9 +343,12 @@ const HomeClient: React.FC = () => {
                   </p>
                 </div>
                 <div className="relative z-10 w-full md:w-auto flex items-center justify-center">
-                  <img
+                  <Image
                     src="https://cdn.prod.website-files.com/6895b1f7baeb5ed49b7144a3/69a1a40978b80c2cc84bec7f_ef19ecedd16d12629184870c4b9b2870_Screenshot%202026-02-27%20175949.png"
                     alt="myInvoice Pro Preview"
+                    width={1896}
+                    height={938}
+                    sizes="258px"
                     className="h-32 w-auto object-contain"
                   />
                 </div>
@@ -350,7 +362,7 @@ const HomeClient: React.FC = () => {
               <div className="group h-full bg-[#95969a] rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative">
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
                 <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center text-white mb-4">
-                  <img src="/images/02myPOS.png" alt="myPOS" className="w-10 h-10 object-contain" />
+                  <Image src="/images/02myPOS-v1.png" alt="myPOS" width={140} height={160} sizes="40px" className="w-10 h-10 object-contain" />
                 </div>
                 <div className="relative z-10">
                   <h3 className="text-xl font-bold text-white mb-2">myPOS</h3>
@@ -366,7 +378,7 @@ const HomeClient: React.FC = () => {
               <div className="group h-full bg-[#71cff3] rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative">
                 <div className="absolute -top-10 -left-10 w-32 h-32 bg-[#053446]/10 rounded-full blur-2xl" />
                 <div className="w-11 h-11 rounded-xl bg-[#053446]/10 flex items-center justify-center text-[#053446] mb-4">
-                  <img src="/images/04myPayroll.png" alt="myPayroll" className="w-10 h-10 object-contain" />
+                  <Image src="/images/04myPayroll-v1.png" alt="myPayroll" width={160} height={160} sizes="40px" className="w-10 h-10 object-contain" />
                 </div>
                 <div className="relative z-10">
                   <h3 className="text-xl font-bold text-[#053446] mb-2">myPayroll</h3>
@@ -381,6 +393,7 @@ const HomeClient: React.FC = () => {
             <RevealOnScroll delay={0.35} className="h-full">
               <Link
                 href="/mycloud"
+                prefetch={false}
                 className="group h-full bg-[#053446] rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative cursor-pointer"
               >
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#71cff3]/20 rounded-full blur-2xl" />
@@ -403,7 +416,7 @@ const HomeClient: React.FC = () => {
             <RevealOnScroll delay={0.4} className="h-full">
               <div className="group h-full bg-[#053446]/5 border border-[#053446]/10 rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:bg-[#053446]/[0.08] flex flex-col justify-between">
                 <div className="w-11 h-11 rounded-xl bg-[#053446]/10 flex items-center justify-center text-[#053446] mb-4">
-                  <img src="/images/03myEdupro.png" alt="myEdu Pro" className="w-10 h-10 object-contain" />
+                  <Image src="/images/03myEdupro-v1.png" alt="myEdu Pro" width={139} height={160} sizes="40px" className="w-10 h-10 object-contain" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-[#053446] mb-2">myEdu Pro</h3>
@@ -422,7 +435,7 @@ const HomeClient: React.FC = () => {
                 <div className="absolute top-0 right-0 w-80 h-80 bg-[#71cff3]/10 rounded-full blur-[100px]" />
                 <div className="flex-1 relative z-10">
                   <div className="w-11 h-11 rounded-xl bg-[#71cff3]/20 flex items-center justify-center text-[#71cff3] mb-5">
-                    <img src="/images/05myTag.png" alt="myTag" className="w-10 h-10 object-contain" />
+                  <Image src="/images/05myTag-v1.png" alt="myTag" width={413} height={160} sizes="40px" className="w-10 h-10 object-contain" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-2">myTag</h3>
                   <p className="text-[#95969a] text-sm leading-relaxed max-w-sm">
@@ -430,9 +443,12 @@ const HomeClient: React.FC = () => {
                   </p>
                 </div>
                 <div className="relative z-10 w-full md:w-auto flex items-center justify-center">
-                  <img
+                  <Image
                     src="https://cdn.prod.website-files.com/6895b1f7baeb5ed49b7144a3/69a19edb8be2764a0ce8dfc7_ESL.png"
                     alt="Electronic Shelf Label"
+                    width={409}
+                    height={203}
+                    sizes="258px"
                     className="h-32 w-auto object-contain"
                   />
                 </div>
@@ -445,7 +461,7 @@ const HomeClient: React.FC = () => {
             <RevealOnScroll delay={0.6} className="h-full">
               <div className="group h-full bg-[#fcfcfa] border border-[#053446]/10 rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:border-[#71cff3]/30 flex flex-col justify-between">
                 <div className="w-11 h-11 rounded-xl bg-[#71cff3]/10 flex items-center justify-center text-[#71cff3] mb-4">
-                  <img src="/images/06HomeAutomation.png" alt="Smart Automation" className="w-10 h-10 object-contain" />
+                  <Image src="/images/06HomeAutomation-v1.png" alt="Smart Automation" width={143} height={160} sizes="40px" className="w-10 h-10 object-contain" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-[#053446] mb-2">Smart Automation</h3>
@@ -517,7 +533,7 @@ const HomeClient: React.FC = () => {
                 <p className="text-lg md:text-xl text-[#95969a] mb-12 max-w-2xl mx-auto">
                   Let&apos;s architect an intelligent ecosystem that streamlines your operations.
                 </p>
-                <Link href="/contact" className="group inline-flex items-center justify-center gap-3 px-6 md:px-10 py-5 bg-white text-[#053446] text-base md:text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#71cff3]/20 active:scale-95 whitespace-nowrap">
+                <Link href="/contact" prefetch={false} className="group inline-flex items-center justify-center gap-3 px-6 md:px-10 py-5 bg-white text-[#053446] text-base md:text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#71cff3]/20 active:scale-95 whitespace-nowrap">
                   Get Your Free Consultation
                   <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </Link>

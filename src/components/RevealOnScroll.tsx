@@ -6,13 +6,18 @@ interface Props {
   children: React.ReactNode;
   delay?: number; // Delay in seconds
   className?: string;
+  initiallyVisible?: boolean;
 }
 
-export const RevealOnScroll: React.FC<Props> = ({ children, delay = 0, className = '' }) => {
-  const [isVisible, setIsVisible] = useState(false);
+export const RevealOnScroll: React.FC<Props> = ({ children, delay = 0, className = '', initiallyVisible = false }) => {
+  const [isVisible, setIsVisible] = useState(initiallyVisible);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (initiallyVisible) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -29,16 +34,13 @@ export const RevealOnScroll: React.FC<Props> = ({ children, delay = 0, className
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const element = ref.current;
+    if (element) {
+      observer.observe(element);
     }
 
-    return () => {
-      if (ref.current) {
-        observer.disconnect();
-      }
-    };
-  }, []);
+    return () => observer.disconnect();
+  }, [initiallyVisible]);
 
   const style = {
     transitionDelay: `${delay}s`,

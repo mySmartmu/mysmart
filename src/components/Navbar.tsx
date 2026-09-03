@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowRight } from 'lucide-react';
 
@@ -49,10 +50,14 @@ const Navbar: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <img
-            src="https://cdn.prod.website-files.com/6895b1f7baeb5ed49b7144a3/698b7ba5466457ae33a17f90_mySSF.png"
+        <Link href="/" prefetch={false} className="flex items-center gap-2 group">
+          <Image
+            src="/brand/mysmart-logo-v1.png"
             alt="mySmart Logo"
+            width={297}
+            height={96}
+            preload
+            decoding="async"
             className="h-8 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
@@ -63,6 +68,7 @@ const Navbar: React.FC = () => {
             <Link
               key={link.name}
               href={link.path}
+              prefetch={false}
               className={`relative text-sm font-medium transition-colors duration-200 after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:rounded-full after:bg-smart-blue after:transition-all after:duration-300 ${
                 isActive(link.path)
                   ? 'text-smart-dark font-bold after:w-full'
@@ -78,6 +84,7 @@ const Navbar: React.FC = () => {
         <div className="hidden md:block">
           <Link
             href="/contact"
+            prefetch={false}
             className="group relative inline-flex items-center gap-2 px-5 py-2.5 bg-smart-dark text-white rounded-full text-sm font-medium overflow-hidden transition-all hover:bg-smart-dark/90 hover:shadow-lg hover:shadow-smart-dark/20"
           >
             <span className="relative z-10">Contact Us</span>
@@ -107,6 +114,7 @@ const Navbar: React.FC = () => {
           <Link
             key={link.name}
             href={link.path}
+            prefetch={false}
             onClick={() => setIsOpen(false)}
             style={{ transitionDelay: isOpen ? `${60 * idx}ms` : '0ms' }}
             className={`py-3 text-lg font-medium text-smart-dark border-b border-gray-100 last:border-0 transition-all duration-300 ${
@@ -118,6 +126,7 @@ const Navbar: React.FC = () => {
         ))}
         <Link
           href="/contact"
+          prefetch={false}
           onClick={() => setIsOpen(false)}
           style={{ transitionDelay: isOpen ? `${60 * navLinks.length}ms` : '0ms' }}
           className={`mt-4 w-full text-center py-3 bg-smart-dark text-white rounded-lg font-medium transition-all duration-300 active:scale-95 ${

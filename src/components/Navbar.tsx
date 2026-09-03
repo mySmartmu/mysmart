@@ -9,15 +9,11 @@ import { Menu, X, ArrowRight, ArrowUpRight } from 'lucide-react';
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [progress, setProgress] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - doc.clientHeight;
-      setProgress(max > 0 ? Math.min(window.scrollY / max, 1) : 0);
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -42,12 +38,6 @@ const Navbar: React.FC = () => {
           : 'bg-transparent py-6'
       }`}
     >
-      {/* Reading progress bar */}
-      <div
-        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#71cff3] to-[#053446] rounded-r-full transition-opacity duration-300"
-        style={{ width: `${progress * 100}%`, opacity: scrolled ? 1 : 0 }}
-      />
-
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" prefetch={false} className="flex items-center gap-2 group">

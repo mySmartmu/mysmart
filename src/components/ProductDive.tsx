@@ -72,7 +72,9 @@ export const ProductDive: React.FC<Props> = ({ children, lead }) => {
 
     const render = (progress: number) => {
       const entered = ease(clamp((progress - 0.06) / 0.78));
-      const radius = mix(54, endRadius, entered);
+      // Keep the cover fully closed while the title is centred. The aperture
+      // begins at zero only once the visitor continues the upward scroll.
+      const radius = mix(0, endRadius, entered);
       const introExit = clamp((entered - 0.18) / 0.42);
 
       if (cover.current) {

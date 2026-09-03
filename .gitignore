@@ -49,6 +49,7 @@ next-env.d.ts
 .vscode/
 
 # Project docs & logs (not for repo)
-CorporatePresentation_mySmart.pdf
+CorporatePresentation_mySmart*.pdf
+CorporatePresentation_mySmart*.pptx
 ReferenceDocs/
 *.log

@@ -18,8 +18,8 @@ export interface StatusMeta {
 export const STATUS: Record<Status, StatusMeta> = {
   live: { label: 'Available now', inMarket: true },
   production: { label: 'In production', inMarket: true },
-  launching: { label: 'Launching 2026', inMarket: false },
-  building: { label: 'In build', inMarket: false },
+  launching: { label: 'Coming soon', inMarket: false },
+  building: { label: 'Planned', inMarket: false },
 };
 
 export interface Platform {
@@ -67,22 +67,22 @@ export const PLATFORMS: Platform[] = [
     logoHeight: 256,
     logoClass: 'h-10',
     kicker: 'AI agent platform',
-    summary: 'A workforce of AI agents. Otto prepares; a person approves.',
+    summary: 'A workforce of AI agents for everyday business work. It prepares; a person approves.',
     description:
-      'Otto reads the documents a business already receives, does the preparation its staff currently do by hand, and hands back a checked draft. A person approves it — only then does anything leave the system. Underneath one platform sit many specialist agents, each with a job title you can explain in a sentence.',
+      'Otto helps with repetitive tasks such as reading documents, preparing information, checking records, following up customers and handling admin. It prepares the work for your team to review and approve. Each Otto agent has a specific role, so you can use the ones your business needs.',
     capabilities: [
-      'Eighteen specialist agents — the Invoicer, Invoice Processor, Bookkeeper, VAT Preparer, KYC Agent, Compliance Assistant and more',
-      'Reads invoices, statements and KYC documents out of email, watched folders and web upload',
-      'Recomputes every total in code — no model does the arithmetic',
-      'Catches duplicates before they reach the ledger twice, and flags what it is unsure about',
-      'Tenant isolation enforced by PostgreSQL row-level security, not application discipline',
-      'Append-only audit trail — every figure traces back to its source document',
-      'Two-factor authentication for anyone who can approve a record',
+      'Save time — Otto handles repetitive preparation work so your team can focus on what needs their attention',
+      'Keep people in control — Otto prepares the work, but your team reviews and approves it before anything is final',
+      'One platform, many roles — start with the agents you need today and add more as your requirements grow',
+      'Eighteen specialist agents, each with a specific role: the Invoicer, Invoice Processor, Bookkeeper, VAT Preparer, KYC Agent, Compliance Assistant and more',
+      'Reads documents out of email, watched folders and web upload',
+      'Checks records and flags what it is unsure about instead of guessing',
+      'Every figure traces back to the source document it came from',
     ],
     boundary:
-      'Otto never files a return, never makes a payment, never sends an external email without a human pressing send, and never modifies an original document.',
+      'Otto prepares the work, but your team reviews and approves it before anything is final.',
     worksWith: ['Zoho Books', 'Sage', 'Xero', 'QuickBooks', 'Odoo', 'Email intake', 'Excel export'],
-    segments: ['Accounting practices', 'Management companies', 'Insurance brokers'],
+    segments: ['Finance and admin teams', 'Professional services', 'Small and mid-sized businesses'],
     status: 'live',
     surface: 'dark',
     flagship: true,
@@ -219,7 +219,7 @@ export const SUITE: SuiteProduct[] = [
     name: 'myPayroll',
     logo: '/images/04myPayroll-v1.png',
     kicker: 'Payroll and HR',
-    summary: 'Payroll management that takes the month-end out of month-end.',
+    summary: 'Payroll and HR management designed to make monthly processing easier.',
     capabilities: [
       'Timesheet import and processing',
       'Allowance and deduction calculation',
@@ -251,7 +251,7 @@ export const SUITE: SuiteProduct[] = [
     name: 'myTag',
     logo: '/images/05myTag-v1.png',
     kicker: 'Digital shelf tags',
-    summary: 'E-paper tags for retail and hospitality — pricing updated instantly.',
+    summary: 'E-paper tags for retail and hospitality, pricing and info updated instantly.',
     capabilities: [
       'Cloud-controlled price tags',
       'Instant shelf-edge updates across the whole store',

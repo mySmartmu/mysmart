@@ -8,11 +8,16 @@ import { Cinematic, TiltCard, Magnetic, TextReveal, CountUp } from '@/components
 import {
   STATS,
   CAPABILITIES,
+  SERVICES_LEAD,
   PROCESS,
+  PROCESS_LEAD,
   REASONS,
-  HORIZONS,
+  REASONS_LEAD,
+  FUTURE_LEAD,
+  FUTURE_BODY,
   FOUNDERS,
   SECTORS,
+  AT_A_GLANCE,
 } from '@/data/company';
 
 const capabilityIcons = {
@@ -55,15 +60,13 @@ const Company = () => {
 
           <RevealOnScroll delay={0.45} initiallyVisible>
             <p className="mx-auto mb-8 max-w-4xl text-center text-2xl font-semibold leading-relaxed text-[#053446] md:text-3xl">
-              We design and deliver technology that simplifies how businesses operate — from custom
-              applications and AI integration to automation, infrastructure and hardware.
+              {AT_A_GLANCE}
             </p>
           </RevealOnScroll>
 
           <RevealOnScroll delay={0.55} initiallyVisible>
             <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-[#95969a]">
-              Our focus is on replacing fragmented and manual processes with practical, connected
-              solutions — built, hosted and supported locally.
+              Built, hosted and supported locally.
             </p>
           </RevealOnScroll>
         </div>
@@ -73,7 +76,7 @@ const Company = () => {
       <section className="px-6 pb-24">
         <div className="mx-auto max-w-5xl">
           <Cinematic variant="zoom" intensity={0.9} fade={false}>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {STATS.map((stat) => (
                 <TiltCard
                   key={stat.label}
@@ -107,14 +110,9 @@ const Company = () => {
           <RevealOnScroll>
             <div className="mb-12 text-center">
               <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
-                The people who do the work
+                Clients and credentials
               </p>
-              <h2 className="mb-4 text-3xl font-bold text-[#053446] md:text-4xl">
-                Founder-led and hands-on
-              </h2>
-              <p className="mx-auto max-w-2xl text-[#95969a]">
-                The two people below are the ones who will be in your meetings and on your systems.
-              </p>
+              <h2 className="text-3xl font-bold text-[#053446] md:text-4xl">Our Leadership</h2>
             </div>
           </RevealOnScroll>
 
@@ -177,10 +175,7 @@ const Company = () => {
           <RevealOnScroll>
             <div className="mb-12 text-center">
               <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">What We Do</h2>
-              <p className="mx-auto max-w-3xl text-[#95969a]">
-                Five capabilities that combine into one delivery. Most engagements use three of them
-                at once, which is the reason for keeping them under one roof.
-              </p>
+              <p className="mx-auto max-w-3xl text-[#95969a]">{SERVICES_LEAD}</p>
             </div>
           </RevealOnScroll>
 
@@ -217,11 +212,9 @@ const Company = () => {
                 How We Work
               </p>
               <h2 className="mb-5 text-3xl font-bold leading-tight text-[#053446] md:text-5xl">
-                Three phases, one team throughout
+                Understand, build and support
               </h2>
-              <p className="text-lg leading-relaxed text-[#95969a]">
-                Nobody gets handed to a different vendor halfway, and nobody disappears at go-live.
-              </p>
+              <p className="text-lg leading-relaxed text-[#95969a]">{PROCESS_LEAD}</p>
             </div>
           </RevealOnScroll>
 
@@ -283,9 +276,10 @@ const Company = () => {
               <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
                 Why Clients Choose Us
               </p>
-              <h2 className="text-3xl font-bold leading-tight text-[#053446] md:text-5xl">
-                Four reasons, and the honest version of each
+              <h2 className="mb-5 text-3xl font-bold leading-tight text-[#053446] md:text-5xl">
+                Why clients choose us
               </h2>
+              <p className="text-lg leading-relaxed text-[#95969a]">{REASONS_LEAD}</p>
             </div>
           </RevealOnScroll>
 
@@ -323,40 +317,17 @@ const Company = () => {
                 Where We Are Going
               </p>
               <h2 className="mb-5 text-3xl font-bold leading-tight text-white md:text-5xl">
-                Three horizons
+                Built for the future
               </h2>
-              <p className="text-lg leading-relaxed text-[#95969a]">
-                Each horizon is funded by the one before it, and nothing on the list is speculative —
-                every item has either a client waiting or a product already in market.
-              </p>
+              <p className="text-lg leading-relaxed text-[#95969a]">{FUTURE_LEAD}</p>
             </div>
           </RevealOnScroll>
 
           <Cinematic variant="zoom" intensity={0.5} fade={false}>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {HORIZONS.map((horizon, idx) => (
-                <RevealOnScroll key={horizon.title} delay={0.12 * idx} className="h-full">
-                  <TiltCard
-                    tilt={6}
-                    className="h-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition-colors duration-500 hover:border-[#71cff3]/30 hover:bg-white/[0.07]"
-                  >
-                    <div className="relative z-10">
-                      <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#71cff3]">
-                        {horizon.period}
-                      </p>
-                      <h3 className="mb-6 text-2xl font-bold text-white">{horizon.title}</h3>
-                      <ul className="space-y-3">
-                        {horizon.items.map((item) => (
-                          <li key={item} className="flex items-start gap-3">
-                            <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#71cff3]" />
-                            <span className="text-sm leading-relaxed text-[#95969a]">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </TiltCard>
-                </RevealOnScroll>
-              ))}
+            <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 md:p-14">
+              <p className="mx-auto max-w-3xl text-center text-xl leading-relaxed text-white md:text-2xl">
+                {FUTURE_BODY}
+              </p>
             </div>
           </Cinematic>
         </div>

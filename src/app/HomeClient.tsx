@@ -25,9 +25,15 @@ import { PLATFORMS, SUITE, STATUS } from '@/data/products';
 import {
   POSITIONING,
   CAPABILITIES,
+  SERVICES_LEAD,
   PROCESS,
+  PROCESS_LEAD,
+  PRODUCTS_LEAD,
+  PRODUCTS_FOOTNOTE,
   REASONS,
+  REASONS_LEAD,
   INFRASTRUCTURE,
+  INFRASTRUCTURE_LEAD,
   CERTIFICATIONS,
 } from '@/data/company';
 
@@ -160,15 +166,12 @@ const HomeClient: React.FC = () => {
                   What We Do
                 </p>
                 <h2 className="text-4xl font-bold leading-tight text-white md:text-5xl">
-                  Five capabilities,
+                  Five main services,
                   <br />
-                  <span className="text-[#71cff3]">one delivery</span>
+                  <span className="text-[#71cff3]">combined as needed</span>
                 </h2>
               </div>
-              <p className="max-w-md text-base leading-relaxed text-[#95969a]">
-                Most engagements use three of them at once, which is the reason for keeping them
-                under one roof.
-              </p>
+              <p className="max-w-md text-base leading-relaxed text-[#95969a]">{SERVICES_LEAD}</p>
             </div>
           </RevealOnScroll>
 
@@ -214,7 +217,8 @@ const HomeClient: React.FC = () => {
                 A workforce of{' '}
                 <span className="animate-gradient-text bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] bg-clip-text text-transparent">
                   AI agents
-                </span>
+                </span>{' '}
+                for everyday business work
               </h2>
               <p className="mx-auto max-w-2xl text-lg leading-relaxed text-[#95969a]">
                 {otto.description}
@@ -283,8 +287,8 @@ const HomeClient: React.FC = () => {
                 <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-8 text-center">
                   {[
                     { n: 7, label: 'Available now' },
-                    { n: 3, label: 'In build' },
-                    { n: 8, label: 'On the roadmap' },
+                    { n: 3, label: 'Coming soon' },
+                    { n: 8, label: 'Planned' },
                   ].map((item) => (
                     <div key={item.label}>
                       <p className="mb-1 text-3xl font-extrabold text-[#71cff3] md:text-4xl">
@@ -318,12 +322,9 @@ const HomeClient: React.FC = () => {
                 Product Ecosystem
               </p>
               <h2 className="mb-6 text-4xl font-bold text-[#053446] md:text-5xl">
-                Platforms we built and sell
+                Products and platforms
               </h2>
-              <p className="mx-auto max-w-2xl text-[#95969a]">
-                Each began as one client&apos;s problem and was generalised only after it had worked
-                twice.
-              </p>
+              <p className="mx-auto max-w-2xl text-[#95969a]">{PRODUCTS_LEAD}</p>
             </div>
           </RevealOnScroll>
 
@@ -395,6 +396,10 @@ const HomeClient: React.FC = () => {
               })}
             </div>
           </Cinematic>
+
+          <RevealOnScroll>
+            <p className="mt-12 text-center text-sm text-[#95969a]">{PRODUCTS_FOOTNOTE}</p>
+          </RevealOnScroll>
         </div>
       </section>
 
@@ -409,13 +414,11 @@ const HomeClient: React.FC = () => {
                 How We Work
               </p>
               <h2 className="mb-6 text-4xl font-bold leading-tight text-white md:text-5xl">
-                Three phases,
+                Understand, build,
                 <br />
-                <span className="text-[#71cff3]">one team throughout</span>
+                <span className="text-[#71cff3]">and support</span>
               </h2>
-              <p className="text-lg leading-relaxed text-[#95969a]">
-                Nobody gets handed to a different vendor halfway, and nobody disappears at go-live.
-              </p>
+              <p className="text-lg leading-relaxed text-[#95969a]">{PROCESS_LEAD}</p>
             </div>
           </RevealOnScroll>
 
@@ -454,9 +457,7 @@ const HomeClient: React.FC = () => {
                 Secure enterprise infrastructure
               </h2>
               <p className="mx-auto max-w-2xl leading-relaxed text-[#95969a]">
-                Everything we sell runs on infrastructure we can name and defend. For clients in
-                regulated sectors this is usually the first question, so we answer it before it is
-                asked.
+                {INFRASTRUCTURE_LEAD}
               </p>
             </div>
           </RevealOnScroll>
@@ -511,11 +512,12 @@ const HomeClient: React.FC = () => {
               <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
                 Why Clients Choose Us
               </p>
-              <h2 className="text-4xl font-bold leading-tight text-[#053446] md:text-5xl">
-                Four reasons that come up in
+              <h2 className="mb-5 text-4xl font-bold leading-tight text-[#053446] md:text-5xl">
+                Why clients
                 <br />
-                <span className="text-[#71cff3]">almost every conversation</span>
+                <span className="text-[#71cff3]">choose us</span>
               </h2>
+              <p className="text-lg leading-relaxed text-[#95969a]">{REASONS_LEAD}</p>
             </div>
           </RevealOnScroll>
 

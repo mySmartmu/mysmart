@@ -8,6 +8,7 @@ import { RevealOnScroll } from '@/components/RevealOnScroll';
 import { PlatformCard } from '@/components/PlatformCard';
 import { Cinematic, TiltCard, Magnetic, TextReveal } from '@/components/motion';
 import { PLATFORMS, SUITE, STATUS } from '@/data/products';
+import { PRODUCTS_LEAD, PRODUCTS_FOOTNOTE } from '@/data/company';
 
 const CATEGORIES = [
   { id: 'all', name: 'All' },
@@ -69,8 +70,7 @@ const Products: React.FC = () => {
 
           <RevealOnScroll delay={0.4} initiallyVisible>
             <p className="mx-auto max-w-2xl text-xl leading-relaxed text-[#95969a]">
-              Every product here began as custom work for a Mauritian client. We generalise on the
-              second sale, never the first.
+              {PRODUCTS_LEAD}
             </p>
           </RevealOnScroll>
         </div>
@@ -224,6 +224,10 @@ const Products: React.FC = () => {
                 })}
               </div>
             </Cinematic>
+
+            <RevealOnScroll>
+              <p className="mt-12 text-center text-sm text-[#95969a]">{PRODUCTS_FOOTNOTE}</p>
+            </RevealOnScroll>
           </div>
         </section>
       )}

@@ -1,5 +1,18 @@
-'use client';
-
+/*
+ * Deliberately NOT a client component.
+ *
+ * The CSS below used to live here in a styled-jsx block, which was the only
+ * thing forcing a client boundary — there is no state, no effect and no
+ * handler in this file. styled-jsx also injects its CSS from JavaScript at
+ * runtime: those rules appeared in neither the server HTML nor the
+ * stylesheet, so on a cold load the wall rendered with its class names and
+ * nothing behind them — no overflow, no flex row, no track width, no
+ * animation — until hydration landed and snapped it into place. That was the
+ * broken-looking strip visitors saw while the page was still loading.
+ *
+ * The rules now live in globals.css, so they arrive with the stylesheet and
+ * the wall is correct in the very first painted frame.
+ */
 import React from 'react';
 import Image from 'next/image';
 import { CLIENTS } from '@/data/company';
@@ -8,127 +21,12 @@ import { CLIENTS } from '@/data/company';
  * Trusted-partner logo wall.
  *
  * The track holds the list twice and translates by exactly half its width, so
- * the loop is seamless without measuring anything. Logos are flattened to a
- * single dark silhouette and only reach full strength on hover — a wall of
- * competing brand colours would fight the page.
+ * the loop is seamless without measuring anything. Each logo keeps its own
+ * colours and lifts slightly on hover.
  */
 export const PartnerMarquee: React.FC = () => {
   return (
     <section className="border-y border-[#053446]/5 bg-[#fcfcfa] py-10">
-      <style jsx global>{`
-        @keyframes partner-scroll {
-          0% {
-            transform: translate3d(0, 0, 0);
-          }
-          100% {
-            transform: translate3d(-50%, 0, 0);
-          }
-        }
-
-        .partner-viewport {
-          position: relative;
-          width: 100%;
-          overflow: hidden;
-          white-space: nowrap;
-        }
-
-        .partner-track {
-          display: inline-flex;
-          width: max-content;
-          animation: partner-scroll 52s linear infinite;
-          will-change: transform;
-          backface-visibility: hidden;
-        }
-
-        .partner-viewport:hover .partner-track {
-          animation-play-state: paused;
-        }
-
-        /* No translate3d hint here. The track above is a single animated
-           layer and the items never move relative to it, so promoting all 52
-           of them only cost WebKit 52 textures it had to keep at 3x DPR. */
-        .partner-item {
-          flex-shrink: 0;
-          padding: 0 2rem;
-        }
-
-        /* No filter: each logo keeps its own colours. The fade and the hover
-           scale are unchanged. */
-        .partner-logo {
-          opacity: 0.9;
-          transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .partner-item:hover .partner-logo {
-          opacity: 1;
-          transform: scale(1.08);
-        }
-
-        /* Antrick's supplied logo is a tall stacked mark. Its original
-           emblem and wordmark are shown as compact slices so it aligns with
-           the rest of the carousel without losing the brand name. */
-        .antrick-lockup {
-          display: flex;
-          width: 92px;
-          flex-direction: column;
-          align-items: center;
-          line-height: 0;
-        }
-
-        .antrick-emblem-crop {
-          width: 62px;
-          height: 38px;
-          overflow: hidden;
-        }
-
-        .antrick-wordmark-crop {
-          width: 92px;
-          height: 11px;
-          margin-top: 1px;
-          overflow: hidden;
-        }
-
-        .antrick-slice {
-          display: block;
-          max-width: none;
-          opacity: 0.9;
-          transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .antrick-emblem-slice {
-          width: 62px;
-          height: 49px;
-        }
-
-        .antrick-wordmark-slice {
-          width: 92px;
-          height: 72px;
-          transform: translateY(-57px);
-        }
-
-        .partner-item:hover .antrick-slice {
-          opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-          .partner-track {
-            animation-duration: 38s;
-          }
-          /* A finger resting on the strip should not stop it. */
-          .partner-viewport:hover .partner-track {
-            animation-play-state: running;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .partner-viewport {
-            overflow-x: auto;
-          }
-          .partner-track {
-            animation: none;
-          }
-        }
-      `}</style>
 
       <p className="mb-5 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#053446]/70">
         Trusted Partners

@@ -20,6 +20,22 @@ const nextConfig = {
   async headers() {
     return [
       {
+        // Lets a returning visitor skip the http -> https hop entirely.
+        // Typing "mysmart.mu" currently costs two 302s before anything paints
+        // -- about 2.4s on a warm cache and more on mobile -- because each hop
+        // needs its own TCP and TLS handshake. This removes one of them for
+        // anyone who has been here before. Collapsing the remaining apex ->
+        // www hop, and making it a cacheable 301 instead of a 302, has to be
+        // done in the host's domain settings; it is not expressible here.
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000',
+          },
+        ],
+      },
+      {
         source: '/images/:path*',
         headers: [
           {

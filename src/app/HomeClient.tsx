@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { RevealOnScroll } from '@/components/RevealOnScroll';
 import { PartnerMarquee } from '@/components/PartnerMarquee';
-import { HeroDive } from '@/components/HeroDive';
+import { ProductDive } from '@/components/ProductDive';
 import { StickyShowcase } from '@/components/StickyShowcase';
 import { Cinematic, TiltCard, Magnetic, TextReveal, CountUp, Parallax } from '@/components/motion';
 import { PLATFORMS, SUITE, STATUS } from '@/data/products';
@@ -146,12 +146,8 @@ const HomeClient: React.FC = () => {
         </RevealOnScroll>
       </section>
 
-      {/* ─── 2. THE DIVE ─────────────────────────────────────────────────
-          The mark rises out of the hero, the camera flies through its hexagon,
-          and the partner wall is what waits on the other side. */}
-      <HeroDive>
-        <PartnerMarquee />
-      </HeroDive>
+      {/* ─── 2. TRUSTED PARTNERS ─────────────────────────────────────────── */}
+      <PartnerMarquee />
 
       {/* ─── 3. WHAT WE DO ───────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[#053446] py-32">
@@ -334,6 +330,10 @@ const HomeClient: React.FC = () => {
           </RevealOnScroll>
 
         </div>
+
+        {/* A short product-specific transition, kept separate from the pin.
+            Sticky cards require an unclipped ancestor in order to pin. */}
+        <ProductDive product={rest[0]} />
 
         {/* The section pins here and the scroll walks one product at a time,
             then releases. Full-bleed, because a pinned frame that is narrower

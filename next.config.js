@@ -2,7 +2,12 @@
 const nextConfig = {
   poweredByHeader: false,
   images: {
-    formats: ['image/avif', 'image/webp'],
+    // WebP only, deliberately. AVIF buys this site nothing: across ten of the
+    // partner logos it came to 55KB versus 53KB for WebP, and several were
+    // larger. On Apple devices the AVIF decoder is software-only and markedly
+    // slower than WebP, so serving it meant 39 slow decodes per page load on
+    // exactly the hardware that was struggling.
+    formats: ['image/webp'],
     minimumCacheTTL: 31536000,
     remotePatterns: [
       {

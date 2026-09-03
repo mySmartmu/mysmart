@@ -13,36 +13,53 @@ interface Props {
  * Reveal a block as it enters the viewport: a slight upward float, a soft zoom
  * and a blur that resolves.
  *
- * ── WHY THE `filter` IS HANDLED SEPARATELY FROM THE REST ────────────────────
+ * ── WHY THE BLUR IS ARMED LATE AND DROPPED EARLY ────────────────────────────
  *
- * Blink runs a `filter` transition on the compositor. WebKit does not — it
- * re-rasterises the element on every frame for the whole second. With a dozen
- * of these per page, all firing while the user scrolls, that was the single
- * most expensive thing on the site in Safari.
+ * Blink runs a `filter` transition on the compositor. WebKit does not, and it
+ * pays for a filter on every frame the element is composited — not only while
+ * the value is moving. Measured in a real WebKit build, the twenty-nine blocks
+ * sitting below the fold pre-blurred at `blur(3px)`, waiting their turn, were
+ * about 15% of the page's entire blur surface and they were being carried the
+ * whole way down the scroll.
  *
- * Two things fix it without touching how the reveal looks:
+ * So the blur exists only for the stretch where it is actually needed:
  *
- * 1. **`will-change` names `filter`, and only while the blur is actually
- *    moving.** The old version hinted `transform` — which is compositor-safe
- *    with or without the hint — but never `filter`, which is the one WebKit
- *    needs warning about. It then left the hint in place for the life of the
- *    page, pinning one compositing layer per reveal.
+ *   far away   filter: none, transitions off  — costs nothing to scroll past
+ *   armed      filter: blur(3px), applied with transitions off so it does not
+ *              animate into place; the block is still at opacity 0 here, so
+ *              there is nothing to see either way
+ *   revealing  transitions on, blur -> 0 alongside opacity and transform
+ *   settled    filter: none, hint released
  *
- * 2. **The filter is dropped to `none` once the reveal has landed.**
- *    `blur(0)` is still a filter: the offscreen surface stays allocated and
- *    the element stays on its own layer. `none` releases both. Identical
- *    pixels, and the cost disappears about a second after the block appears.
+ * Arming happens 400px out, which at any normal scroll speed is comfortably
+ * before the reveal trigger, so the animation itself is unchanged.
  *
- * The transition itself stays `transition-all`, because callers pass their own
- * hover transitions down through `className` and narrowing it here would
- * silently kill those.
+ * `transition-all` is deliberately left on once armed: callers pass their own
+ * hover transitions down through `className` and narrowing it would silently
+ * kill those.
  */
 export const RevealOnScroll: React.FC<Props> = ({ children, delay = 0, className = '', initiallyVisible = false }) => {
+  const [armed, setArmed] = useState(initiallyVisible);
   const [isVisible, setIsVisible] = useState(initiallyVisible);
-  // True once the reveal has finished, so the blur surface and the layer hint
-  // can both be released.
   const [settled, setSettled] = useState(initiallyVisible);
   const ref = useRef<HTMLDivElement>(null);
+
+  // Arm well before the reveal, so the blur is in place by the time it runs.
+  useEffect(() => {
+    if (initiallyVisible) return;
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setArmed(true);
+        observer.disconnect();
+      },
+      { rootMargin: '400px 0px 400px 0px', threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [initiallyVisible]);
 
   useEffect(() => {
     if (initiallyVisible) {
@@ -84,10 +101,12 @@ export const RevealOnScroll: React.FC<Props> = ({ children, delay = 0, className
 
   const style: React.CSSProperties = {
     transitionDelay: `${delay}s`,
-    // Name the expensive property while it moves, then stop paying for it.
-    willChange: settled ? undefined : 'opacity, transform, filter',
-    // `blur(0)` keeps an offscreen surface alive; `none` hands it back.
-    filter: settled ? 'none' : undefined,
+    // Off until armed, so arming does not animate. Restored afterwards rather
+    // than cleared, because callers' hover transitions ride on the same
+    // declaration.
+    transitionProperty: armed ? undefined : 'none',
+    willChange: armed && !settled ? 'opacity, transform, filter' : undefined,
+    filter: settled || !armed ? 'none' : isVisible ? 'blur(0px)' : 'blur(3px)',
   };
 
   return (
@@ -96,10 +115,9 @@ export const RevealOnScroll: React.FC<Props> = ({ children, delay = 0, className
       style={style}
       // Gentle rise + focus reveal: slight upward float, soft zoom, and a blur
       // that resolves as the element enters — subtler scale keeps it elegant.
+      // The blur itself is driven from `style` above, not from a class.
       className={`transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] transform ${
-        isVisible
-          ? 'opacity-100 translate-y-0 scale-100 blur-0'
-          : 'opacity-0 translate-y-8 scale-[0.96] blur-[3px]'
+        isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-[0.96]'
       } ${className}`}
     >
       {children}

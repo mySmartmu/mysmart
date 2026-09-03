@@ -14,6 +14,10 @@ interface Node {
   radius: number;
 }
 
+interface Props {
+  tone?: 'light' | 'dark';
+}
+
 const createNodes = (width: number, height: number, mobile: boolean): Node[] => {
   const count = mobile ? 18 : 38;
 
@@ -40,7 +44,7 @@ const createNodes = (width: number, height: number, mobile: boolean): Node[] => 
  * ratio and fewer than forty nodes, so it remains a decorative layer rather
  * than a competing animation or a performance cost.
  */
-export const NetworkBackdrop: React.FC = () => {
+export const NetworkBackdrop: React.FC<Props> = ({ tone = 'light' }) => {
   const canvas = useRef<HTMLCanvasElement>(null);
   const reduced = useReducedMotion();
 
@@ -106,7 +110,10 @@ export const NetworkBackdrop: React.FC = () => {
           context.beginPath();
           context.moveTo(a.x, a.y);
           context.lineTo(b.x, b.y);
-          context.strokeStyle = `rgba(5, 52, 70, ${0.22 * strength})`;
+          context.strokeStyle =
+            tone === 'dark'
+              ? `rgba(210, 239, 250, ${0.2 * strength})`
+              : `rgba(5, 52, 70, ${0.22 * strength})`;
           context.lineWidth = strength > 0.65 ? 1 : 0.65;
           context.stroke();
         }
@@ -115,7 +122,12 @@ export const NetworkBackdrop: React.FC = () => {
       for (const node of nodes) {
         context.beginPath();
         context.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        context.fillStyle = node.radius > 1.2 ? 'rgba(113, 207, 243, 0.94)' : 'rgba(5, 52, 70, 0.46)';
+        context.fillStyle =
+          node.radius > 1.2
+            ? 'rgba(113, 207, 243, 0.94)'
+            : tone === 'dark'
+              ? 'rgba(220, 243, 250, 0.48)'
+              : 'rgba(5, 52, 70, 0.46)';
         context.fill();
       }
 
@@ -148,13 +160,13 @@ export const NetworkBackdrop: React.FC = () => {
       visibilityObserver.disconnect();
       cancelAnimationFrame(frame);
     };
-  }, [reduced]);
+  }, [reduced, tone]);
 
   return (
     <canvas
       ref={canvas}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-90"
+      className={`pointer-events-none absolute inset-0 -z-10 h-full w-full ${tone === 'dark' ? 'opacity-70' : 'opacity-90'}`}
     />
   );
 };

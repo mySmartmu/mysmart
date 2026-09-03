@@ -61,19 +61,6 @@ const HomeClient: React.FC = () => {
         <NetworkBackdrop />
         <div className="animate-glow absolute left-1/2 top-0 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#71cff3]/10 blur-[120px]" />
 
-        <div
-          className="absolute right-[18%] top-[28%] -z-10 h-3 w-3 rounded-full bg-[#71cff3] shadow-[0_0_14px_rgba(113,207,243,0.5)]"
-          style={{ animation: 'pulse-dot 3s ease-in-out infinite' }}
-        />
-        <div
-          className="absolute bottom-[26%] left-[12%] -z-10 h-2 w-2 rounded-full bg-[#71cff3]/70 shadow-[0_0_10px_rgba(113,207,243,0.4)]"
-          style={{ animation: 'pulse-dot 4s ease-in-out infinite 1s' }}
-        />
-        <div
-          className="absolute left-[34%] top-[20%] -z-10 h-2 w-2 rounded-full bg-[#053446]/30"
-          style={{ animation: 'pulse-dot 3.5s ease-in-out infinite 0.5s' }}
-        />
-
         <RevealOnScroll delay={0.05} initiallyVisible>
           <span className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#053446]/10 bg-white px-4 py-2 text-xs font-semibold tracking-wide text-[#053446] shadow-sm">
             <span className="relative flex h-2 w-2">

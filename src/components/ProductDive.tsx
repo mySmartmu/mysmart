@@ -2,13 +2,13 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import mySmartLogo from '../../mySmart_logoS.png';
 import { clamp, mix, subscribe, useReducedMotion } from '@/components/motion';
 import { type Platform } from '@/data/products';
 
 interface Props {
   /** The first frozen card shown immediately after the transition. */
   product: Platform;
+  lead: string;
 }
 
 const HEX = [
@@ -34,11 +34,11 @@ const ease = (value: number) =>
  * animation. The final product preview is therefore a visual landing point;
  * the real frozen card takes over on the next scroll step.
  */
-export const ProductDive: React.FC<Props> = ({ product }) => {
+export const ProductDive: React.FC<Props> = ({ product, lead }) => {
   const host = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLDivElement>(null);
   const aperture = useRef<HTMLDivElement>(null);
-  const mark = useRef<HTMLDivElement>(null);
+  const intro = useRef<HTMLDivElement>(null);
   const preview = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
   const reduced = useReducedMotion();
@@ -76,14 +76,14 @@ export const ProductDive: React.FC<Props> = ({ product }) => {
     const render = (progress: number) => {
       const entered = ease(clamp((progress - 0.06) / 0.78));
       const radius = mix(54, endRadius, entered);
-      const markExit = clamp((entered - 0.12) / 0.38);
+      const introExit = clamp((entered - 0.18) / 0.42);
 
       if (aperture.current) {
         aperture.current.style.clipPath = hexClip(centreX, centreY, radius);
       }
-      if (mark.current) {
-        mark.current.style.opacity = (1 - markExit).toFixed(3);
-        mark.current.style.transform = `translate3d(0, 0, 0) scale(${mix(0.72, 4.4, entered).toFixed(3)})`;
+      if (intro.current) {
+        intro.current.style.opacity = (1 - introExit).toFixed(3);
+        intro.current.style.transform = `translate3d(0, 0, 0) scale(${mix(1, 2.05, entered).toFixed(3)})`;
       }
       if (preview.current) {
         preview.current.style.opacity = mix(0.7, 1, entered).toFixed(3);
@@ -100,7 +100,7 @@ export const ProductDive: React.FC<Props> = ({ product }) => {
   if (reduced) return null;
 
   return (
-    <div ref={host} className="relative -mx-6" style={{ height: '155svh' }}>
+    <div ref={host} className="relative -mx-6" style={{ height: '180svh' }}>
       <div ref={frame} className="sticky top-0 h-[100svh] overflow-hidden bg-[#f7fbfc]">
         <div
           ref={aperture}
@@ -143,19 +143,22 @@ export const ProductDive: React.FC<Props> = ({ product }) => {
           </div>
         </div>
 
-        {/* The supplied mark is the only logo used by the dive. */}
+        {/* The section heading is the entry image: it is what the viewer
+            moves through before the frozen product card takes over. */}
         <div
-          ref={mark}
-          aria-hidden="true"
+          ref={intro}
           className="pointer-events-none absolute inset-0 flex items-center justify-center will-change-transform"
-          style={{ opacity: 1, transform: 'translate3d(0, 0, 0) scale(0.72)' }}
+          style={{ opacity: 1, transform: 'translate3d(0, 0, 0) scale(1)' }}
         >
-          <Image
-            src={mySmartLogo}
-            alt=""
-            sizes="(max-width: 768px) 96px, 128px"
-            className="h-24 w-auto md:h-32"
-          />
+          <div className="max-w-3xl px-6 text-center">
+            <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
+              Product Ecosystem
+            </p>
+            <h2 className="mb-6 text-4xl font-bold text-[#053446] md:text-6xl">
+              Products and platforms
+            </h2>
+            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-[#95969a] md:text-xl">{lead}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -315,25 +315,10 @@ const HomeClient: React.FC = () => {
       </section>
 
       {/* ─── 5. THE PORTFOLIO ────────────────────────────────────────────── */}
-      <section className="px-6 py-32">
-        <div className="mx-auto max-w-7xl">
-          <RevealOnScroll>
-            <div className="mb-16 text-center">
-              <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
-                Product Ecosystem
-              </p>
-              <h2 className="mb-6 text-4xl font-bold text-[#053446] md:text-5xl">
-                Products and platforms
-              </h2>
-              <p className="mx-auto max-w-2xl text-[#95969a]">{PRODUCTS_LEAD}</p>
-            </div>
-          </RevealOnScroll>
-
-        </div>
-
-        {/* A short product-specific transition, kept separate from the pin.
-            Sticky cards require an unclipped ancestor in order to pin. */}
-        <ProductDive product={rest[0]} />
+      <section className="px-6 pb-32">
+        {/* The heading is the entry scene: it zooms into the first product,
+            then the independently pinned card sequence takes over. */}
+        <ProductDive product={rest[0]} lead={PRODUCTS_LEAD} />
 
         {/* The section pins here and the scroll walks one product at a time,
             then releases. Full-bleed, because a pinned frame that is narrower

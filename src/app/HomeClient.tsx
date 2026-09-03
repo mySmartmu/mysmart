@@ -18,6 +18,7 @@ import {
   Cpu,
 } from 'lucide-react';
 import { RevealOnScroll } from '@/components/RevealOnScroll';
+import { NetworkBackdrop } from '@/components/NetworkBackdrop';
 import { PartnerMarquee } from '@/components/PartnerMarquee';
 import { ProductDive } from '@/components/ProductDive';
 import { StickyShowcase } from '@/components/StickyShowcase';
@@ -56,7 +57,8 @@ const HomeClient: React.FC = () => {
     <div className="overflow-x-clip bg-[#fcfcfa] pb-0 pt-24">
 
       {/* ─── 1. HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative mb-4 flex min-h-[58vh] max-w-7xl flex-col items-center justify-center px-6 pb-8 text-center mx-auto">
+      <section className="relative isolate mx-auto mb-4 flex min-h-[58vh] max-w-7xl flex-col items-center justify-center px-6 pb-8 text-center">
+        <NetworkBackdrop />
         <div className="animate-glow absolute left-1/2 top-0 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#71cff3]/10 blur-[120px]" />
 
         {/* Floating accents drift against the scroll */}

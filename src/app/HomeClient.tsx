@@ -22,7 +22,7 @@ import { NetworkBackdrop } from '@/components/NetworkBackdrop';
 import { PartnerMarquee } from '@/components/PartnerMarquee';
 import { ProductDive } from '@/components/ProductDive';
 import { StickyShowcase } from '@/components/StickyShowcase';
-import { Cinematic, TiltCard, Magnetic, TextReveal, CountUp, Parallax } from '@/components/motion';
+import { Cinematic, TiltCard, Magnetic, TextReveal, CountUp } from '@/components/motion';
 import { PLATFORMS, SUITE, STATUS } from '@/data/products';
 import {
   POSITIONING,
@@ -60,28 +60,6 @@ const HomeClient: React.FC = () => {
       <section className="relative isolate mx-auto mb-4 flex min-h-[58vh] max-w-7xl flex-col items-center justify-center px-6 pb-8 text-center">
         <NetworkBackdrop />
         <div className="animate-glow absolute left-1/2 top-0 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#71cff3]/10 blur-[120px]" />
-
-        {/* Floating accents drift against the scroll */}
-        <Parallax speed={40} className="pointer-events-none absolute inset-0 -z-10 hidden md:block">
-          <div
-            className="absolute left-[7%] top-[16%]"
-            style={{ animation: 'float-soft 7s ease-in-out infinite' }}
-          >
-            <div className="h-16 w-16 rotate-12 rounded-[20px] border border-[#71cff3]/20 bg-gradient-to-br from-[#71cff3]/25 to-[#71cff3]/5 shadow-lg" />
-          </div>
-          <div
-            className="absolute right-[8%] top-[58%]"
-            style={{ animation: 'float-soft 9s ease-in-out infinite reverse' }}
-          >
-            <div className="h-20 w-20 rounded-full bg-gradient-to-tr from-[#053446]/10 to-[#71cff3]/20 shadow-lg" />
-          </div>
-          <div
-            className="absolute bottom-[14%] left-[16%]"
-            style={{ animation: 'float-soft 8s ease-in-out infinite' }}
-          >
-            <div className="h-10 w-10 -rotate-12 rounded-[12px] border border-[#053446]/10 bg-gradient-to-bl from-[#053446]/15 to-[#71cff3]/10 shadow-md" />
-          </div>
-        </Parallax>
 
         <div
           className="absolute right-[18%] top-[28%] -z-10 h-3 w-3 rounded-full bg-[#71cff3] shadow-[0_0_14px_rgba(113,207,243,0.5)]"

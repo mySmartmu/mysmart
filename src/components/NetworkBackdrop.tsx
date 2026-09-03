@@ -106,8 +106,8 @@ export const NetworkBackdrop: React.FC = () => {
           context.beginPath();
           context.moveTo(a.x, a.y);
           context.lineTo(b.x, b.y);
-          context.strokeStyle = `rgba(5, 52, 70, ${0.13 * strength})`;
-          context.lineWidth = strength > 0.65 ? 0.85 : 0.55;
+          context.strokeStyle = `rgba(5, 52, 70, ${0.22 * strength})`;
+          context.lineWidth = strength > 0.65 ? 1 : 0.65;
           context.stroke();
         }
       }
@@ -115,7 +115,7 @@ export const NetworkBackdrop: React.FC = () => {
       for (const node of nodes) {
         context.beginPath();
         context.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        context.fillStyle = node.radius > 1.2 ? 'rgba(113, 207, 243, 0.78)' : 'rgba(5, 52, 70, 0.32)';
+        context.fillStyle = node.radius > 1.2 ? 'rgba(113, 207, 243, 0.94)' : 'rgba(5, 52, 70, 0.46)';
         context.fill();
       }
 
@@ -154,7 +154,7 @@ export const NetworkBackdrop: React.FC = () => {
     <canvas
       ref={canvas}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-80"
+      className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-90"
     />
   );
 };

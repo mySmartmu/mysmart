@@ -214,16 +214,16 @@ export interface ClientLogo {
 /** Trusted partners, as shown in the home-page marquee. */
 export const CLIENTS: ClientLogo[] = [
   { logo: 'Sensoria-v1.png', name: 'Sensoria', showName: false, width: 230, height: 68 },
-  { logo: 'acropolis-v1.png', name: 'Acropolis Training Institution', showName: true, width: 96, height: 96 },
+  { logo: 'acropolis-v2.png', name: 'Acropolis Training Institution', showName: true, width: 144, height: 144 },
   { logo: 'Toolmaster-v1.png', name: 'Toolmaster', showName: false, width: 202, height: 96 },
-  { logo: 'pooltec-v1.png', name: 'Pooltec', showName: false, width: 133, height: 96 },
+  { logo: 'pooltec-v2.png', name: 'Pooltec', showName: false, width: 195, height: 144 },
   { logo: 'speedlink-v1.png', name: 'SpeedLink', showName: true, width: 83, height: 91 },
   { logo: 'RAIS-v1.png', name: 'Rais Enterprises', showName: true, width: 146, height: 96 },
   { logo: 'antrick-v1.png', name: 'Antrick Global', showName: false, width: 214, height: 168, variant: 'stacked-wordmark' },
-  { logo: 'Chocoshe-v1.png', name: "Choco'She", showName: true, width: 116, height: 96 },
+  { logo: 'Chocoshe-v2.png', name: "Choco'She", showName: true, width: 155, height: 144 },
   { logo: 'ACE-v1.png', name: 'Aux Champs Elysées', showName: true, width: 132, height: 96 },
   { logo: 'adonis-v1.png', name: 'Adonis Management Consulting', showName: true, width: 107, height: 96 },
-  { logo: 'frotcom-v1.png', name: 'Frotcom Indian Ocean', showName: true, width: 119, height: 96 },
-  { logo: 'ninety_six_logo-v1.png', name: 'Ninety-Six', showName: false, width: 435, height: 96, heightClass: 'h-11' },
-  { logo: 'AVINYA_logo-v1.png', name: 'Avinya', showName: false, width: 153, height: 96, heightClass: 'h-12' },
+  { logo: 'frotcom-v2.png', name: 'Frotcom Indian Ocean', showName: true, width: 144, height: 144 },
+  { logo: 'ninety_six_logo-v2.png', name: 'Ninety-Six', showName: false, width: 205, height: 66, heightClass: 'h-11' },
+  { logo: 'AVINYA_logo-v2.png', name: 'Avinya', showName: false, width: 230, height: 144, heightClass: 'h-12' },
 ];

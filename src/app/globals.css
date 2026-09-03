@@ -7,13 +7,6 @@
   --smart-blue: #71cff3;
   --smart-gray: #95969a;
   --smart-white: #fcfcfa;
-  /* Partner-wall backdrop. Chosen so a white logo and a black logo are equally
-     legible on it: 4.57:1 against white, 4.59:1 against black, where the best
-     any single colour can do in both directions at once is 4.58:1. Hue 200.8,
-     within four degrees of --smart-dark, and its luminance sits midway between
-     --smart-dark and --smart-gray, so it reads as the brand navy lightened
-     rather than a new colour. */
-  --smart-slate: #5a7a8b;
 }
 
 @theme inline {
@@ -23,7 +16,6 @@
   --color-smart-blue: var(--smart-blue);
   --color-smart-gray: var(--smart-gray);
   --color-smart-white: var(--smart-white);
-  --color-smart-slate: var(--smart-slate);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

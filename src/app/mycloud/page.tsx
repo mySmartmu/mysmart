@@ -1,5 +1,17 @@
-'use client';
-
+/*
+ * Deliberately NOT a client component.
+ *
+ * Nothing in this file uses state, an effect or an event handler — it only
+ * composes components that do. With `'use client'` at the top, React had to
+ * ship and hydrate this entire tree in the browser: on the homepage that was
+ * ~900 elements and a single 2.2s main-thread task on a throttled phone,
+ * during which nothing on the page could be tapped.
+ *
+ * Without the directive this renders on the server and only the interactive
+ * leaves below (the reveals, the marquee, the canvas) hydrate. Everything
+ * passed to them as `children` stays server-rendered. No animation changes;
+ * they are the same components, mounted the same way.
+ */
 import React from 'react';
 import {
   Check,
@@ -304,21 +316,6 @@ const MyCloud: React.FC = () => {
         </div>
 
         {/* Hero animation keyframes */}
-        <style jsx>{`
-          @keyframes cloudFloat {
-            0%, 100% { transform: translateY(0px) rotate(var(--tw-rotate, 0deg)); }
-            50% { transform: translateY(-12px) rotate(var(--tw-rotate, 0deg)); }
-          }
-          @keyframes cloudMorph {
-            0%, 100% { border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%; }
-            33% { border-radius: 45% 55% 55% 45% / 50% 50% 45% 55%; }
-            66% { border-radius: 55% 45% 50% 50% / 45% 55% 50% 50%; }
-          }
-          @keyframes cloudPulse {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.4); }
-          }
-        `}</style>
       </section>
 
       {/* Features Section */}

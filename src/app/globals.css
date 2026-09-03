@@ -7,6 +7,13 @@
   --smart-blue: #71cff3;
   --smart-gray: #95969a;
   --smart-white: #fcfcfa;
+  /* Partner-wall backdrop. Chosen so a white logo and a black logo are equally
+     legible on it: 4.57:1 against white, 4.59:1 against black, where the best
+     any single colour can do in both directions at once is 4.58:1. Hue 200.8,
+     within four degrees of --smart-dark, and its luminance sits midway between
+     --smart-dark and --smart-gray, so it reads as the brand navy lightened
+     rather than a new colour. */
+  --smart-slate: #5a7a8b;
 }
 
 @theme inline {
@@ -16,6 +23,7 @@
   --color-smart-blue: var(--smart-blue);
   --color-smart-gray: var(--smart-gray);
   --color-smart-white: var(--smart-white);
+  --color-smart-slate: var(--smart-slate);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -168,6 +176,105 @@ body {
   transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 500ms ease, box-shadow 500ms ease, background-color 500ms ease;
   transform-style: preserve-3d;
+}
+
+/* ─── Decorative shape motion (solutions / mycloud) ───────────────────────
+   These lived in scoped `<style jsx>` blocks on their pages. styled-jsx
+   mangles keyframe names inside a scoped block, and the elements reference
+   them from inline `style={{ animation: '...' }}` attributes, which it cannot
+   rewrite — so the names never matched and none of these animations ran in
+   production. Global keyframes are what inline styles need, and it lets both
+   pages drop `'use client'`. */
+@keyframes solFloat {
+  0%, 100% { transform: translateY(0px) rotate(var(--tw-rotate, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--tw-rotate, 0deg)); }
+}
+@keyframes solMorph {
+  0%, 100% { border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%; }
+  33% { border-radius: 45% 55% 55% 45% / 50% 50% 45% 55%; }
+  66% { border-radius: 55% 45% 50% 50% / 45% 55% 50% 50%; }
+}
+@keyframes solPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+@keyframes cloudFloat {
+  0%, 100% { transform: translateY(0px) rotate(var(--tw-rotate, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--tw-rotate, 0deg)); }
+}
+@keyframes cloudMorph {
+  0%, 100% { border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%; }
+  33% { border-radius: 45% 55% 55% 45% / 50% 50% 45% 55%; }
+  66% { border-radius: 55% 45% 50% 50% / 45% 55% 50% 50%; }
+}
+@keyframes cloudPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+/* ─── Mobile menu ─────────────────────────────────────────────────────────
+   Open/closed is a data attribute on the <nav>, not React state.
+
+   The panel and every item are already in the server-rendered HTML; the only
+   thing the old version needed JavaScript for was flipping a boolean. But that
+   boolean lived in React, so the first tap did nothing at all until the whole
+   page had hydrated — measured at 5.2s on a throttled phone. A tap before then
+   was simply swallowed, which is exactly what "it doesn't open instantly"
+   feels like.
+
+   Driving it from `[data-menu='open']` instead means the CSS is live the
+   moment the stylesheet is parsed, and an eight-line delegated listener in the
+   document head flips the attribute. The menu now opens on the first tap,
+   whenever that tap happens.
+
+   Every duration, easing and stagger below is the same as before: 300ms
+   ease-out on the panel, 300ms on each item, 60ms between items, and the
+   stagger applies on the way open only. */
+.nav-panel {
+  opacity: 0;
+  translate: 0 -0.75rem;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 300ms ease-out, translate 300ms ease-out,
+    visibility 300ms ease-out;
+}
+nav[data-menu='open'] .nav-panel {
+  opacity: 1;
+  translate: 0 0;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.nav-item {
+  opacity: 0;
+  translate: -0.5rem 0;
+  transition: opacity 300ms, translate 300ms;
+  transition-delay: 0ms;
+}
+nav[data-menu='open'] .nav-item {
+  opacity: 1;
+  translate: 0 0;
+  /* Each item carries its own step as an inline custom property. */
+  transition-delay: var(--nav-delay, 0ms);
+}
+
+/* Both icons ship in the HTML so the swap needs no JavaScript either. */
+.nav-icon-close {
+  display: none;
+}
+nav[data-menu='open'] .nav-icon-open {
+  display: none;
+}
+nav[data-menu='open'] .nav-icon-close {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-panel,
+  .nav-item {
+    transition: none !important;
+    transition-delay: 0ms !important;
+  }
 }
 
 /* ─── Above-the-fold word reveal ──────────────────────────────────────────

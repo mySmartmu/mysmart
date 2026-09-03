@@ -1,5 +1,17 @@
-'use client';
-
+/*
+ * Deliberately NOT a client component.
+ *
+ * Nothing in this file uses state, an effect or an event handler — it only
+ * composes components that do. With `'use client'` at the top, React had to
+ * ship and hydrate this entire tree in the browser: on the homepage that was
+ * ~900 elements and a single 2.2s main-thread task on a throttled phone,
+ * during which nothing on the page could be tapped.
+ *
+ * Without the directive this renders on the server and only the interactive
+ * leaves below (the reveals, the marquee, the canvas) hydrate. Everything
+ * passed to them as `children` stays server-rendered. No animation changes;
+ * they are the same components, mounted the same way.
+ */
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';

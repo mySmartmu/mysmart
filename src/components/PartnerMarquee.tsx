@@ -14,7 +14,7 @@ import { CLIENTS } from '@/data/company';
  */
 export const PartnerMarquee: React.FC = () => {
   return (
-    <section className="border-y border-[#053446]/5 bg-[#fcfcfa] py-14">
+    <section className="border-y border-[#fcfcfa]/10 bg-smart-slate py-14">
       <style jsx global>{`
         @keyframes partner-scroll {
           0% {
@@ -52,9 +52,11 @@ export const PartnerMarquee: React.FC = () => {
           padding: 0 2rem;
         }
 
+        /* No filter. Each logo now shows its own colours against the slate
+           backdrop, which was picked to carry white and black marks equally.
+           The fade and the hover scale are unchanged. */
         .partner-logo {
-          filter: brightness(0);
-          opacity: 0.5;
+          opacity: 0.9;
           transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -90,8 +92,7 @@ export const PartnerMarquee: React.FC = () => {
         .antrick-slice {
           display: block;
           max-width: none;
-          filter: brightness(0);
-          opacity: 0.5;
+          opacity: 0.9;
           transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -130,13 +131,13 @@ export const PartnerMarquee: React.FC = () => {
         }
       `}</style>
 
-      <p className="mb-6 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#95969a]">
+      <p className="mb-6 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#fcfcfa]/80">
         Trusted Partners
       </p>
 
       <div className="relative">
-        <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-12 bg-gradient-to-r from-[#fcfcfa] via-[#fcfcfa] to-transparent md:w-32" />
-        <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-12 bg-gradient-to-l from-[#fcfcfa] via-[#fcfcfa] to-transparent md:w-32" />
+        <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-12 bg-gradient-to-r from-smart-slate via-smart-slate to-transparent md:w-32" />
+        <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-12 bg-gradient-to-l from-smart-slate via-smart-slate to-transparent md:w-32" />
 
         <div className="partner-viewport">
           <div className="partner-track">
@@ -194,7 +195,7 @@ export const PartnerMarquee: React.FC = () => {
                       />
                     )}
                     {client.showName && (
-                      <span className="whitespace-nowrap text-base font-semibold tracking-wide text-[#053446]/55 transition-colors duration-300 group-hover:text-[#053446] md:text-lg">
+                      <span className="whitespace-nowrap text-base font-semibold tracking-wide text-[#fcfcfa]/75 transition-colors duration-300 group-hover:text-[#fcfcfa] md:text-lg">
                         {client.name}
                       </span>
                     )}

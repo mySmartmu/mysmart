@@ -77,7 +77,7 @@ const HomeClient: React.FC = () => {
 
 {/* 2. TRUSTED BY */}
 <section className="py-14 border-y border-[#053446]/5 bg-[#fcfcfa]">
-  <style jsx>{`
+  <style jsx global>{`
     @keyframes marquee-scroll-desktop {
       0% {
         transform: translate3d(0, 0, 0);

@@ -5,541 +5,599 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   ArrowRight,
+  ArrowUpRight,
   Code,
   Server,
-  FileDigit,
-  Zap,
-  Layers,
   Globe,
+  Zap,
+  Sparkles,
   ShieldCheck,
-  Users,
-  Cloud
+  Cloud,
+  Lock,
+  Gauge,
+  Cpu,
 } from 'lucide-react';
 import { RevealOnScroll } from '@/components/RevealOnScroll';
+import { PartnerMarquee } from '@/components/PartnerMarquee';
+import { PlatformCard } from '@/components/PlatformCard';
+import { Cinematic, TiltCard, Magnetic, TextReveal, CountUp, Parallax } from '@/components/motion';
+import { PLATFORMS, SUITE, STATUS } from '@/data/products';
+import {
+  POSITIONING,
+  STATS,
+  CAPABILITIES,
+  PROCESS,
+  REASONS,
+  INFRASTRUCTURE,
+  CERTIFICATIONS,
+} from '@/data/company';
+
+const capabilityIcons = {
+  code: Code,
+  sparkles: Sparkles,
+  zap: Zap,
+  server: Server,
+  globe: Globe,
+} as const;
+
+const infraIcons = [ShieldCheck, Gauge, Lock, Cpu];
+
+const otto = PLATFORMS.find((p) => p.flagship)!;
+const rest = PLATFORMS.filter((p) => !p.flagship);
 
 const HomeClient: React.FC = () => {
   return (
-    <div className="pt-24 pb-0 overflow-hidden bg-[#fcfcfa]">
+    <div className="overflow-hidden bg-[#fcfcfa] pb-0 pt-24">
 
-      {/* 1. HERO SECTION */}
-      <section className="relative px-6 max-w-7xl mx-auto min-h-[70vh] flex flex-col justify-center items-center text-center mb-12">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#71cff3]/10 rounded-full blur-[120px] -z-10 animate-glow" />
+      {/* ─── 1. HERO ─────────────────────────────────────────────────────── */}
+      <section className="relative mb-12 flex min-h-[76vh] max-w-7xl flex-col items-center justify-center px-6 text-center mx-auto">
+        <div className="animate-glow absolute left-1/2 top-0 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#71cff3]/10 blur-[120px]" />
 
-        {/* Floating decorative accents */}
-        <div className="hidden md:block absolute top-[16%] left-[7%] -z-10" style={{ animation: 'float-soft 7s ease-in-out infinite' }}>
-          <div className="w-16 h-16 rounded-[20px] bg-gradient-to-br from-[#71cff3]/25 to-[#71cff3]/5 border border-[#71cff3]/20 rotate-12 shadow-lg" />
-        </div>
-        <div className="hidden md:block absolute top-[58%] right-[8%] -z-10" style={{ animation: 'float-soft 9s ease-in-out infinite reverse' }}>
-          <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-[#053446]/10 to-[#71cff3]/20 shadow-lg" />
-        </div>
-        <div className="hidden md:block absolute bottom-[14%] left-[16%] -z-10" style={{ animation: 'float-soft 8s ease-in-out infinite' }}>
-          <div className="w-10 h-10 rounded-[12px] bg-gradient-to-bl from-[#053446]/15 to-[#71cff3]/10 border border-[#053446]/10 -rotate-12 shadow-md" />
-        </div>
-        <div className="absolute top-[28%] right-[18%] w-3 h-3 rounded-full bg-[#71cff3] shadow-[0_0_14px_rgba(113,207,243,0.5)] -z-10" style={{ animation: 'pulse-dot 3s ease-in-out infinite' }} />
-        <div className="absolute bottom-[26%] left-[12%] w-2 h-2 rounded-full bg-[#71cff3]/70 shadow-[0_0_10px_rgba(113,207,243,0.4)] -z-10" style={{ animation: 'pulse-dot 4s ease-in-out infinite 1s' }} />
-        <div className="absolute top-[20%] left-[34%] w-2 h-2 rounded-full bg-[#053446]/30 -z-10" style={{ animation: 'pulse-dot 3.5s ease-in-out infinite 0.5s' }} />
+        {/* Floating accents drift against the scroll */}
+        <Parallax speed={40} className="pointer-events-none absolute inset-0 -z-10 hidden md:block">
+          <div
+            className="absolute left-[7%] top-[16%]"
+            style={{ animation: 'float-soft 7s ease-in-out infinite' }}
+          >
+            <div className="h-16 w-16 rotate-12 rounded-[20px] border border-[#71cff3]/20 bg-gradient-to-br from-[#71cff3]/25 to-[#71cff3]/5 shadow-lg" />
+          </div>
+          <div
+            className="absolute right-[8%] top-[58%]"
+            style={{ animation: 'float-soft 9s ease-in-out infinite reverse' }}
+          >
+            <div className="h-20 w-20 rounded-full bg-gradient-to-tr from-[#053446]/10 to-[#71cff3]/20 shadow-lg" />
+          </div>
+          <div
+            className="absolute bottom-[14%] left-[16%]"
+            style={{ animation: 'float-soft 8s ease-in-out infinite' }}
+          >
+            <div className="h-10 w-10 -rotate-12 rounded-[12px] border border-[#053446]/10 bg-gradient-to-bl from-[#053446]/15 to-[#71cff3]/10 shadow-md" />
+          </div>
+        </Parallax>
 
-        <RevealOnScroll delay={0.1} initiallyVisible>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-[#053446] tracking-tight mb-8 leading-[1.1]">
-            Simplifying and Streamlining <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] animate-gradient-text">
-              with Smart Technology.
+        <div
+          className="absolute right-[18%] top-[28%] -z-10 h-3 w-3 rounded-full bg-[#71cff3] shadow-[0_0_14px_rgba(113,207,243,0.5)]"
+          style={{ animation: 'pulse-dot 3s ease-in-out infinite' }}
+        />
+        <div
+          className="absolute bottom-[26%] left-[12%] -z-10 h-2 w-2 rounded-full bg-[#71cff3]/70 shadow-[0_0_10px_rgba(113,207,243,0.4)]"
+          style={{ animation: 'pulse-dot 4s ease-in-out infinite 1s' }}
+        />
+        <div
+          className="absolute left-[34%] top-[20%] -z-10 h-2 w-2 rounded-full bg-[#053446]/30"
+          style={{ animation: 'pulse-dot 3.5s ease-in-out infinite 0.5s' }}
+        />
+
+        <RevealOnScroll delay={0.05} initiallyVisible>
+          <span className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#053446]/10 bg-white px-4 py-2 text-xs font-semibold tracking-wide text-[#053446] shadow-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#71cff3] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#71cff3]" />
             </span>
-          </h1>
+            Built, hosted and supported in Mauritius
+          </span>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.2} initiallyVisible>
-          <p className="text-xl text-[#95969a] max-w-2xl mx-auto mb-10">
-            We transition businesses from manual processes to efficient digital systems, helping you adapt and thrive in the digital age.
+        <h1 className="mb-8 text-5xl font-extrabold leading-[1.05] tracking-tight text-[#053446] md:text-8xl">
+          <TextReveal as="span" text="Smart Technology." className="block" />
+          <TextReveal
+            as="span"
+            text="Made Simple."
+            delay={0.28}
+            gradient
+            className="animate-gradient-text block bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] bg-clip-text text-transparent"
+          />
+        </h1>
+
+        <RevealOnScroll delay={0.45} initiallyVisible>
+          <p className="mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-[#95969a]">
+            {POSITIONING}
           </p>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.3} initiallyVisible>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              href="/contact"
-              prefetch={false}
-              className="group sheen px-8 py-4 bg-[#053446] text-white rounded-full font-semibold hover:bg-[#053446]/90 transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#053446]/20 active:scale-95 flex items-center justify-center gap-2"
-            >
-              Free Consultation
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/products"
-              prefetch={false}
-              className="px-8 py-4 bg-white border border-[#95969a]/20 text-[#053446] rounded-full font-semibold hover:bg-[#fcfcfa] hover:border-[#71cff3]/40 transition-all hover:scale-105 active:scale-95"
-            >
-              View Services
-            </Link>
+        <RevealOnScroll delay={0.55} initiallyVisible>
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Magnetic strength={7}>
+              <Link
+                href="/contact"
+                prefetch={false}
+                className="sheen group flex items-center justify-center gap-2 rounded-full bg-[#053446] px-8 py-4 font-semibold text-white transition-all hover:bg-[#053446]/90 hover:shadow-lg hover:shadow-[#053446]/20 active:scale-95"
+              >
+                Free Consultation
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Magnetic>
+            <Magnetic strength={7}>
+              <Link
+                href="/products"
+                prefetch={false}
+                className="rounded-full border border-[#95969a]/20 bg-white px-8 py-4 font-semibold text-[#053446] transition-all hover:border-[#71cff3]/40 hover:bg-[#fcfcfa] active:scale-95"
+              >
+                See the portfolio
+              </Link>
+            </Magnetic>
           </div>
         </RevealOnScroll>
       </section>
 
-{/* 2. TRUSTED BY */}
-<section className="py-14 border-y border-[#053446]/5 bg-[#fcfcfa]">
-  <style jsx global>{`
-    @keyframes marquee-scroll-desktop {
-      0% {
-        transform: translate3d(0, 0, 0);
-      }
-      100% {
-        transform: translate3d(calc(-100% / 2), 0, 0);
-      }
-    }
-    
-    @keyframes marquee-scroll-mobile {
-      0% {
-        transform: translate3d(0, 0, 0);
-      }
-      100% {
-        transform: translate3d(calc(-100% / 2), 0, 0);
-      }
-    }
-    
-    .marquee-container {
-      width: 100%;
-      overflow: hidden;
-      white-space: nowrap;
-      position: relative;
-      will-change: transform;
-      backface-visibility: hidden;
-      transform: translate3d(0, 0, 0);
-      -webkit-font-smoothing: antialiased;
-    }
-    
-    .marquee-track {
-      display: inline-flex;
-      animation: marquee-scroll-desktop 45s linear infinite;
-      width: max-content;
-      will-change: transform;
-      backface-visibility: hidden;
-      perspective: 1000px;
-      transform-style: preserve-3d;
-    }
-    
-    .marquee-track:hover {
-      animation-play-state: paused;
-    }
-    
-    /* Mobile optimisations */
-    @media (max-width: 768px) {
-      .marquee-track {
-        animation: marquee-scroll-mobile 35s linear infinite;
-      }
-      
-      .marquee-track:hover {
-        animation-play-state: running;
-      }
-    }
-    
-    /* Low performance devices */
-    @media (max-width: 768px) and (max-resolution: 96dpi) {
-      .marquee-track {
-        animation-duration: 50s !important;
-      }
-    }
-    
-    .client-item {
-      flex-shrink: 0;
-      transform: translate3d(0, 0, 0);
-      will-change: transform;
-      padding: 0 2rem;
-    }
-
-    .client-logo {
-      filter: grayscale(100%) brightness(0) opacity(0.55);
-      transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      image-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    
-    .client-logo:hover {
-      filter: grayscale(100%) brightness(0) opacity(1);
-    }
-    
-    /* Accessibility */
-    @media (prefers-reduced-motion: reduce) {
-      .marquee-track {
-        animation: none;
-        justify-content: center;
-        width: 100%;
-        overflow-x: auto;
-        padding: 0 1rem;
-      }
-      
-      .marquee-track:hover {
-        animation-play-state: running;
-      }
-    }
-  `}</style>
-
-  <p className="text-xs font-bold text-[#95969a] uppercase tracking-[0.2em] text-center mb-6">
-    Trusted Partners
-  </p>
-
-  <div className="relative">
-    <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-[#fcfcfa] via-[#fcfcfa] to-transparent z-10 pointer-events-none" />
-    <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-[#fcfcfa] via-[#fcfcfa] to-transparent z-10 pointer-events-none" />
-    
-    <div className="marquee-container">
-      <div className="marquee-track">
-        {/* First set */}
-        {[
-          { logo: 'Sensoria-v1.png', name: '', showName: false, width: 230, height: 68 },
-          { logo: 'acropolis-v1.png', name: 'Acropolis Training Institution', showName: true, width: 96, height: 96 },
-          { logo: 'Toolmaster-v1.png', name: '', showName: false, width: 202, height: 96 },
-          { logo: 'pooltec-v1.png', name: '', showName: false, width: 133, height: 96 },
-          { logo: 'speedlink-v1.png', name: 'SpeedLink', showName: true, width: 83, height: 91 },
-          { logo: 'RAIS-v1.png', name: 'Rais Enterprises', showName: true, width: 146, height: 96 },
-          { logo: 'Chocoshe-v1.png', name: "Choco'She", showName: true, width: 116, height: 96 },
-          { logo: 'ACE-v1.png', name: 'Aux Champs Elysées', showName: true, width: 132, height: 96 },
-          { logo: 'adonis-v1.png', name: 'Adonis Management Consulting', showName: true, width: 107, height: 96 },
-          { logo: 'frotcom-v1.png', name: 'Frotcom Indian Ocean', showName: true, width: 119, height: 96 },
-          { logo: 'ninety_six_logo-v1.png', name: '', showName: false, width: 435, height: 96, heightClass: 'h-11' },
-          { logo: 'AVINYA_logo-v1.png', name: '', showName: false, width: 153, height: 96, heightClass: 'h-12' }
-        ].map((client, idx) => (
-          <div key={`set1-${idx}`} className="client-item">
-            <div className="flex items-center gap-3 cursor-default group">
-              <Image
-                src={`/client/${client.logo}`}
-                alt={client.name || 'Partner'}
-                width={client.width}
-                height={client.height}
-                sizes="(max-width: 768px) 180px, 240px"
-                className={`client-logo ${'heightClass' in client ? client.heightClass : 'h-10'} w-auto object-contain`}
-                loading="lazy"
-                decoding="async"
-                draggable="false"
-              />
-              {client.showName && (
-                <span className="text-[#053446]/55 group-hover:text-[#053446] transition-colors duration-300 font-semibold text-base md:text-lg tracking-wide whitespace-nowrap">
-                  {client.name}
-                </span>
-              )}
+      {/* ─── 2. STATS ────────────────────────────────────────────────────── */}
+      <section className="px-6 pb-16">
+        <div className="mx-auto max-w-5xl">
+          <Cinematic variant="zoom" intensity={0.55} fade={false}>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {STATS.map((stat) => (
+                <TiltCard
+                  key={stat.label}
+                  tilt={5}
+                  glare={false}
+                  className="rounded-2xl border border-[#053446]/10 bg-white p-6 text-center transition-colors duration-500 hover:border-[#71cff3]/40"
+                >
+                  <div className="relative z-10">
+                    <p className="mb-1 text-3xl font-extrabold tracking-tight text-[#053446] md:text-4xl">
+                      <CountUp
+                        value={stat.value}
+                        from={stat.from}
+                        decimals={stat.decimals}
+                        suffix={stat.suffix}
+                      />
+                    </p>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#95969a]">
+                      {stat.label}
+                    </p>
+                  </div>
+                </TiltCard>
+              ))}
             </div>
-          </div>
-        ))}
-        
-        {/* Second set - Exact duplicate for seamless loop */}
-        {[
-          { logo: 'Sensoria-v1.png', name: '', showName: false, width: 230, height: 68 },
-          { logo: 'acropolis-v1.png', name: 'Acropolis Training Institution', showName: true, width: 96, height: 96 },
-          { logo: 'Toolmaster-v1.png', name: '', showName: false, width: 202, height: 96 },
-          { logo: 'pooltec-v1.png', name: '', showName: false, width: 133, height: 96 },
-          { logo: 'speedlink-v1.png', name: 'SpeedLink', showName: true, width: 83, height: 91 },
-          { logo: 'RAIS-v1.png', name: 'Rais Enterprises', showName: true, width: 146, height: 96 },
-          { logo: 'Chocoshe-v1.png', name: "Choco'She", showName: true, width: 116, height: 96 },
-          { logo: 'ACE-v1.png', name: 'Aux Champs Elysées', showName: true, width: 132, height: 96 },
-          { logo: 'adonis-v1.png', name: 'Adonis Management Consulting', showName: true, width: 107, height: 96 },
-          { logo: 'frotcom-v1.png', name: 'Frotcom Indian Ocean', showName: true, width: 119, height: 96 },
-          { logo: 'ninety_six_logo-v1.png', name: '', showName: false, width: 435, height: 96, heightClass: 'h-11' },
-          { logo: 'AVINYA_logo-v1.png', name: '', showName: false, width: 153, height: 96, heightClass: 'h-12' }
-        ].map((client, idx) => (
-          <div key={`set2-${idx}`} className="client-item">
-            <div className="flex items-center gap-3 cursor-default group">
-              <Image
-                src={`/client/${client.logo}`}
-                alt={client.name || 'Partner'}
-                width={client.width}
-                height={client.height}
-                sizes="(max-width: 768px) 180px, 240px"
-                className={`client-logo ${'heightClass' in client ? client.heightClass : 'h-10'} w-auto object-contain`}
-                loading="lazy"
-                decoding="async"
-                draggable="false"
-              />
-              {client.showName && (
-                <span className="text-[#053446]/55 group-hover:text-[#053446] transition-colors duration-300 font-semibold text-base md:text-lg tracking-wide whitespace-nowrap">
-                  {client.name}
-                </span>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
+          </Cinematic>
+        </div>
+      </section>
 
-      {/* 3. SERVICES */}
-      <section className="py-32 bg-[#053446] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}
+      {/* ─── 3. TRUSTED PARTNERS ─────────────────────────────────────────── */}
+      <PartnerMarquee />
+
+      {/* ─── 4. WHAT WE DO ───────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-[#053446] py-32">
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
         />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#71cff3]/10 rounded-full blur-[150px]" />
+        <div className="absolute right-0 top-0 h-[600px] w-[600px] rounded-full bg-[#71cff3]/10 blur-[150px]" />
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
           <RevealOnScroll>
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div>
-                <p className="text-[#71cff3] text-sm font-medium tracking-wide uppercase mb-4">What We Do</p>
-                <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-                  Tailored Solutions,<br />
-                  <span className="text-[#71cff3]">Measurable Impact</span>
+                <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
+                  What We Do
+                </p>
+                <h2 className="text-4xl font-bold leading-tight text-white md:text-5xl">
+                  Five capabilities,
+                  <br />
+                  <span className="text-[#71cff3]">one delivery</span>
                 </h2>
               </div>
-              <p className="text-[#95969a] max-w-md text-base leading-relaxed">
-                We engineer custom ecosystems that transform how your business operates.
+              <p className="max-w-md text-base leading-relaxed text-[#95969a]">
+                Most engagements use three of them at once, which is the reason for keeping them
+                under one roof.
               </p>
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Code, title: "Software & SaaS", desc: "Custom AI-enabled apps, cloud solutions, and seamless API integrations.", color: "#71cff3" },
-              { icon: FileDigit, title: "Digitalisation", desc: "Document digitisation, workflow automation, and process optimisation.", color: "#71cff3" },
-              { icon: Globe, title: "Web & Digital", desc: "Website development, email hosting, and digital transformation consulting.", color: "#71cff3" },
-              { icon: Server, title: "IT Infrastructure", desc: "Assessment, optimisation, troubleshooting, and hardware installation.", color: "#71cff3" },
-            ].map((service, idx) => (
-              <RevealOnScroll key={idx} delay={0.1 * idx}>
-                <div className="group relative bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-8 h-full transition-all duration-500 hover:bg-white/[0.08] hover:border-[#71cff3]/30 hover:-translate-y-1">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: `${service.color}15` }}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
+            {CAPABILITIES.map((cap, idx) => {
+              const Icon = capabilityIcons[cap.icon];
+              return (
+                <RevealOnScroll key={cap.title} delay={0.08 * idx}>
+                  <TiltCard
+                    tilt={8}
+                    className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-7 transition-colors duration-500 hover:border-[#71cff3]/30 hover:bg-white/[0.07]"
                   >
-                    <service.icon size={22} style={{ color: service.color }} />
+                    <div className="relative z-10">
+                      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#71cff3]/15 transition-transform duration-500 group-hover/tilt:scale-110 group-hover/tilt:rotate-3">
+                        <Icon size={22} className="text-[#71cff3]" />
+                      </div>
+                      <h3 className="mb-3 text-lg font-semibold text-white">{cap.title}</h3>
+                      <p className="text-sm leading-relaxed text-[#95969a]">{cap.desc}</p>
+                    </div>
+                    <div className="absolute bottom-0 left-7 right-7 h-0.5 scale-x-0 bg-gradient-to-r from-transparent via-[#71cff3]/60 to-transparent transition-transform duration-500 group-hover/tilt:scale-x-100" />
+                  </TiltCard>
+                </RevealOnScroll>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 5. FLAGSHIP — OTTO ──────────────────────────────────────────── */}
+      <section className="relative overflow-hidden px-6 py-32">
+        <div className="absolute left-1/2 top-1/3 -z-10 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#71cff3]/[0.07] blur-[150px]" />
+
+        <div className="mx-auto max-w-6xl">
+          <RevealOnScroll>
+            <div className="mb-12 text-center">
+              <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#053446] px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#71cff3]">
+                <Sparkles size={14} />
+                Flagship
+              </span>
+              <h2 className="mb-6 text-4xl font-bold leading-tight text-[#053446] md:text-6xl">
+                A workforce of{' '}
+                <span className="animate-gradient-text bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] bg-clip-text text-transparent">
+                  AI agents
+                </span>
+              </h2>
+              <p className="mx-auto max-w-2xl text-lg leading-relaxed text-[#95969a]">
+                {otto.description}
+              </p>
+            </div>
+          </RevealOnScroll>
+
+          {/* The cinematic centrepiece: a tilted plane that rotates flat as you reach it */}
+          <Cinematic variant="perspective" intensity={1}>
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#053446] p-8 shadow-2xl shadow-[#053446]/20 md:p-14">
+              <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-[#71cff3]/20 blur-[110px]" />
+
+              <div className="relative z-10">
+                <div className="mb-10 flex flex-col items-center gap-6 text-center">
+                  <Image
+                    src={otto.logo}
+                    alt="Otto logo"
+                    width={otto.logoWidth}
+                    height={otto.logoHeight}
+                    sizes="240px"
+                    className="h-14 w-auto object-contain"
+                  />
+                  <p className="max-w-xl text-lg font-medium text-white/90">{otto.summary}</p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <span className="rounded-full border border-[#71cff3]/40 bg-[#71cff3]/15 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#71cff3]">
+                      {STATUS[otto.status].label}
+                    </span>
+                    <a
+                      href="https://heyotto.mu"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/link inline-flex items-center gap-1.5 text-sm font-bold text-white transition-colors hover:text-[#71cff3]"
+                    >
+                      heyotto.mu
+                      <ArrowUpRight
+                        size={16}
+                        className="transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+                      />
+                    </a>
                   </div>
-                  <h3 className="font-semibold text-xl text-white mb-3">{service.title}</h3>
-                  <p className="text-[#95969a] text-sm leading-relaxed">{service.desc}</p>
-                  <div className="absolute bottom-0 left-8 right-8 h-0.5 bg-gradient-to-r from-transparent via-[#71cff3]/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                 </div>
+
+                {/* The workforce, as job titles */}
+                <div className="mb-10 flex flex-wrap justify-center gap-2.5">
+                  {[
+                    'The Invoicer',
+                    'The Invoice Processor',
+                    'The Bookkeeper',
+                    'The VAT Preparer',
+                    'The KYC Agent',
+                    'The Compliance Assistant',
+                    'The Bank Reconciler',
+                    'The Registrar',
+                    'The Collector',
+                  ].map((job, i) => (
+                    <span
+                      key={job}
+                      className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm font-medium text-white/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#71cff3]/40 hover:bg-[#71cff3]/10 hover:text-white"
+                      style={{ transitionDelay: `${i * 12}ms` }}
+                    >
+                      Otto <span className="text-[#71cff3]">{job}</span>
+                    </span>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-8 text-center">
+                  {[
+                    { n: 7, label: 'Available now' },
+                    { n: 3, label: 'In build' },
+                    { n: 8, label: 'On the roadmap' },
+                  ].map((item) => (
+                    <div key={item.label}>
+                      <p className="mb-1 text-3xl font-extrabold text-[#71cff3] md:text-4xl">
+                        <CountUp value={item.n} duration={1100} />
+                      </p>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-[#95969a]">
+                        {item.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {otto.boundary && (
+                  <div className="mt-8 flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                    <ShieldCheck size={20} className="mt-0.5 flex-shrink-0 text-[#71cff3]" />
+                    <p className="text-sm leading-relaxed text-[#95969a]">{otto.boundary}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </Cinematic>
+        </div>
+      </section>
+
+      {/* ─── 6. THE PORTFOLIO ────────────────────────────────────────────── */}
+      <section className="px-6 py-32">
+        <div className="mx-auto max-w-7xl">
+          <RevealOnScroll>
+            <div className="mb-16 text-center">
+              <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
+                Product Ecosystem
+              </p>
+              <h2 className="mb-6 text-4xl font-bold text-[#053446] md:text-5xl">
+                Platforms we built and sell
+              </h2>
+              <p className="mx-auto max-w-2xl text-[#95969a]">
+                Each began as one client&apos;s problem and was generalised only after it had worked
+                twice.
+              </p>
+            </div>
+          </RevealOnScroll>
+
+          <div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {rest.map((product, idx) => (
+              <RevealOnScroll key={product.id} delay={0.08 * (idx % 2)} className="h-full">
+                <PlatformCard product={product} />
+              </RevealOnScroll>
+            ))}
+          </div>
+
+          {/* The business suite, in a denser row */}
+          <RevealOnScroll>
+            <p className="mb-6 mt-16 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#95969a]">
+              And the business suite
+            </p>
+          </RevealOnScroll>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {SUITE.map((item, idx) => {
+              const body = (
+                <TiltCard
+                  tilt={9}
+                  className="h-full rounded-2xl border border-[#053446]/10 bg-white p-6 transition-colors duration-500 hover:border-[#71cff3]/40"
+                >
+                  <div className="relative z-10 flex h-full flex-col">
+                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#71cff3]/10 transition-transform duration-500 group-hover/tilt:scale-110">
+                      {item.logo ? (
+                        <Image
+                          src={item.logo}
+                          alt={item.name}
+                          width={160}
+                          height={160}
+                          sizes="40px"
+                          className="h-8 w-8 object-contain"
+                        />
+                      ) : (
+                        <Cloud size={20} className="text-[#71cff3]" />
+                      )}
+                    </div>
+                    <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#71cff3]">
+                      {item.kicker}
+                    </p>
+                    <h3 className="mb-2 text-lg font-bold text-[#053446]">{item.name}</h3>
+                    <p className="text-sm leading-relaxed text-[#95969a]">{item.summary}</p>
+                    {item.href && (
+                      <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-[#71cff3]">
+                        Learn more
+                        <ArrowRight size={13} className="transition-transform duration-300 group-hover/tilt:translate-x-1" />
+                      </span>
+                    )}
+                  </div>
+                </TiltCard>
+              );
+
+              return (
+                <RevealOnScroll key={item.id} delay={0.06 * idx} className="h-full">
+                  {item.href ? (
+                    <Link href={item.href} prefetch={false} className="block h-full">
+                      {body}
+                    </Link>
+                  ) : (
+                    body
+                  )}
+                </RevealOnScroll>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 7. HOW WE WORK ──────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-[#053446] py-32">
+        <div className="absolute bottom-0 left-0 h-[600px] w-[600px] rounded-full bg-[#71cff3]/[0.08] blur-[150px]" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
+          <RevealOnScroll>
+            <div className="mb-16 max-w-2xl">
+              <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
+                How We Work
+              </p>
+              <h2 className="mb-6 text-4xl font-bold leading-tight text-white md:text-5xl">
+                Three phases,
+                <br />
+                <span className="text-[#71cff3]">one team throughout</span>
+              </h2>
+              <p className="text-lg leading-relaxed text-[#95969a]">
+                Nobody gets handed to a different vendor halfway, and nobody disappears at go-live.
+              </p>
+            </div>
+          </RevealOnScroll>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {PROCESS.map((phase, idx) => (
+              <RevealOnScroll key={phase.step} delay={0.12 * idx} className="h-full">
+                <TiltCard
+                  tilt={6}
+                  className="h-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition-colors duration-500 hover:border-[#71cff3]/30 hover:bg-white/[0.07]"
+                >
+                  <div className="relative z-10">
+                    <span className="mb-6 block text-5xl font-extrabold text-[#71cff3]/25 transition-colors duration-500 group-hover/tilt:text-[#71cff3]/50">
+                      {phase.step}
+                    </span>
+                    <h3 className="mb-4 text-2xl font-bold text-white">{phase.title}</h3>
+                    <p className="text-sm leading-relaxed text-[#95969a]">{phase.desc}</p>
+                  </div>
+                </TiltCard>
               </RevealOnScroll>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 4. PRODUCT SUITE */}
-      <section className="py-32 px-6 max-w-7xl mx-auto">
-        <RevealOnScroll>
-          <div className="text-center mb-20">
-            <p className="text-[#71cff3] text-sm font-medium tracking-wide uppercase mb-4">Product Ecosystem</p>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#053446] mb-6">
-              Integrated Business Suite
-            </h2>
-            <p className="text-[#95969a] max-w-xl mx-auto">
-              Purpose-built tools designed to work in harmony, powering every facet of your operations.
-            </p>
-          </div>
-        </RevealOnScroll>
-
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-5 auto-rows-auto md:auto-rows-[220px]">
-
-          {/* myInvoice Pro */}
-          <div className="md:col-span-4 md:row-span-1">
-            <RevealOnScroll delay={0.1}>
-              <div className="group h-full bg-[#fcfcfa] border border-[#053446]/10 rounded-3xl p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-[#71cff3]/10 hover:border-[#71cff3]/30 flex flex-col md:flex-row items-center gap-8 overflow-hidden relative">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#71cff3]/5 rounded-full blur-3xl transition-all duration-500 group-hover:bg-[#71cff3]/10" />
-                <div className="flex-1 relative z-10">
-                  <div className="w-11 h-11 rounded-xl bg-[#71cff3]/10 flex items-center justify-center text-[#71cff3] mb-5 group-hover:scale-110 transition-transform duration-300">
-                    <Image src="/images/01myInvoicePro-v1.png" alt="myInvoice Pro" width={139} height={160} sizes="40px" className="w-10 h-10 object-contain" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-[#053446] mb-2">myInvoice Pro</h3>
-                  <p className="text-[#95969a] text-sm leading-relaxed max-w-sm">
-                    Invoicing, expense tracking, and goal setting for financial clarity.
-                  </p>
-                </div>
-                <div className="relative z-10 w-full md:w-auto flex items-center justify-center">
-                  <Image
-                    src="https://cdn.prod.website-files.com/6895b1f7baeb5ed49b7144a3/69a1a40978b80c2cc84bec7f_ef19ecedd16d12629184870c4b9b2870_Screenshot%202026-02-27%20175949.png"
-                    alt="myInvoice Pro Preview"
-                    width={1896}
-                    height={938}
-                    sizes="258px"
-                    className="h-32 w-auto object-contain"
-                  />
-                </div>
-              </div>
-            </RevealOnScroll>
-          </div>
-
-          {/* myPOS */}
-          <div className="md:col-span-2 md:row-span-1 h-full">
-            <RevealOnScroll delay={0.2} className="h-full">
-              <div className="group h-full bg-[#95969a] rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative">
-                <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
-                <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center text-white mb-4">
-                  <Image src="/images/02myPOS-v1.png" alt="myPOS" width={140} height={160} sizes="40px" className="w-10 h-10 object-contain" />
-                </div>
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-white mb-2">myPOS</h3>
-                  <p className="text-white/80 text-sm leading-relaxed">Website stock manager with real-time inventory sync.</p>
-                </div>
-              </div>
-            </RevealOnScroll>
-          </div>
-
-          {/* myPayroll */}
-          <div className="md:col-span-2 md:row-span-1 h-full">
-            <RevealOnScroll delay={0.3} className="h-full">
-              <div className="group h-full bg-[#71cff3] rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative">
-                <div className="absolute -top-10 -left-10 w-32 h-32 bg-[#053446]/10 rounded-full blur-2xl" />
-                <div className="w-11 h-11 rounded-xl bg-[#053446]/10 flex items-center justify-center text-[#053446] mb-4">
-                  <Image src="/images/04myPayroll-v1.png" alt="myPayroll" width={160} height={160} sizes="40px" className="w-10 h-10 object-contain" />
-                </div>
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-[#053446] mb-2">myPayroll</h3>
-                  <p className="text-[#053446]/80 text-sm leading-relaxed">Timesheet, leave, and payslip management.</p>
-                </div>
-              </div>
-            </RevealOnScroll>
-          </div>
-
-          {/* myCloud */}
-          <div className="md:col-span-2 md:row-span-1 h-full">
-            <RevealOnScroll delay={0.35} className="h-full">
-              <Link
-                href="/mycloud"
-                prefetch={false}
-                className="group h-full bg-[#053446] rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden relative cursor-pointer"
-              >
-                <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#71cff3]/20 rounded-full blur-2xl" />
-                <div className="w-11 h-11 rounded-xl bg-[#71cff3]/20 flex items-center justify-center text-[#71cff3] mb-4">
-                  <Cloud size={22} />
-                </div>
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                    myCloud
-                    <ArrowRight size={18} className="opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 text-[#71cff3]" />
-                  </h3>
-                  <p className="text-white/80 text-sm leading-relaxed">Secure cloud storage with daily backups and 99.9% uptime.</p>
-                </div>
-              </Link>
-            </RevealOnScroll>
-          </div>
-
-          {/* myEdu Pro */}
-          <div className="md:col-span-2 md:row-span-1 h-full">
-            <RevealOnScroll delay={0.4} className="h-full">
-              <div className="group h-full bg-[#053446]/5 border border-[#053446]/10 rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:bg-[#053446]/[0.08] flex flex-col justify-between">
-                <div className="w-11 h-11 rounded-xl bg-[#053446]/10 flex items-center justify-center text-[#053446] mb-4">
-                  <Image src="/images/03myEdupro-v1.png" alt="myEdu Pro" width={139} height={160} sizes="40px" className="w-10 h-10 object-contain" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-[#053446] mb-2">myEdu Pro</h3>
-                  <p className="text-[#95969a] text-sm leading-relaxed">
-                    School ERP and Conference management with automated certificates.
-                  </p>
-                </div>
-              </div>
-            </RevealOnScroll>
-          </div>
-
-          {/* myTag */}
-          <div className="md:col-span-4 md:row-span-1">
-            <RevealOnScroll delay={0.5}>
-              <div className="group h-full bg-[#053446] rounded-3xl p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-[#053446]/30 flex flex-col md:flex-row items-center gap-8 overflow-hidden relative">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-[#71cff3]/10 rounded-full blur-[100px]" />
-                <div className="flex-1 relative z-10">
-                  <div className="w-11 h-11 rounded-xl bg-[#71cff3]/20 flex items-center justify-center text-[#71cff3] mb-5">
-                  <Image src="/images/05myTag-v1.png" alt="myTag" width={413} height={160} sizes="40px" className="w-10 h-10 object-contain" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">myTag</h3>
-                  <p className="text-[#95969a] text-sm leading-relaxed max-w-sm">
-                    Dynamic digital tagging solution for instant price and information updates.
-                  </p>
-                </div>
-                <div className="relative z-10 w-full md:w-auto flex items-center justify-center">
-                  <Image
-                    src="https://cdn.prod.website-files.com/6895b1f7baeb5ed49b7144a3/69a19edb8be2764a0ce8dfc7_ESL.png"
-                    alt="Electronic Shelf Label"
-                    width={409}
-                    height={203}
-                    sizes="258px"
-                    className="h-32 w-auto object-contain"
-                  />
-                </div>
-              </div>
-            </RevealOnScroll>
-          </div>
-
-          {/* Smart Automation */}
-          <div className="md:col-span-2 md:row-span-1 h-full">
-            <RevealOnScroll delay={0.6} className="h-full">
-              <div className="group h-full bg-[#fcfcfa] border border-[#053446]/10 rounded-3xl p-8 transition-all duration-500 hover:shadow-xl hover:border-[#71cff3]/30 flex flex-col justify-between">
-                <div className="w-11 h-11 rounded-xl bg-[#71cff3]/10 flex items-center justify-center text-[#71cff3] mb-4">
-                  <Image src="/images/06HomeAutomation-v1.png" alt="Smart Automation" width={143} height={160} sizes="40px" className="w-10 h-10 object-contain" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-[#053446] mb-2">Smart Automation</h3>
-                  <p className="text-[#95969a] text-sm leading-relaxed">Intelligent automation for businesses and homes — device integration, workflow control, and smart infrastructure.</p>
-                </div>
-              </div>
-            </RevealOnScroll>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 5. ABOUT / VALUES */}
-      <section className="py-32 bg-[#053446] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-[#71cff3]/5 rounded-full blur-[150px]" />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <RevealOnScroll>
-                <p className="text-[#71cff3] text-sm font-medium tracking-wide uppercase mb-6">About Us</p>
-                <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 leading-[1.1]">
-                  Architecting<br />
-                  <span className="text-[#71cff3]">Tomorrow&apos;s</span><br />
-                  Operations
-                </h2>
-              </RevealOnScroll>
-              <RevealOnScroll delay={0.2}>
-                <div className="space-y-6 text-[#95969a] text-lg leading-relaxed">
-                  <p>At <span className="text-white font-medium">mySmart</span>, we reimagine business processes.</p>
-                  <p>We transition legacy systems into <span className="text-[#71cff3]">intelligent digital ecosystems</span> with custom software and hardware integration.</p>
-                </div>
-              </RevealOnScroll>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { icon: Zap, title: "Innovation", desc: "Predictive algorithms adapting to markets.", color: "#71cff3" },
-                { icon: ShieldCheck, title: "Reliability", desc: "99.9% uptime. Resilience by design.", color: "#71cff3" },
-                { icon: Layers, title: "Integration", desc: "Bridges between software & hardware.", color: "#71cff3" },
-                { icon: Users, title: "User-First", desc: "Complex tech, simplified for humans.", color: "#71cff3" }
-              ].map((item, idx) => (
-                <RevealOnScroll key={idx} delay={0.15 * (idx + 1)}>
-                  <div className="group bg-white/[0.03] backdrop-blur-sm border border-white/5 p-7 rounded-2xl hover:bg-white/[0.06] hover:border-[#71cff3]/20 transition-all duration-500">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5" style={{ backgroundColor: `${item.color}15`, color: item.color }}>
-                      <item.icon size={20} />
-                    </div>
-                    <h4 className="font-semibold text-white text-lg mb-2">{item.title}</h4>
-                    <p className="text-sm text-[#95969a] leading-relaxed">{item.desc}</p>
-                  </div>
-                </RevealOnScroll>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. CTA SECTION */}
-      <section className="py-32 bg-[#fcfcfa]">
-        <div className="max-w-5xl mx-auto px-6">
+      {/* ─── 8. INFRASTRUCTURE ───────────────────────────────────────────── */}
+      <section className="px-6 py-32">
+        <div className="mx-auto max-w-7xl">
           <RevealOnScroll>
-            <div className="relative rounded-[2.5rem] overflow-hidden bg-[#053446] isolate">
-              <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#71cff3]/10 rounded-full blur-[150px]" />
-              </div>
-              <div className="relative p-12 md:p-20 text-center">
-                <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white tracking-tight leading-tight">
-                  Ready to Transform<br />
-                  <span className="text-[#71cff3]">Your Business?</span>
-                </h2>
-                <p className="text-lg md:text-xl text-[#95969a] mb-12 max-w-2xl mx-auto">
-                  Let&apos;s architect an intelligent ecosystem that streamlines your operations.
-                </p>
-                <Link href="/contact" prefetch={false} className="group inline-flex items-center justify-center gap-3 px-6 md:px-10 py-5 bg-white text-[#053446] text-base md:text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#71cff3]/20 active:scale-95 whitespace-nowrap">
-                  Get Your Free Consultation
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Link>
+            <div className="mb-16 text-center">
+              <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
+                Infrastructure
+              </p>
+              <h2 className="mb-6 text-4xl font-bold text-[#053446] md:text-5xl">
+                Secure enterprise infrastructure
+              </h2>
+              <p className="mx-auto max-w-2xl leading-relaxed text-[#95969a]">
+                Everything we sell runs on infrastructure we can name and defend. For clients in
+                regulated sectors this is usually the first question, so we answer it before it is
+                asked.
+              </p>
+            </div>
+          </RevealOnScroll>
+
+          <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {INFRASTRUCTURE.map((item, idx) => {
+              const Icon = infraIcons[idx] ?? ShieldCheck;
+              return (
+                <RevealOnScroll key={item.title} delay={0.08 * idx} className="h-full">
+                  <TiltCard
+                    tilt={7}
+                    className="h-full rounded-2xl border border-[#053446]/10 bg-white p-7 transition-colors duration-500 hover:border-[#71cff3]/40"
+                  >
+                    <div className="relative z-10">
+                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#71cff3]/10 transition-transform duration-500 group-hover/tilt:scale-110 group-hover/tilt:rotate-3">
+                        <Icon size={22} className="text-[#71cff3]" />
+                      </div>
+                      <h3 className="mb-2 text-lg font-semibold text-[#053446]">{item.title}</h3>
+                      <p className="text-sm leading-relaxed text-[#95969a]">{item.desc}</p>
+                    </div>
+                  </TiltCard>
+                </RevealOnScroll>
+              );
+            })}
+          </div>
+
+          <RevealOnScroll>
+            <div className="flex flex-col items-center gap-5">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#95969a]">
+                Certified and audited on
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {CERTIFICATIONS.map((cert) => (
+                  <span
+                    key={cert}
+                    className="rounded-full border border-[#053446]/10 bg-white px-5 py-2.5 text-sm font-semibold text-[#053446] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#71cff3]/40 hover:shadow-md hover:shadow-[#71cff3]/10"
+                  >
+                    {cert}
+                  </span>
+                ))}
               </div>
             </div>
           </RevealOnScroll>
+        </div>
+      </section>
+
+      {/* ─── 9. WHY CLIENTS CHOOSE US ────────────────────────────────────── */}
+      <section className="bg-white px-6 py-32">
+        <div className="mx-auto max-w-7xl">
+          <RevealOnScroll>
+            <div className="mb-16 max-w-2xl">
+              <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#71cff3]">
+                Why Clients Choose Us
+              </p>
+              <h2 className="text-4xl font-bold leading-tight text-[#053446] md:text-5xl">
+                Four reasons that come up in
+                <br />
+                <span className="text-[#71cff3]">almost every conversation</span>
+              </h2>
+            </div>
+          </RevealOnScroll>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {REASONS.map((reason, idx) => (
+              <RevealOnScroll key={reason.step} delay={0.08 * idx} className="h-full">
+                <TiltCard
+                  tilt={5}
+                  className="h-full rounded-3xl border border-[#053446]/10 bg-[#fcfcfa] p-8 transition-colors duration-500 hover:border-[#71cff3]/40"
+                >
+                  <div className="relative z-10 flex gap-6">
+                    <span className="text-4xl font-extrabold text-[#71cff3]/30 transition-colors duration-500 group-hover/tilt:text-[#71cff3]/60">
+                      {reason.step}
+                    </span>
+                    <div>
+                      <h3 className="mb-3 text-xl font-bold text-[#053446]">{reason.title}</h3>
+                      <p className="text-sm leading-relaxed text-[#95969a]">{reason.desc}</p>
+                    </div>
+                  </div>
+                </TiltCard>
+              </RevealOnScroll>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 10. CTA ─────────────────────────────────────────────────────── */}
+      <section className="bg-[#fcfcfa] py-32">
+        <div className="mx-auto max-w-5xl px-6">
+          <Cinematic variant="zoom" intensity={0.7}>
+            <div className="isolate relative overflow-hidden rounded-[2.5rem] bg-[#053446]">
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#71cff3]/10 blur-[150px]" />
+              </div>
+              <div className="relative p-12 text-center md:p-20">
+                <h2 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">
+                  Ready to Transform
+                  <br />
+                  <span className="text-[#71cff3]">Your Business?</span>
+                </h2>
+                <p className="mx-auto mb-12 max-w-2xl text-lg text-[#95969a] md:text-xl">
+                  Let&apos;s map what your team actually does — then build the system around it.
+                </p>
+                <Magnetic strength={9}>
+                  <Link
+                    href="/contact"
+                    prefetch={false}
+                    className="group inline-flex items-center justify-center gap-3 whitespace-nowrap rounded-full bg-white px-6 py-5 text-base font-semibold text-[#053446] transition-all duration-300 hover:shadow-2xl hover:shadow-[#71cff3]/20 active:scale-95 md:px-10 md:text-lg"
+                  >
+                    Get Your Free Consultation
+                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Magnetic>
+              </div>
+            </div>
+          </Cinematic>
         </div>
       </section>
     </div>

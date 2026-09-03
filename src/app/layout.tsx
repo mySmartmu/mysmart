@@ -2,10 +2,23 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { POSITIONING, TAGLINE } from "@/data/company";
 
 export const metadata: Metadata = {
-  title: "mySmart - AI, App, Cloud and IoT",
-  description: "Simplifying and Streamlining with Smart Technology. Digital transformation, IT Software, and Smart IoT Ecosystems.",
+  title: {
+    default: `mySmart — ${TAGLINE}`,
+    template: "%s | mySmart",
+  },
+  description: POSITIONING,
+  metadataBase: new URL("https://mysmart.mu"),
+  openGraph: {
+    title: `mySmart — ${TAGLINE}`,
+    description: POSITIONING,
+    url: "https://mysmart.mu",
+    siteName: "mySmart",
+    locale: "en_MU",
+    type: "website",
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },

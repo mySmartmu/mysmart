@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Sparkles, MessageSquare, Loader2 } from 'lucide-react';
+import { Send, Sparkles, MessageSquare, Loader2, Users, ArrowUpRight } from 'lucide-react';
+import { FOUNDERS } from '@/data/company';
 import { askCompanyAI } from '@/services/geminiService';
 
 const CONTACT_REQUEST_TIMEOUT_MS = 20000;
@@ -89,10 +90,68 @@ const Contact: React.FC = () => {
                 <MessageSquare size={20} />
               </div>
               <div>
-                <h3 className="font-bold text-smart-dark text-lg">Sales Inquiry</h3>
-                <p className="text-smart-gray">sales@mysmart.mu</p>
-                <p className="text-smart-gray">+230 58535757</p>
-                <p className="text-smart-gray text-sm mt-1">For general enquiries, use the contact form.</p>
+                <h3 className="font-bold text-smart-dark text-lg">Sales &amp; general enquiries</h3>
+                <a href="mailto:sales@mysmart.mu" className="block text-smart-gray transition-colors hover:text-smart-dark">
+                  sales@mysmart.mu
+                </a>
+                <a href="mailto:info@mysmart.mu" className="block text-smart-gray transition-colors hover:text-smart-dark">
+                  info@mysmart.mu
+                </a>
+                <a href="tel:+23058535757" className="block text-smart-gray transition-colors hover:text-smart-dark">
+                  +230 58 53 57 57
+                </a>
+              </div>
+            </div>
+
+            {/* The deck names the two founders as the people who take the meeting,
+                so the site should let a visitor reach them directly. */}
+            <div className="flex gap-4 items-start">
+              <div className="w-12 h-12 rounded-full bg-smart-blue/10 flex items-center justify-center text-smart-dark">
+                <Users size={20} />
+              </div>
+              <div>
+                <h3 className="font-bold text-smart-dark text-lg">Talk to a founder</h3>
+                {FOUNDERS.map((founder) => (
+                  <div key={founder.name} className="mt-2 first:mt-1">
+                    <p className="text-sm font-semibold text-smart-dark">
+                      {founder.name}
+                      <span className="ml-2 font-normal text-smart-gray">{founder.role}</span>
+                    </p>
+                    <a
+                      href={`tel:${founder.phone.replace(/\s/g, '')}`}
+                      className="mr-4 text-sm text-smart-gray transition-colors hover:text-smart-dark"
+                    >
+                      {founder.phone}
+                    </a>
+                    <a
+                      href={`mailto:${founder.email}`}
+                      className="text-sm text-smart-gray transition-colors hover:text-smart-dark"
+                    >
+                      {founder.email}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex gap-4 items-start">
+              <div className="w-12 h-12 rounded-full bg-smart-blue/10 flex items-center justify-center text-smart-dark">
+                <Sparkles size={20} />
+              </div>
+              <div>
+                <h3 className="font-bold text-smart-dark text-lg">Otto</h3>
+                <a href="mailto:info@heyotto.mu" className="block text-smart-gray transition-colors hover:text-smart-dark">
+                  info@heyotto.mu
+                </a>
+                <a
+                  href="https://heyotto.mu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-smart-gray transition-colors hover:text-smart-dark"
+                >
+                  heyotto.mu
+                  <ArrowUpRight size={13} />
+                </a>
               </div>
             </div>
 

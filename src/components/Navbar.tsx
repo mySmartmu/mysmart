@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, ArrowUpRight } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,6 +64,18 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
+          <a
+            href="https://heyotto.mu"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex items-center gap-1 text-sm font-medium text-smart-gray transition-colors duration-200 hover:text-smart-dark after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:w-0 after:rounded-full after:bg-smart-blue after:transition-all after:duration-300 hover:after:w-full"
+          >
+            Otto
+            <ArrowUpRight
+              size={13}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -124,11 +136,24 @@ const Navbar: React.FC = () => {
             {link.name}
           </Link>
         ))}
+        <a
+          href="https://heyotto.mu"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setIsOpen(false)}
+          style={{ transitionDelay: isOpen ? `${60 * navLinks.length}ms` : '0ms' }}
+          className={`flex items-center gap-1 border-b border-gray-100 py-3 text-lg font-medium text-smart-dark transition-all duration-300 ${
+            isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+          }`}
+        >
+          Otto
+          <ArrowUpRight size={15} />
+        </a>
         <Link
           href="/contact"
           prefetch={false}
           onClick={() => setIsOpen(false)}
-          style={{ transitionDelay: isOpen ? `${60 * navLinks.length}ms` : '0ms' }}
+          style={{ transitionDelay: isOpen ? `${60 * (navLinks.length + 1)}ms` : '0ms' }}
           className={`mt-4 w-full text-center py-3 bg-smart-dark text-white rounded-lg font-medium transition-all duration-300 active:scale-95 ${
             isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
           }`}

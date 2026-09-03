@@ -151,3 +151,47 @@ body {
   backface-visibility: hidden;
   perspective: 1000px;
 }
+
+/* ─── Motion primitives ───────────────────────────────────────────────────
+   The tilt itself lives in CSS rather than in JS. The pointer handler only
+   writes the two angle custom properties; this rule turns them into a
+   transform, and the short transition acts as a low-pass filter so the card
+   glides instead of tracking every jittery pointer sample. */
+.tilt-card {
+  transform: rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg));
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 500ms ease, box-shadow 500ms ease, background-color 500ms ease;
+  transform-style: preserve-3d;
+}
+
+/* Words in a TextReveal line. Visibility is driven by inline style; this rule
+   exists so reduced motion can override it without JavaScript. */
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card {
+    transform: none;
+  }
+  .reveal-word {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
+/* A soft glow that costs the compositor nothing.
+   `filter: blur()` on a large div has to re-rasterise whenever anything about
+   it changes — including a colour transition on hover. A radial gradient looks
+   the same and is drawn once. */
+.soft-glow {
+  background: radial-gradient(
+    circle at center,
+    rgba(113, 207, 243, 0.22) 0%,
+    rgba(113, 207, 243, 0.1) 40%,
+    transparent 70%
+  );
+  opacity: 0.6;
+  transition: opacity 600ms ease;
+}
+.group\/tilt:hover .soft-glow {
+  opacity: 1;
+}

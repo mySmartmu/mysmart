@@ -318,12 +318,11 @@ const HomeClient: React.FC = () => {
       <section className="px-6 pb-32">
         {/* The heading is the entry scene: it zooms into the first product,
             then the independently pinned card sequence takes over. */}
-        <ProductDive product={rest[0]} lead={PRODUCTS_LEAD} />
-
-        {/* The section pins here and the scroll walks one product at a time,
-            then releases. Full-bleed, because a pinned frame that is narrower
-            than the window reads as a stuck element rather than a hold. */}
-        <StickyShowcase products={rest} />
+        <ProductDive lead={PRODUCTS_LEAD}>
+          {/* The dive opens directly onto this frame. It is not a preview:
+              this is the actual pinned product walk-through. */}
+          <StickyShowcase products={rest} leadInSvh={80} />
+        </ProductDive>
 
         <div className="mx-auto max-w-7xl">
 

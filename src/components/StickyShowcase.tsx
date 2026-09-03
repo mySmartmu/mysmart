@@ -4,12 +4,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, Check, ShieldCheck } from 'lucide-react';
-import { subscribe, useReducedMotion } from '@/components/motion';
+import { clamp, subscribe, useReducedMotion } from '@/components/motion';
 import { STATUS, type Platform } from '@/data/products';
 
 interface Props {
   products: Platform[];
   className?: string;
+  /** Scroll reserved for an overlay before this pinned sequence advances. */
+  leadInSvh?: number;
 }
 
 /**
@@ -41,7 +43,7 @@ interface Props {
  * reader's sense of how much is left, and that is disorienting unless you
  * hand it back.
  */
-export const StickyShowcase: React.FC<Props> = ({ products, className = '' }) => {
+export const StickyShowcase: React.FC<Props> = ({ products, className = '', leadInSvh = 0 }) => {
   const host = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const reduced = useReducedMotion();
@@ -52,15 +54,20 @@ export const StickyShowcase: React.FC<Props> = ({ products, className = '' }) =>
     if (!el) return;
 
     return subscribe(el, ({ pinned }) => {
+      const baseHeight = products.length * 100;
+      const normalScroll = baseHeight - 100;
+      const availableScroll = normalScroll + leadInSvh;
+      const productProgress = clamp((pinned * availableScroll - leadInSvh) / normalScroll, 0, 1);
+
       // Bias into each band so the switch lands when the product is properly
       // on screen rather than the instant its range begins.
       const next = Math.min(
         products.length - 1,
-        Math.max(0, Math.floor(pinned * products.length + 0.12))
+        Math.max(0, Math.floor(productProgress * products.length + 0.12))
       );
       setActive((prev) => (prev === next ? prev : next));
     });
-  }, [products.length, reduced]);
+  }, [leadInSvh, products.length, reduced]);
 
   // Reduced motion: no pin, no cross-fade. Just the products, stacked and
   // readable, which is all the pin was ever presenting anyway.
@@ -81,7 +88,7 @@ export const StickyShowcase: React.FC<Props> = ({ products, className = '' }) =>
     <div
       ref={host}
       className={`relative ${className}`}
-      style={{ height: `${products.length * 100}svh` }}
+      style={{ height: `${products.length * 100 + leadInSvh}svh` }}
     >
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 lg:grid-cols-2 lg:items-center lg:gap-16">

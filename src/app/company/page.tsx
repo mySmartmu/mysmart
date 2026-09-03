@@ -72,7 +72,7 @@ const Company = () => {
       {/* ─── STATS ───────────────────────────────────────────────────────── */}
       <section className="px-6 pb-24">
         <div className="mx-auto max-w-5xl">
-          <Cinematic variant="zoom" intensity={0.5} fade={false}>
+          <Cinematic variant="zoom" intensity={0.9} fade={false}>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {STATS.map((stat) => (
                 <TiltCard
@@ -118,46 +118,48 @@ const Company = () => {
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {FOUNDERS.map((founder, idx) => (
-              <RevealOnScroll key={founder.name} delay={0.1 * (idx + 1)} className="h-full">
-                <TiltCard
-                  tilt={5}
-                  className="h-full rounded-3xl border border-[#053446]/10 bg-[#fcfcfa] p-8 transition-colors duration-500 hover:border-[#71cff3]/40"
-                >
-                  <div
-                    aria-hidden
-                    className="soft-glow pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full"
-                  />
-                  <div className="relative z-10 flex h-full flex-col">
-                    <h3 className="mb-1 text-2xl font-bold text-[#053446]">{founder.name}</h3>
-                    <p className="mb-5 text-sm font-semibold uppercase tracking-wide text-[#71cff3]">
-                      {founder.role}
-                    </p>
-                    <p className="mb-6 leading-relaxed text-[#95969a]">{founder.bio}</p>
+          <Cinematic variant="zoom" intensity={0.5} fade={false}>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              {FOUNDERS.map((founder, idx) => (
+                <RevealOnScroll key={founder.name} delay={0.1 * (idx + 1)} className="h-full">
+                  <TiltCard
+                    tilt={5}
+                    className="h-full rounded-3xl border border-[#053446]/10 bg-[#fcfcfa] p-8 transition-colors duration-500 hover:border-[#71cff3]/40"
+                  >
+                    <div
+                      aria-hidden
+                      className="soft-glow pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full"
+                    />
+                    <div className="relative z-10 flex h-full flex-col">
+                      <h3 className="mb-1 text-2xl font-bold text-[#053446]">{founder.name}</h3>
+                      <p className="mb-5 text-sm font-semibold uppercase tracking-wide text-[#71cff3]">
+                        {founder.role}
+                      </p>
+                      <p className="mb-6 leading-relaxed text-[#95969a]">{founder.bio}</p>
 
-                    <div className="mt-auto flex flex-col gap-2 border-t border-[#053446]/10 pt-5">
-                      <a
-                        href={`tel:${founder.phone.replace(/\s/g, '')}`}
-                        className="inline-flex items-center gap-2 text-sm font-medium text-[#053446] transition-colors hover:text-[#71cff3]"
-                      >
-                        <Phone size={15} className="text-[#71cff3]" />
-                        {founder.phone}
-                      </a>
-                      <a
-                        href={`mailto:${founder.email}`}
-                        className="inline-flex items-center gap-2 text-sm font-medium text-[#053446] transition-colors hover:text-[#71cff3]"
-                      >
-                        <Mail size={15} className="text-[#71cff3]" />
-                        {founder.email}
-                      </a>
+                      <div className="mt-auto flex flex-col gap-2 border-t border-[#053446]/10 pt-5">
+                        <a
+                          href={`tel:${founder.phone.replace(/\s/g, '')}`}
+                          className="inline-flex items-center gap-2 text-sm font-medium text-[#053446] transition-colors hover:text-[#71cff3]"
+                        >
+                          <Phone size={15} className="text-[#71cff3]" />
+                          {founder.phone}
+                        </a>
+                        <a
+                          href={`mailto:${founder.email}`}
+                          className="inline-flex items-center gap-2 text-sm font-medium text-[#053446] transition-colors hover:text-[#71cff3]"
+                        >
+                          <Mail size={15} className="text-[#71cff3]" />
+                          {founder.email}
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div className="absolute bottom-0 left-8 right-8 h-0.5 scale-x-0 bg-gradient-to-r from-transparent via-[#71cff3]/60 to-transparent transition-transform duration-500 group-hover/tilt:scale-x-100" />
-                </TiltCard>
-              </RevealOnScroll>
-            ))}
-          </div>
+                    <div className="absolute bottom-0 left-8 right-8 h-0.5 scale-x-0 bg-gradient-to-r from-transparent via-[#71cff3]/60 to-transparent transition-transform duration-500 group-hover/tilt:scale-x-100" />
+                  </TiltCard>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </Cinematic>
         </div>
       </section>
 
@@ -223,24 +225,26 @@ const Company = () => {
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {PROCESS.map((phase, idx) => (
-              <RevealOnScroll key={phase.step} delay={0.12 * idx} className="h-full">
-                <TiltCard
-                  tilt={6}
-                  className="h-full rounded-3xl border border-[#053446]/10 bg-white p-8 transition-colors duration-500 hover:border-[#71cff3]/40"
-                >
-                  <div className="relative z-10">
-                    <span className="mb-6 block text-5xl font-extrabold text-[#71cff3]/25 transition-colors duration-500 group-hover/tilt:text-[#71cff3]/60">
-                      {phase.step}
-                    </span>
-                    <h3 className="mb-4 text-2xl font-bold text-[#053446]">{phase.title}</h3>
-                    <p className="text-sm leading-relaxed text-[#95969a]">{phase.desc}</p>
-                  </div>
-                </TiltCard>
-              </RevealOnScroll>
-            ))}
-          </div>
+          <Cinematic variant="zoom" intensity={0.5} fade={false}>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {PROCESS.map((phase, idx) => (
+                <RevealOnScroll key={phase.step} delay={0.12 * idx} className="h-full">
+                  <TiltCard
+                    tilt={6}
+                    className="h-full rounded-3xl border border-[#053446]/10 bg-white p-8 transition-colors duration-500 hover:border-[#71cff3]/40"
+                  >
+                    <div className="relative z-10">
+                      <span className="mb-6 block text-5xl font-extrabold text-[#71cff3]/25 transition-colors duration-500 group-hover/tilt:text-[#71cff3]/60">
+                        {phase.step}
+                      </span>
+                      <h3 className="mb-4 text-2xl font-bold text-[#053446]">{phase.title}</h3>
+                      <p className="text-sm leading-relaxed text-[#95969a]">{phase.desc}</p>
+                    </div>
+                  </TiltCard>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </Cinematic>
         </div>
       </section>
 
@@ -328,38 +332,40 @@ const Company = () => {
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {HORIZONS.map((horizon, idx) => (
-              <RevealOnScroll key={horizon.title} delay={0.12 * idx} className="h-full">
-                <TiltCard
-                  tilt={6}
-                  className="h-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition-colors duration-500 hover:border-[#71cff3]/30 hover:bg-white/[0.07]"
-                >
-                  <div className="relative z-10">
-                    <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#71cff3]">
-                      {horizon.period}
-                    </p>
-                    <h3 className="mb-6 text-2xl font-bold text-white">{horizon.title}</h3>
-                    <ul className="space-y-3">
-                      {horizon.items.map((item) => (
-                        <li key={item} className="flex items-start gap-3">
-                          <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#71cff3]" />
-                          <span className="text-sm leading-relaxed text-[#95969a]">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </TiltCard>
-              </RevealOnScroll>
-            ))}
-          </div>
+          <Cinematic variant="zoom" intensity={0.5} fade={false}>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {HORIZONS.map((horizon, idx) => (
+                <RevealOnScroll key={horizon.title} delay={0.12 * idx} className="h-full">
+                  <TiltCard
+                    tilt={6}
+                    className="h-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition-colors duration-500 hover:border-[#71cff3]/30 hover:bg-white/[0.07]"
+                  >
+                    <div className="relative z-10">
+                      <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#71cff3]">
+                        {horizon.period}
+                      </p>
+                      <h3 className="mb-6 text-2xl font-bold text-white">{horizon.title}</h3>
+                      <ul className="space-y-3">
+                        {horizon.items.map((item) => (
+                          <li key={item} className="flex items-start gap-3">
+                            <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#71cff3]" />
+                            <span className="text-sm leading-relaxed text-[#95969a]">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </TiltCard>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </Cinematic>
         </div>
       </section>
 
       {/* ─── MISSION ─────────────────────────────────────────────────────── */}
       <section className="bg-[#fcfcfa] py-24">
         <div className="mx-auto max-w-5xl px-6">
-          <Cinematic variant="zoom" intensity={0.6}>
+          <Cinematic variant="zoom" intensity={1}>
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#053446] to-[#053446]/90 p-12 text-center md:p-16">
               <div
                 className="absolute inset-0 opacity-[0.05]"

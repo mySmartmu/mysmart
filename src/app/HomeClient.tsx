@@ -19,12 +19,11 @@ import {
 } from 'lucide-react';
 import { RevealOnScroll } from '@/components/RevealOnScroll';
 import { PartnerMarquee } from '@/components/PartnerMarquee';
-import { PlatformCard } from '@/components/PlatformCard';
+import { StickyShowcase } from '@/components/StickyShowcase';
 import { Cinematic, TiltCard, Magnetic, TextReveal, CountUp, Parallax } from '@/components/motion';
 import { PLATFORMS, SUITE, STATUS } from '@/data/products';
 import {
   POSITIONING,
-  STATS,
   CAPABILITIES,
   PROCESS,
   REASONS,
@@ -47,10 +46,10 @@ const rest = PLATFORMS.filter((p) => !p.flagship);
 
 const HomeClient: React.FC = () => {
   return (
-    <div className="overflow-hidden bg-[#fcfcfa] pb-0 pt-24">
+    <div className="overflow-x-clip bg-[#fcfcfa] pb-0 pt-24">
 
       {/* ─── 1. HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative mb-12 flex min-h-[76vh] max-w-7xl flex-col items-center justify-center px-6 text-center mx-auto">
+      <section className="relative mb-4 flex min-h-[58vh] max-w-7xl flex-col items-center justify-center px-6 pb-8 text-center mx-auto">
         <div className="animate-glow absolute left-1/2 top-0 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#71cff3]/10 blur-[120px]" />
 
         {/* Floating accents drift against the scroll */}
@@ -140,42 +139,10 @@ const HomeClient: React.FC = () => {
         </RevealOnScroll>
       </section>
 
-      {/* ─── 2. STATS ────────────────────────────────────────────────────── */}
-      <section className="px-6 pb-16">
-        <div className="mx-auto max-w-5xl">
-          <Cinematic variant="zoom" intensity={0.55} fade={false}>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-              {STATS.map((stat) => (
-                <TiltCard
-                  key={stat.label}
-                  tilt={5}
-                  glare={false}
-                  className="rounded-2xl border border-[#053446]/10 bg-white p-6 text-center transition-colors duration-500 hover:border-[#71cff3]/40"
-                >
-                  <div className="relative z-10">
-                    <p className="mb-1 text-3xl font-extrabold tracking-tight text-[#053446] md:text-4xl">
-                      <CountUp
-                        value={stat.value}
-                        from={stat.from}
-                        decimals={stat.decimals}
-                        suffix={stat.suffix}
-                      />
-                    </p>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-[#95969a]">
-                      {stat.label}
-                    </p>
-                  </div>
-                </TiltCard>
-              ))}
-            </div>
-          </Cinematic>
-        </div>
-      </section>
-
-      {/* ─── 3. TRUSTED PARTNERS ─────────────────────────────────────────── */}
+      {/* ─── 2. TRUSTED PARTNERS ─────────────────────────────────────────── */}
       <PartnerMarquee />
 
-      {/* ─── 4. WHAT WE DO ───────────────────────────────────────────────── */}
+      {/* ─── 3. WHAT WE DO ───────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[#053446] py-32">
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -205,32 +172,34 @@ const HomeClient: React.FC = () => {
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
-            {CAPABILITIES.map((cap, idx) => {
-              const Icon = capabilityIcons[cap.icon];
-              return (
-                <RevealOnScroll key={cap.title} delay={0.08 * idx}>
-                  <TiltCard
-                    tilt={8}
-                    className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-7 transition-colors duration-500 hover:border-[#71cff3]/30 hover:bg-white/[0.07]"
-                  >
-                    <div className="relative z-10">
-                      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#71cff3]/15 transition-transform duration-500 group-hover/tilt:scale-110 group-hover/tilt:rotate-3">
-                        <Icon size={22} className="text-[#71cff3]" />
+          <Cinematic variant="zoom" intensity={0.5} fade={false}>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
+              {CAPABILITIES.map((cap, idx) => {
+                const Icon = capabilityIcons[cap.icon];
+                return (
+                  <RevealOnScroll key={cap.title} delay={0.08 * idx}>
+                    <TiltCard
+                      tilt={8}
+                      className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-7 transition-colors duration-500 hover:border-[#71cff3]/30 hover:bg-white/[0.07]"
+                    >
+                      <div className="relative z-10">
+                        <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#71cff3]/15 transition-transform duration-500 group-hover/tilt:scale-110 group-hover/tilt:rotate-3">
+                          <Icon size={22} className="text-[#71cff3]" />
+                        </div>
+                        <h3 className="mb-3 text-lg font-semibold text-white">{cap.title}</h3>
+                        <p className="text-sm leading-relaxed text-[#95969a]">{cap.desc}</p>
                       </div>
-                      <h3 className="mb-3 text-lg font-semibold text-white">{cap.title}</h3>
-                      <p className="text-sm leading-relaxed text-[#95969a]">{cap.desc}</p>
-                    </div>
-                    <div className="absolute bottom-0 left-7 right-7 h-0.5 scale-x-0 bg-gradient-to-r from-transparent via-[#71cff3]/60 to-transparent transition-transform duration-500 group-hover/tilt:scale-x-100" />
-                  </TiltCard>
-                </RevealOnScroll>
-              );
-            })}
-          </div>
+                      <div className="absolute bottom-0 left-7 right-7 h-0.5 scale-x-0 bg-gradient-to-r from-transparent via-[#71cff3]/60 to-transparent transition-transform duration-500 group-hover/tilt:scale-x-100" />
+                    </TiltCard>
+                  </RevealOnScroll>
+                );
+              })}
+            </div>
+          </Cinematic>
         </div>
       </section>
 
-      {/* ─── 5. FLAGSHIP — OTTO ──────────────────────────────────────────── */}
+      {/* ─── 4. FLAGSHIP — OTTO ──────────────────────────────────────────── */}
       <section className="relative overflow-hidden px-6 py-32">
         <div className="absolute left-1/2 top-1/3 -z-10 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#71cff3]/[0.07] blur-[150px]" />
 
@@ -340,7 +309,7 @@ const HomeClient: React.FC = () => {
         </div>
       </section>
 
-      {/* ─── 6. THE PORTFOLIO ────────────────────────────────────────────── */}
+      {/* ─── 5. THE PORTFOLIO ────────────────────────────────────────────── */}
       <section className="px-6 py-32">
         <div className="mx-auto max-w-7xl">
           <RevealOnScroll>
@@ -358,13 +327,14 @@ const HomeClient: React.FC = () => {
             </div>
           </RevealOnScroll>
 
-          <div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {rest.map((product, idx) => (
-              <RevealOnScroll key={product.id} delay={0.08 * (idx % 2)} className="h-full">
-                <PlatformCard product={product} />
-              </RevealOnScroll>
-            ))}
-          </div>
+        </div>
+
+        {/* The section pins here and the scroll walks one product at a time,
+            then releases. Full-bleed, because a pinned frame that is narrower
+            than the window reads as a stuck element rather than a hold. */}
+        <StickyShowcase products={rest} />
+
+        <div className="mx-auto max-w-7xl">
 
           {/* The business suite, in a denser row */}
           <RevealOnScroll>
@@ -373,60 +343,62 @@ const HomeClient: React.FC = () => {
             </p>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {SUITE.map((item, idx) => {
-              const body = (
-                <TiltCard
-                  tilt={9}
-                  className="h-full rounded-2xl border border-[#053446]/10 bg-white p-6 transition-colors duration-500 hover:border-[#71cff3]/40"
-                >
-                  <div className="relative z-10 flex h-full flex-col">
-                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#71cff3]/10 transition-transform duration-500 group-hover/tilt:scale-110">
-                      {item.logo ? (
-                        <Image
-                          src={item.logo}
-                          alt={item.name}
-                          width={160}
-                          height={160}
-                          sizes="40px"
-                          className="h-8 w-8 object-contain"
-                        />
-                      ) : (
-                        <Cloud size={20} className="text-[#71cff3]" />
+          <Cinematic variant="zoom" intensity={0.5} fade={false}>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+              {SUITE.map((item, idx) => {
+                const body = (
+                  <TiltCard
+                    tilt={9}
+                    className="h-full rounded-2xl border border-[#053446]/10 bg-white p-6 transition-colors duration-500 hover:border-[#71cff3]/40"
+                  >
+                    <div className="relative z-10 flex h-full flex-col">
+                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#71cff3]/10 transition-transform duration-500 group-hover/tilt:scale-110">
+                        {item.logo ? (
+                          <Image
+                            src={item.logo}
+                            alt={item.name}
+                            width={160}
+                            height={160}
+                            sizes="40px"
+                            className="h-8 w-8 object-contain"
+                          />
+                        ) : (
+                          <Cloud size={20} className="text-[#71cff3]" />
+                        )}
+                      </div>
+                      <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#71cff3]">
+                        {item.kicker}
+                      </p>
+                      <h3 className="mb-2 text-lg font-bold text-[#053446]">{item.name}</h3>
+                      <p className="text-sm leading-relaxed text-[#95969a]">{item.summary}</p>
+                      {item.href && (
+                        <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-[#71cff3]">
+                          Learn more
+                          <ArrowRight size={13} className="transition-transform duration-300 group-hover/tilt:translate-x-1" />
+                        </span>
                       )}
                     </div>
-                    <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#71cff3]">
-                      {item.kicker}
-                    </p>
-                    <h3 className="mb-2 text-lg font-bold text-[#053446]">{item.name}</h3>
-                    <p className="text-sm leading-relaxed text-[#95969a]">{item.summary}</p>
-                    {item.href && (
-                      <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-[#71cff3]">
-                        Learn more
-                        <ArrowRight size={13} className="transition-transform duration-300 group-hover/tilt:translate-x-1" />
-                      </span>
-                    )}
-                  </div>
-                </TiltCard>
-              );
+                  </TiltCard>
+                );
 
-              return (
-                <RevealOnScroll key={item.id} delay={0.06 * idx} className="h-full">
-                  {item.href ? (
-                    <Link href={item.href} prefetch={false} className="block h-full">
-                      {body}
-                    </Link>
-                  ) : (
-                    body
-                  )}
-                </RevealOnScroll>
-              );
-            })}
-          </div>
+                return (
+                  <RevealOnScroll key={item.id} delay={0.06 * idx} className="h-full">
+                    {item.href ? (
+                      <Link href={item.href} prefetch={false} className="block h-full">
+                        {body}
+                      </Link>
+                    ) : (
+                      body
+                    )}
+                  </RevealOnScroll>
+                );
+              })}
+            </div>
+          </Cinematic>
         </div>
       </section>
 
-      {/* ─── 7. HOW WE WORK ──────────────────────────────────────────────── */}
+      {/* ─── 6. HOW WE WORK ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[#053446] py-32">
         <div className="absolute bottom-0 left-0 h-[600px] w-[600px] rounded-full bg-[#71cff3]/[0.08] blur-[150px]" />
 
@@ -447,28 +419,30 @@ const HomeClient: React.FC = () => {
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {PROCESS.map((phase, idx) => (
-              <RevealOnScroll key={phase.step} delay={0.12 * idx} className="h-full">
-                <TiltCard
-                  tilt={6}
-                  className="h-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition-colors duration-500 hover:border-[#71cff3]/30 hover:bg-white/[0.07]"
-                >
-                  <div className="relative z-10">
-                    <span className="mb-6 block text-5xl font-extrabold text-[#71cff3]/25 transition-colors duration-500 group-hover/tilt:text-[#71cff3]/50">
-                      {phase.step}
-                    </span>
-                    <h3 className="mb-4 text-2xl font-bold text-white">{phase.title}</h3>
-                    <p className="text-sm leading-relaxed text-[#95969a]">{phase.desc}</p>
-                  </div>
-                </TiltCard>
-              </RevealOnScroll>
-            ))}
-          </div>
+          <Cinematic variant="zoom" intensity={0.5} fade={false}>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {PROCESS.map((phase, idx) => (
+                <RevealOnScroll key={phase.step} delay={0.12 * idx} className="h-full">
+                  <TiltCard
+                    tilt={6}
+                    className="h-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition-colors duration-500 hover:border-[#71cff3]/30 hover:bg-white/[0.07]"
+                  >
+                    <div className="relative z-10">
+                      <span className="mb-6 block text-5xl font-extrabold text-[#71cff3]/25 transition-colors duration-500 group-hover/tilt:text-[#71cff3]/50">
+                        {phase.step}
+                      </span>
+                      <h3 className="mb-4 text-2xl font-bold text-white">{phase.title}</h3>
+                      <p className="text-sm leading-relaxed text-[#95969a]">{phase.desc}</p>
+                    </div>
+                  </TiltCard>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </Cinematic>
         </div>
       </section>
 
-      {/* ─── 8. INFRASTRUCTURE ───────────────────────────────────────────── */}
+      {/* ─── 7. INFRASTRUCTURE ───────────────────────────────────────────── */}
       <section className="px-6 py-32">
         <div className="mx-auto max-w-7xl">
           <RevealOnScroll>
@@ -529,7 +503,7 @@ const HomeClient: React.FC = () => {
         </div>
       </section>
 
-      {/* ─── 9. WHY CLIENTS CHOOSE US ────────────────────────────────────── */}
+      {/* ─── 8. WHY CLIENTS CHOOSE US ────────────────────────────────────── */}
       <section className="bg-white px-6 py-32">
         <div className="mx-auto max-w-7xl">
           <RevealOnScroll>
@@ -568,10 +542,10 @@ const HomeClient: React.FC = () => {
         </div>
       </section>
 
-      {/* ─── 10. CTA ─────────────────────────────────────────────────────── */}
+      {/* ─── 9. CTA ─────────────────────────────────────────────────────── */}
       <section className="bg-[#fcfcfa] py-32">
         <div className="mx-auto max-w-5xl px-6">
-          <Cinematic variant="zoom" intensity={0.7}>
+          <Cinematic variant="zoom" intensity={1}>
             <div className="isolate relative overflow-hidden rounded-[2.5rem] bg-[#053446]">
               <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#71cff3]/10 blur-[150px]" />

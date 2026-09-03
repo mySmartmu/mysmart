@@ -117,13 +117,15 @@ const Products: React.FC = () => {
               </div>
             </RevealOnScroll>
 
-            <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
-              {platforms.map((product, idx) => (
-                <RevealOnScroll key={product.id} delay={0.08 * (idx % 2)} className="h-full">
-                  <PlatformCard product={product} detailed />
-                </RevealOnScroll>
-              ))}
-            </div>
+            <Cinematic variant="zoom" intensity={0.5} fade={false}>
+              <div className="grid grid-cols-1 gap-7 lg:grid-cols-2">
+                {platforms.map((product, idx) => (
+                  <RevealOnScroll key={product.id} delay={0.08 * (idx % 2)} className="h-full">
+                    <PlatformCard product={product} detailed />
+                  </RevealOnScroll>
+                ))}
+              </div>
+            </Cinematic>
           </div>
         </section>
       )}
@@ -143,83 +145,85 @@ const Products: React.FC = () => {
               </div>
             </RevealOnScroll>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {suite.map((item, idx) => {
-                const status = STATUS[item.status];
-                const body = (
-                  <TiltCard
-                    tilt={6}
-                    className="h-full rounded-3xl border border-[#053446]/10 bg-white p-8 transition-colors duration-500 hover:border-[#71cff3]/40"
-                  >
-                    <div
-                      aria-hidden
-                      className="soft-glow pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full"
-                    />
-                    <div className="relative z-10 flex h-full flex-col">
-                      <div className="mb-6 flex items-start justify-between gap-3">
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#71cff3]/10 transition-transform duration-500 group-hover/tilt:scale-110 group-hover/tilt:rotate-3">
-                          {item.logo ? (
-                            <Image
-                              src={item.logo}
-                              alt={item.name}
-                              width={160}
-                              height={160}
-                              sizes="48px"
-                              className="h-10 w-10 object-contain"
-                            />
-                          ) : (
-                            <Cloud size={24} className="text-[#71cff3]" />
-                          )}
-                        </div>
-                        <span className="rounded-full border border-[#71cff3]/40 bg-[#71cff3]/15 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-[#71cff3]">
-                          {status.label}
-                        </span>
-                      </div>
-
-                      <p className="mb-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#71cff3]">
-                        {item.kicker}
-                      </p>
-                      <h3 className="mb-3 text-2xl font-bold text-[#053446]">{item.name}</h3>
-                      <p className="mb-6 text-sm leading-relaxed text-[#95969a]">{item.summary}</p>
-
-                      <div className="mb-6 space-y-2.5">
-                        {item.capabilities.map((cap) => (
-                          <div key={cap} className="flex items-start gap-3">
-                            <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#71cff3]/15 text-[#71cff3]">
-                              <Check size={12} strokeWidth={3} />
-                            </span>
-                            <span className="text-sm leading-relaxed text-[#95969a]">{cap}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="mt-auto border-t border-[#053446]/10 pt-5">
-                        <span className="group/link inline-flex items-center gap-1.5 text-sm font-bold text-[#71cff3]">
-                          {item.href ? 'Learn more' : 'Talk to us'}
-                          <ArrowRight
-                            size={15}
-                            className="transition-transform duration-300 group-hover/tilt:translate-x-1"
-                          />
-                        </span>
-                      </div>
-                    </div>
-                  </TiltCard>
-                );
-
-                return (
-                  <RevealOnScroll key={item.id} delay={0.07 * (idx % 3)} className="h-full">
-                    <Link
-                      href={item.href ?? '/contact'}
-                      prefetch={false}
-                      className="block h-full"
-                      aria-label={`${item.name} — ${item.summary}`}
+            <Cinematic variant="zoom" intensity={0.5} fade={false}>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {suite.map((item, idx) => {
+                  const status = STATUS[item.status];
+                  const body = (
+                    <TiltCard
+                      tilt={6}
+                      className="h-full rounded-3xl border border-[#053446]/10 bg-white p-8 transition-colors duration-500 hover:border-[#71cff3]/40"
                     >
-                      {body}
-                    </Link>
-                  </RevealOnScroll>
-                );
-              })}
-            </div>
+                      <div
+                        aria-hidden
+                        className="soft-glow pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full"
+                      />
+                      <div className="relative z-10 flex h-full flex-col">
+                        <div className="mb-6 flex items-start justify-between gap-3">
+                          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#71cff3]/10 transition-transform duration-500 group-hover/tilt:scale-110 group-hover/tilt:rotate-3">
+                            {item.logo ? (
+                              <Image
+                                src={item.logo}
+                                alt={item.name}
+                                width={160}
+                                height={160}
+                                sizes="48px"
+                                className="h-10 w-10 object-contain"
+                              />
+                            ) : (
+                              <Cloud size={24} className="text-[#71cff3]" />
+                            )}
+                          </div>
+                          <span className="rounded-full border border-[#71cff3]/40 bg-[#71cff3]/15 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-[#71cff3]">
+                            {status.label}
+                          </span>
+                        </div>
+
+                        <p className="mb-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#71cff3]">
+                          {item.kicker}
+                        </p>
+                        <h3 className="mb-3 text-2xl font-bold text-[#053446]">{item.name}</h3>
+                        <p className="mb-6 text-sm leading-relaxed text-[#95969a]">{item.summary}</p>
+
+                        <div className="mb-6 space-y-2.5">
+                          {item.capabilities.map((cap) => (
+                            <div key={cap} className="flex items-start gap-3">
+                              <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#71cff3]/15 text-[#71cff3]">
+                                <Check size={12} strokeWidth={3} />
+                              </span>
+                              <span className="text-sm leading-relaxed text-[#95969a]">{cap}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="mt-auto border-t border-[#053446]/10 pt-5">
+                          <span className="group/link inline-flex items-center gap-1.5 text-sm font-bold text-[#71cff3]">
+                            {item.href ? 'Learn more' : 'Talk to us'}
+                            <ArrowRight
+                              size={15}
+                              className="transition-transform duration-300 group-hover/tilt:translate-x-1"
+                            />
+                          </span>
+                        </div>
+                      </div>
+                    </TiltCard>
+                  );
+
+                  return (
+                    <RevealOnScroll key={item.id} delay={0.07 * (idx % 3)} className="h-full">
+                      <Link
+                        href={item.href ?? '/contact'}
+                        prefetch={false}
+                        className="block h-full"
+                        aria-label={`${item.name} — ${item.summary}`}
+                      >
+                        {body}
+                      </Link>
+                    </RevealOnScroll>
+                  );
+                })}
+              </div>
+            </Cinematic>
           </div>
         </section>
       )}
@@ -227,7 +231,7 @@ const Products: React.FC = () => {
       {/* ─── CTA ─────────────────────────────────────────────────────────── */}
       <section className="px-6 pb-32">
         <div className="mx-auto max-w-6xl">
-          <Cinematic variant="zoom" intensity={0.7}>
+          <Cinematic variant="zoom" intensity={1}>
             <div className="relative overflow-hidden rounded-[2.5rem] bg-[#053446] px-6 py-24 text-center md:px-16">
               <div
                 className="absolute inset-0 opacity-[0.03]"

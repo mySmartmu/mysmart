@@ -33,6 +33,12 @@ export interface ScrollFrame {
   progress: number;
   /** -1 (below the fold) → 0 (centred) → 1 (above the fold). The one cinematic effects want. */
   centered: number;
+  /**
+   * 0 when the element's top reaches the viewport top, 1 when its bottom
+   * reaches the viewport bottom — i.e. progress through a pinned section,
+   * measured over exactly the scroll distance the pin consumes.
+   */
+  pinned: number;
 }
 
 type Apply = (frame: ScrollFrame) => void;
@@ -44,9 +50,11 @@ interface Sub {
   /** Where the scroll says we are. */
   targetP: number;
   targetC: number;
+  targetPin: number;
   /** Where the smoothing has got to. NaN until the first measurement. */
   currentP: number;
   currentC: number;
+  currentPin: number;
   /** Smoothing time constant in seconds. Higher is heavier. */
   tau: number;
 }
@@ -74,6 +82,11 @@ function measure(sub: Sub, viewport: number) {
   const mid = rect.top + rect.height / 2;
   const offset = (viewport / 2 - mid) / (viewport / 2 + rect.height / 2);
   sub.targetC = offset < -1 ? -1 : offset > 1 ? 1 : offset;
+
+  // A pinned section is taller than the viewport; its travel is the overflow.
+  const pinSpan = rect.height - viewport;
+  const pin = pinSpan > 0 ? -rect.top / pinSpan : 0;
+  sub.targetPin = pin < 0 ? 0 : pin > 1 ? 1 : pin;
 }
 
 function tick(now: number) {
@@ -101,23 +114,27 @@ function tick(now: number) {
       // First sight of this element — snap, so it never animates in from a lie.
       sub.currentP = sub.targetP;
       sub.currentC = sub.targetC;
+      sub.currentPin = sub.targetPin;
     } else {
       sub.currentP += (sub.targetP - sub.currentP) * alpha;
       sub.currentC += (sub.targetC - sub.currentC) * alpha;
+      sub.currentPin += (sub.targetPin - sub.currentPin) * alpha;
     }
 
     const settled =
       Math.abs(sub.targetP - sub.currentP) < 0.0004 &&
-      Math.abs(sub.targetC - sub.currentC) < 0.0004;
+      Math.abs(sub.targetC - sub.currentC) < 0.0004 &&
+      Math.abs(sub.targetPin - sub.currentPin) < 0.0004;
 
     if (settled) {
       sub.currentP = sub.targetP;
       sub.currentC = sub.targetC;
+      sub.currentPin = sub.targetPin;
     } else {
       moving = true;
     }
 
-    sub.apply({ progress: sub.currentP, centered: sub.currentC });
+    sub.apply({ progress: sub.currentP, centered: sub.currentC, pinned: sub.currentPin });
   }
 
   // Keep the loop alive only while something is still travelling.
@@ -189,8 +206,10 @@ export function subscribe(el: HTMLElement, apply: Apply, tau = 0.11): () => void
     visible: true,
     targetP: 0,
     targetC: 0,
+    targetPin: 0,
     currentP: NaN,
     currentC: NaN,
+    currentPin: NaN,
     tau,
   };
 

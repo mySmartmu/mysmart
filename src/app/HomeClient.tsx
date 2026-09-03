@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { RevealOnScroll } from '@/components/RevealOnScroll';
 import { PartnerMarquee } from '@/components/PartnerMarquee';
+import { HeroDive } from '@/components/HeroDive';
 import { StickyShowcase } from '@/components/StickyShowcase';
 import { Cinematic, TiltCard, Magnetic, TextReveal, CountUp, Parallax } from '@/components/motion';
 import { PLATFORMS, SUITE, STATUS } from '@/data/products';
@@ -145,8 +146,12 @@ const HomeClient: React.FC = () => {
         </RevealOnScroll>
       </section>
 
-      {/* ─── 2. TRUSTED PARTNERS ─────────────────────────────────────────── */}
-      <PartnerMarquee />
+      {/* ─── 2. THE DIVE ─────────────────────────────────────────────────
+          The mark rises out of the hero, the camera flies through its hexagon,
+          and the partner wall is what waits on the other side. */}
+      <HeroDive>
+        <PartnerMarquee />
+      </HeroDive>
 
       {/* ─── 3. WHAT WE DO ───────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[#053446] py-32">

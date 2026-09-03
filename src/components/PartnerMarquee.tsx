@@ -61,6 +61,52 @@ export const PartnerMarquee: React.FC = () => {
           transform: scale(1.08);
         }
 
+        /* Antrick's supplied logo is a tall stacked mark. Its original
+           emblem and wordmark are shown as compact slices so it aligns with
+           the rest of the carousel without losing the brand name. */
+        .antrick-lockup {
+          display: flex;
+          width: 92px;
+          flex-direction: column;
+          align-items: center;
+          line-height: 0;
+        }
+
+        .antrick-emblem-crop {
+          width: 62px;
+          height: 38px;
+          overflow: hidden;
+        }
+
+        .antrick-wordmark-crop {
+          width: 92px;
+          height: 11px;
+          margin-top: 1px;
+          overflow: hidden;
+        }
+
+        .antrick-slice {
+          display: block;
+          max-width: none;
+          filter: grayscale(100%) brightness(0) opacity(0.5);
+          transition: filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .antrick-emblem-slice {
+          width: 62px;
+          height: 49px;
+        }
+
+        .antrick-wordmark-slice {
+          width: 92px;
+          height: 72px;
+          transform: translateY(-57px);
+        }
+
+        .partner-item:hover .antrick-slice {
+          filter: grayscale(100%) brightness(0) opacity(1);
+        }
+
         @media (max-width: 768px) {
           .partner-track {
             animation-duration: 38s;
@@ -95,19 +141,55 @@ export const PartnerMarquee: React.FC = () => {
               CLIENTS.map((client, idx) => (
                 <div key={`pass${pass}-${idx}`} className="partner-item">
                   <div className="group flex cursor-default items-center gap-3">
-                    <Image
-                      src={`/client/${client.logo}`}
-                      alt={client.name}
-                      width={client.width}
-                      height={client.height}
-                      sizes="(max-width: 768px) 180px, 240px"
-                      className={`partner-logo ${client.heightClass ?? 'h-10'} w-auto object-contain`}
-                      loading="lazy"
-                      decoding="async"
-                      draggable="false"
-                      // The second pass is decorative duplication, not content.
-                      aria-hidden={pass === 1}
-                    />
+                    {client.variant === 'stacked-wordmark' ? (
+                      <div
+                        className="antrick-lockup"
+                        role="img"
+                        aria-label={client.name}
+                        aria-hidden={pass === 1}
+                      >
+                        <div className="antrick-emblem-crop" aria-hidden="true">
+                          <Image
+                            src={`/client/${client.logo}`}
+                            alt=""
+                            width={62}
+                            height={49}
+                            sizes="62px"
+                            className="antrick-slice antrick-emblem-slice"
+                            loading="lazy"
+                            decoding="async"
+                            draggable="false"
+                          />
+                        </div>
+                        <div className="antrick-wordmark-crop" aria-hidden="true">
+                          <Image
+                            src={`/client/${client.logo}`}
+                            alt=""
+                            width={92}
+                            height={72}
+                            sizes="92px"
+                            className="antrick-slice antrick-wordmark-slice"
+                            loading="lazy"
+                            decoding="async"
+                            draggable="false"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <Image
+                        src={`/client/${client.logo}`}
+                        alt={client.name}
+                        width={client.width}
+                        height={client.height}
+                        sizes="(max-width: 768px) 180px, 240px"
+                        className={`partner-logo ${client.heightClass ?? 'h-10'} w-auto object-contain`}
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false"
+                        // The second pass is decorative duplication, not content.
+                        aria-hidden={pass === 1}
+                      />
+                    )}
                     {client.showName && (
                       <span className="whitespace-nowrap text-base font-semibold tracking-wide text-[#053446]/55 transition-colors duration-300 group-hover:text-[#053446] md:text-lg">
                         {client.name}

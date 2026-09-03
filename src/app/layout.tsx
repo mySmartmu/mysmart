@@ -47,24 +47,34 @@ export const viewport: Viewport = {
  */
 const menuScript = `
 (function () {
-  function nav() { return document.querySelector('nav[data-menu-root]'); }
-  function set(n, open) {
-    n.setAttribute('data-menu', open ? 'open' : 'closed');
-    var b = n.querySelector('[data-menu-toggle]');
+  var root = document.documentElement;
+  function set(open) {
+    // The flag goes on <html>, which React does not reconcile — the same
+    // place next-themes writes its theme, and for the same reason: an
+    // attribute added before hydration to a node React is about to hydrate
+    // can be patched away when React catches up.
+    if (open) root.setAttribute('data-menu', 'open');
+    else root.removeAttribute('data-menu');
+    var b = document.querySelector('[data-menu-toggle]');
     if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
+  // Capture phase, and that third argument is the whole trick.
+  //
+  // React 18+ replays discrete events that land on a tree it has not hydrated
+  // yet: it intercepts the click at its root listener, stops it, and re-fires
+  // it once hydration catches up. A bubble-phase listener on document never
+  // sees those clicks at all — which produced a dead window of roughly half a
+  // second, right in the middle of hydration, where tapping the button did
+  // nothing. Capture at document runs before React's root listener, so the
+  // tap is handled whatever React is in the middle of.
   document.addEventListener('click', function (e) {
-    var n = nav();
-    if (!n) return;
-    var t = e.target.closest ? e.target.closest('[data-menu-toggle]') : null;
-    if (t) { set(n, n.getAttribute('data-menu') !== 'open'); return; }
-    if (e.target.closest && e.target.closest('[data-menu-panel] a')) set(n, false);
-  });
+    var t = e.target && e.target.closest ? e.target.closest('[data-menu-toggle]') : null;
+    if (t) { set(root.getAttribute('data-menu') !== 'open'); return; }
+    if (e.target && e.target.closest && e.target.closest('[data-menu-panel] a')) set(false);
+  }, true);
   document.addEventListener('keydown', function (e) {
-    if (e.key !== 'Escape') return;
-    var n = nav();
-    if (n && n.getAttribute('data-menu') === 'open') set(n, false);
-  });
+    if (e.key === 'Escape') set(false);
+  }, true);
 })();
 `;
 

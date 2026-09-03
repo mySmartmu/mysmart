@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -41,8 +41,18 @@ const Navbar: React.FC = () => {
 
   // A client-side navigation keeps this component mounted, so the panel has to
   // be told to close when the route changes underneath it.
+  //
+  // The guard matters more than it looks: without it this also runs on mount,
+  // which is *after* hydration — so a menu the visitor had already opened by
+  // tapping early would be slammed shut the moment React caught up. That is a
+  // worse bug than the one this whole approach exists to fix.
+  const mounted = useRef(false);
   useEffect(() => {
-    document.querySelector('nav[data-menu-root]')?.setAttribute('data-menu', 'closed');
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    document.documentElement.removeAttribute('data-menu');
   }, [pathname]);
 
   const navLinks = [
@@ -58,7 +68,6 @@ const Navbar: React.FC = () => {
   return (
     <nav
       data-menu-root
-      data-menu="closed"
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-smart-white/90 backdrop-blur-md border-b border-smart-gray/10 py-4 shadow-[0_2px_24px_rgba(5,52,70,0.06)]'

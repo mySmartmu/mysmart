@@ -222,6 +222,11 @@ body {
    was simply swallowed, which is exactly what "it doesn't open instantly"
    feels like.
 
+   The flag lives on <html>, not on the nav: React renders the nav, and an
+   attribute the pre-hydration script adds to a node React is about to
+   hydrate can be patched away when React reconciles it. The root element is
+   the same place next-themes writes its theme for exactly this reason.
+
    Driving it from `[data-menu='open']` instead means the CSS is live the
    moment the stylesheet is parsed, and an eight-line delegated listener in the
    document head flips the attribute. The menu now opens on the first tap,
@@ -238,7 +243,7 @@ body {
   transition: opacity 300ms ease-out, translate 300ms ease-out,
     visibility 300ms ease-out;
 }
-nav[data-menu='open'] .nav-panel {
+html[data-menu='open'] .nav-panel {
   opacity: 1;
   translate: 0 0;
   visibility: visible;
@@ -251,7 +256,7 @@ nav[data-menu='open'] .nav-panel {
   transition: opacity 300ms, translate 300ms;
   transition-delay: 0ms;
 }
-nav[data-menu='open'] .nav-item {
+html[data-menu='open'] .nav-item {
   opacity: 1;
   translate: 0 0;
   /* Each item carries its own step as an inline custom property. */
@@ -262,10 +267,10 @@ nav[data-menu='open'] .nav-item {
 .nav-icon-close {
   display: none;
 }
-nav[data-menu='open'] .nav-icon-open {
+html[data-menu='open'] .nav-icon-open {
   display: none;
 }
-nav[data-menu='open'] .nav-icon-close {
+html[data-menu='open'] .nav-icon-close {
   display: block;
 }
 

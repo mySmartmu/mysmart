@@ -61,16 +61,6 @@ const HomeClient: React.FC = () => {
         <NetworkBackdrop />
         <div className="animate-glow absolute left-1/2 top-0 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#71cff3]/10 blur-[120px]" />
 
-        <RevealOnScroll delay={0.05} initiallyVisible>
-          <span className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#053446]/10 bg-white px-4 py-2 text-xs font-semibold tracking-wide text-[#053446] shadow-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#71cff3] opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#71cff3]" />
-            </span>
-            Built, hosted and supported in Mauritius
-          </span>
-        </RevealOnScroll>
-
         <h1 className="mb-8 text-5xl font-extrabold leading-[1.05] tracking-tight text-[#053446] md:text-8xl">
           <TextReveal as="span" text="Smart Technology." className="block" />
           <TextReveal
@@ -515,7 +505,7 @@ const HomeClient: React.FC = () => {
                   <span className="text-[#71cff3]">Your Business?</span>
                 </h2>
                 <p className="mx-auto mb-12 max-w-2xl text-lg text-[#95969a] md:text-xl">
-                  Let&apos;s map what your team actually does — then build the system around it.
+                  Let&apos;s map what your team actually does, then build the system around it.
                 </p>
                 <Magnetic strength={9}>
                   <Link

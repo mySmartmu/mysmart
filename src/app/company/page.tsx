@@ -349,7 +349,7 @@ const Company = () => {
                 <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl">Our Mission</h2>
                 <p className="mx-auto max-w-3xl text-lg leading-relaxed text-[#95969a] md:text-xl">
                   To simplify operations by providing cutting-edge IT and automation solutions that
-                  transform manual processes into intelligent digital ecosystems — for businesses and
+                  transform manual processes into intelligent digital ecosystems for businesses and
                   homes alike.
                 </p>
               </div>

@@ -15,11 +15,11 @@
 export const TAGLINE = 'Smart Technology. Made Simple.';
 
 export const POSITIONING =
-  'AI-driven software, automation and connected hardware for businesses and homes in Mauritius — built, hosted and supported locally.';
+  'AI-driven software, automation and connected hardware for businesses and homes in Mauritius. Built, hosted and supported locally.';
 
 /** Slide 3 — who we are. */
 export const WHO_WE_ARE =
-  'A Mauritian technology company that builds the software, the hardware and the automation in between — and stays to support it.';
+  'A Mauritian technology company that builds the software, the hardware and the automation in between, then stays to support it.';
 
 /** Slide 4 — mySmart at a glance. */
 export const AT_A_GLANCE =

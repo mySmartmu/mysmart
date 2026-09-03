@@ -215,7 +215,7 @@ const Products: React.FC = () => {
                         href={item.href ?? '/contact'}
                         prefetch={false}
                         className="block h-full"
-                        aria-label={`${item.name} — ${item.summary}`}
+                        aria-label={`${item.name}: ${item.summary}`}
                       >
                         {body}
                       </Link>
@@ -259,7 +259,7 @@ const Products: React.FC = () => {
 
                 <p className="mx-auto mb-12 text-lg leading-relaxed text-[#95969a] md:text-xl">
                   We map the real process first, then build the system around your staff, approvals
-                  and reporting — software, AI and hardware from one team.
+                  and reporting, with software, AI and hardware from one team.
                 </p>
 
                 <Magnetic strength={9}>

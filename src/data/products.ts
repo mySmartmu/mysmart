@@ -71,9 +71,9 @@ export const PLATFORMS: Platform[] = [
     description:
       'Otto helps with repetitive tasks such as reading documents, preparing information, checking records, following up customers and handling admin. It prepares the work for your team to review and approve. Each Otto agent has a specific role, so you can use the ones your business needs.',
     capabilities: [
-      'Save time — Otto handles repetitive preparation work so your team can focus on what needs their attention',
-      'Keep people in control — Otto prepares the work, but your team reviews and approves it before anything is final',
-      'One platform, many roles — start with the agents you need today and add more as your requirements grow',
+      'Save time. Otto handles repetitive preparation work so your team can focus on what needs their attention',
+      'Keep people in control. Otto prepares the work, but your team reviews and approves it before anything is final',
+      'One platform, many roles. Start with the agents you need today and add more as your requirements grow',
       'Eighteen specialist agents, each with a specific role: the Invoicer, Invoice Processor, Bookkeeper, VAT Preparer, KYC Agent, Compliance Assistant and more',
       'Reads documents out of email, watched folders and web upload',
       'Checks records and flags what it is unsure about instead of guessing',
@@ -99,19 +99,19 @@ export const PLATFORMS: Platform[] = [
     kicker: 'Client compliance intelligence',
     summary: 'KYC, AML screening and client risk assessment for regulated firms.',
     description:
-      'A multi-tenant, white-label compliance platform. Onboard a client, screen them against sanctions, PEP and adverse-media sources, score them against your own board-approved methodology, and generate the CDD report — with a maker-checker workflow so no alert clears on one person’s say-so.',
+      'A multi-tenant, white-label compliance platform. Onboard a client, screen them against sanctions, PEP and adverse-media sources, score them against your own board-approved methodology, and generate the CDD report with a maker-checker workflow so no alert clears on one person’s say-so.',
     capabilities: [
       'Client onboarding with a document vault, per client and per entity',
       'Sanctions, PEP and adverse-media screening, plus company-registry lookups',
       'Customer Risk Assessment scored against your board-approved methodology',
       'CDD report generation for corporate and individual clients',
-      'Maker-checker alert workflow — analyst, reviewer and tenant admin roles',
+      'Maker-checker alert workflow for analyst, reviewer and tenant admin roles',
       'Per-tenant white-label branding, plan limits and retention policy',
       'Public REST API with tenant-scoped tokens, plus webhooks',
       'Batch screening and a full audit trail on every decision',
     ],
     boundary:
-      'Credence proposes a risk rating and evidences it. The appointed MLRO assigns it — a regulated judgement no system may make on its own.',
+      'Credence proposes a risk rating and evidences it. The appointed MLRO assigns it. This is a regulated judgement no system may make on its own.',
     worksWith: ['Dilisense', 'Adverse-media search', 'Company registry lookup', 'Webhooks', 'REST API'],
     segments: ['Management companies', 'Law and accounting firms', 'Financial institutions'],
     status: 'production',
@@ -130,10 +130,10 @@ export const PLATFORMS: Platform[] = [
     description:
       'A delivery platform for fleets moving real volume. Waypoint plans routes around vehicle capacity rather than stop count, tracks every drop live, and gives drivers a mobile app with proof of delivery, an offline queue and a direct line to dispatch.',
     capabilities: [
-      'Volume-aware route optimisation — every item carries a volume, every vehicle a capacity gauge',
+      'Volume-aware route optimisation. Every item carries a volume and every vehicle a capacity gauge',
       'Region intelligence: delivery zones as map polygons, orders auto-tagged on import',
       'Live traffic through the Google Routes API, with dynamic re-routing',
-      'Driver app for iOS and Android — route view, navigation hand-off, signature and photo proof of delivery, offline queue',
+      'Driver app for iOS and Android with route view, navigation hand-off, signature and photo proof of delivery, and an offline queue',
       'Live GPS tracking with breadcrumb history and a customer tracking page',
       'In-app driver-to-dispatcher chat',
       '3D cargo load planning: validates the load physically fits and produces a loading sequence',
@@ -155,11 +155,11 @@ export const PLATFORMS: Platform[] = [
     kicker: 'AI invoice capture',
     summary: 'Stop keying supplier invoices. Forward them instead.',
     description:
-      'Upload a batch of supplier invoices, or forward them to your own InvoiceIQ address, and they are read for you — supplier, BRN, VAT, dates and totals — then filed where you can find them again. Built around Mauritian invoices and MUR amounts.',
+      'Upload a batch of supplier invoices, or forward them to your own InvoiceIQ address, and they are read for you. Supplier, BRN, VAT, dates and totals are then filed where you can find them again. Built around Mauritian invoices and MUR amounts.',
     capabilities: [
       'Batch upload of PDFs and photos, processed live with the source document beside the result',
       'Structured AI extraction, with private OCR evidence for blurred scans and dense tables',
-      'A permanent forwarding address for every user — mail can arrive from any mailbox at all',
+      'A permanent forwarding address for every user. Mail can arrive from any mailbox at all',
       'Vendor and month folders grouped by the date on the invoice, not the upload date',
       'Naming convention editable per organisation, with a live preview',
       'Download a month folder as a renamed ZIP with a matching spreadsheet inside',
@@ -179,9 +179,9 @@ export const PLATFORMS: Platform[] = [
     logoHeight: 256,
     logoClass: 'h-16',
     kicker: 'Business operations platform',
-    summary: 'One platform for your business — billing on one side, learning on the other.',
+    summary: 'One platform for your business, with billing on one side and learning on the other.',
     description:
-      'myOne is the platform behind myInvoice Pro and myEdu Pro. Invoicing, receipts, expenses, payments and reporting on one side; students, courses, instructors, batches, conferences and certificates on the other — sharing the same customers, invoices and payments underneath.',
+      'myOne is the platform behind myInvoice Pro and myEdu Pro. Invoicing, receipts, expenses, payments and reporting sit on one side. Students, courses, instructors, batches, conferences and certificates sit on the other, sharing the same customers, invoices and payments underneath.',
     capabilities: [
       'Invoices, receipts, quotations and payment tracking with automatic VAT',
       'Business expense logging, with quarterly and yearly goal setting',
@@ -190,7 +190,7 @@ export const PLATFORMS: Platform[] = [
       'Enrolments linked straight through to invoices and payments',
       'Conference management with individual and corporate registration',
       'Certificate issuance from your own templates',
-      'Per-company branding — the same platform ships as myInvoice Pro or myEdu Pro',
+      'Per-company branding. The same platform ships as myInvoice Pro or myEdu Pro',
     ],
     worksWith: ['Website registration forms', 'PDF invoices and certificates', 'Excel reporting'],
     segments: ['Training institutions', 'Professional services', 'Small and mid-sized businesses'],

@@ -6,13 +6,13 @@ import { POSITIONING, TAGLINE } from "@/data/company";
 
 export const metadata: Metadata = {
   title: {
-    default: `mySmart — ${TAGLINE}`,
+    default: `mySmart: ${TAGLINE}`,
     template: "%s | mySmart",
   },
   description: POSITIONING,
   metadataBase: new URL("https://mysmart.mu"),
   openGraph: {
-    title: `mySmart — ${TAGLINE}`,
+    title: `mySmart: ${TAGLINE}`,
     description: POSITIONING,
     url: "https://mysmart.mu",
     siteName: "mySmart",

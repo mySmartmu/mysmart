@@ -28,7 +28,7 @@ const features = [
   {
     icon: Smartphone,
     title: 'Instant Remote Access',
-    description: 'Access files from any device, anywhere. Desktop, mobile or browser — always in sync.',
+    description: 'Access files from any device, anywhere. Desktop, mobile or browser, always in sync.',
   },
   {
     icon: CalendarClock,
@@ -52,7 +52,7 @@ const features = [
   },
   {
     icon: Settings,
-    title: 'Fully Managed — No IT Needed',
+    title: 'Fully Managed, No IT Needed',
     description: 'Updates, maintenance, hardware and monitoring all handled by our team.',
   },
 ];
@@ -76,7 +76,7 @@ const steps = [
   {
     number: '04',
     title: 'We handle the rest',
-    description: 'Backups, monitoring, and updates — all managed by us. You focus on your business.',
+    description: 'Backups, monitoring, and updates are all managed by us. You focus on your business.',
   },
 ];
 
@@ -186,7 +186,7 @@ const MyCloud: React.FC = () => {
 
               <RevealOnScroll delay={0.2}>
                 <p className="text-xl text-[#95969a] max-w-xl mb-10 leading-relaxed">
-                  myCloud gives you enterprise-grade storage space — fully managed,
+                  myCloud gives you enterprise-grade storage space, fully managed,
                   always on, always secure. Just focus on your work.
                 </p>
               </RevealOnScroll>
@@ -340,7 +340,7 @@ const MyCloud: React.FC = () => {
               Everything you need, nothing you don&apos;t
             </h2>
             <p className="text-lg text-[#95969a] text-center max-w-2xl mx-auto mb-16">
-              Every myCloud plan comes fully loaded — no add-ons, no surprises.
+              Every myCloud plan comes fully loaded, with no add-ons or surprises.
             </p>
           </RevealOnScroll>
 

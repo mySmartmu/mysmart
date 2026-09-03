@@ -44,20 +44,22 @@ export const PartnerMarquee: React.FC = () => {
           animation-play-state: paused;
         }
 
+        /* No translate3d hint here. The track above is a single animated
+           layer and the items never move relative to it, so promoting all 52
+           of them only cost WebKit 52 textures it had to keep at 3x DPR. */
         .partner-item {
           flex-shrink: 0;
           padding: 0 2rem;
-          transform: translate3d(0, 0, 0);
         }
 
         .partner-logo {
-          filter: grayscale(100%) brightness(0) opacity(0.5);
-          transition: filter 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-          backface-visibility: hidden;
+          filter: brightness(0);
+          opacity: 0.5;
+          transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .partner-item:hover .partner-logo {
-          filter: grayscale(100%) brightness(0) opacity(1);
+          opacity: 1;
           transform: scale(1.08);
         }
 
@@ -88,8 +90,9 @@ export const PartnerMarquee: React.FC = () => {
         .antrick-slice {
           display: block;
           max-width: none;
-          filter: grayscale(100%) brightness(0) opacity(0.5);
-          transition: filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+          filter: brightness(0);
+          opacity: 0.5;
+          transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .antrick-emblem-slice {
@@ -104,7 +107,7 @@ export const PartnerMarquee: React.FC = () => {
         }
 
         .partner-item:hover .antrick-slice {
-          filter: grayscale(100%) brightness(0) opacity(1);
+          opacity: 1;
         }
 
         @media (max-width: 768px) {

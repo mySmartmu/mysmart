@@ -89,6 +89,12 @@ body {
 
 .animate-glow {
   animation: glow-pulse 8s ease-in-out infinite;
+  /* These are 500-700px circles carrying a 110-150px Gaussian. Without a hint,
+     WebKit re-runs the whole blur on every frame of the opacity loop, for as
+     long as the tab is open. Naming `opacity` lets it blur once, keep the
+     result, and fade the finished texture on the compositor instead. Same
+     pixels; one rasterisation rather than thousands. */
+  will-change: opacity;
 }
 
 /* Slow rotation for animated gradient borders */
@@ -164,6 +170,43 @@ body {
   transform-style: preserve-3d;
 }
 
+/* ─── Above-the-fold word reveal ──────────────────────────────────────────
+   The scroll-triggered version of TextReveal starts each word at `opacity: 0`
+   and only reveals it once an IntersectionObserver has fired — which means not
+   until React has hydrated. For a hero headline that is the largest text on
+   the page, so the LCP element is invisible for as long as hydration takes:
+   about two seconds on a mid-range phone.
+
+   A headline in the hero is on screen by definition, so it does not need an
+   observer to tell it so. This runs the same 700ms reveal straight from CSS,
+   at first paint, with no JavaScript in the path at all. `both` holds the
+   opening frame during the stagger delay and the closing frame afterwards, and
+   the closing frame is `filter: none` rather than `blur(0)` so no offscreen
+   surface is left behind. */
+@keyframes reveal-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.reveal-word-immediate {
+  /* `backwards`, not `both`. `both` freezes the closing frame, and an
+     interpolated `filter: none` lands as `blur(0px)` — still a filter, so the
+     offscreen surface never gets handed back. `backwards` holds the opening
+     frame through the stagger delay and then lets the word fall back to its
+     own styles, which carry no filter at all. Same reveal; nothing left
+     behind. No `will-change` either: this runs once at load, and a hint here
+     would pin a layer per word for the life of the page. */
+  animation: reveal-word-in 700ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
 /* Words in a TextReveal line. Visibility is driven by inline style; this rule
    exists so reduced motion can override it without JavaScript. */
 @media (prefers-reduced-motion: reduce) {
@@ -175,6 +218,13 @@ body {
     transform: none !important;
     filter: none !important;
     transition: none !important;
+  }
+  .reveal-word-immediate {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    will-change: auto !important;
   }
 }
 

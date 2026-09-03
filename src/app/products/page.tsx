@@ -58,12 +58,13 @@ const Products: React.FC = () => {
           </RevealOnScroll>
 
           <h1 className="mb-6 text-5xl font-extrabold leading-[1.12] tracking-tight text-[#053446] md:text-7xl">
-            <TextReveal as="span" text="Solutions built for" className="block" />
+            <TextReveal as="span" text="Solutions built for" className="block" immediate />
             <TextReveal
               as="span"
               text="your success"
               delay={0.24}
               gradient
+              immediate
               className="animate-gradient-text block pb-[0.1em] bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] bg-clip-text text-transparent"
             />
           </h1>

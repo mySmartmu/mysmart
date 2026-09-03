@@ -62,12 +62,13 @@ const HomeClient: React.FC = () => {
         <div className="animate-glow absolute left-1/2 top-0 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[#71cff3]/10 blur-[120px]" />
 
         <h1 className="mb-8 text-5xl font-extrabold leading-[1.05] tracking-tight text-[#053446] md:text-8xl">
-          <TextReveal as="span" text="Smart Technology." className="block" />
+          <TextReveal as="span" text="Smart Technology." className="block" immediate />
           <TextReveal
             as="span"
             text="Made Simple."
             delay={0.28}
             gradient
+            immediate
             className="animate-gradient-text block bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] bg-clip-text text-transparent"
           />
         </h1>

@@ -21,6 +21,17 @@ interface Props {
    * a single unit — the text stays where the background is.
    */
   gradient?: boolean;
+  /**
+   * Set for a line that is above the fold.
+   *
+   * The observer-driven path cannot reveal anything until React has hydrated,
+   * so a hero headline — usually the LCP element — stays invisible for the
+   * whole of that wait. A line that is on screen at load does not need to be
+   * told it is on screen: `immediate` runs the identical 700ms reveal from a
+   * CSS keyframe instead, so it plays at first paint with no JavaScript in the
+   * path.
+   */
+  immediate?: boolean;
 }
 
 const TRANSITION =
@@ -42,11 +53,23 @@ export const TextReveal: React.FC<Props> = ({
   delay = 0,
   as: Tag = 'span',
   gradient = false,
+  immediate = false,
 }) => {
   const ref = useRef<HTMLElement>(null);
   const [shown, setShown] = useState(false);
+  /**
+   * True once the last word has landed.
+   *
+   * `blur(0)` is not free: it is still a filter, so WebKit keeps an offscreen
+   * surface and a compositing layer alive for every word on the page, forever.
+   * A headline is a dozen of those, and they sit in the hero where they
+   * overlap first paint. Dropping to `none` once the cascade is over is the
+   * same pixels with none of the residue.
+   */
+  const [settled, setSettled] = useState(false);
 
   useEffect(() => {
+    if (immediate) return;
     const el = ref.current;
     if (!el) return;
 
@@ -60,19 +83,40 @@ export const TextReveal: React.FC<Props> = ({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [immediate]);
 
-  const style = (index: number): React.CSSProperties => ({
-    transition: TRANSITION,
-    transitionDelay: `${delay + index * stagger}s`,
+  // The cascade finishes one transition after the last word starts.
+  useEffect(() => {
+    if (immediate || !shown || settled) return;
+    const words = gradient ? 1 : text.split(' ').length;
+    const total = delay + (words - 1) * stagger + 0.7;
+    const timer = window.setTimeout(() => setSettled(true), total * 1000 + 100);
+    return () => window.clearTimeout(timer);
+  }, [immediate, shown, settled, gradient, text, delay, stagger]);
+
+  const style = (index: number): React.CSSProperties =>
+    immediate
+      ? // The keyframe owns opacity, transform and filter; all this has to
+        // supply is where each word sits in the stagger.
+        { animationDelay: `${delay + index * stagger}s` }
+      : {
+    transition: settled ? undefined : TRANSITION,
+    transitionDelay: settled ? undefined : `${delay + index * stagger}s`,
     opacity: shown ? 1 : 0,
     transform: shown ? 'translateY(0)' : 'translateY(0.4em)',
-    filter: shown ? 'blur(0)' : 'blur(8px)',
-  });
+    // `none`, not `blur(0)` — see `settled` above.
+    filter: settled ? 'none' : shown ? 'blur(0)' : 'blur(8px)',
+    // Name the property WebKit cannot composite, and only while it moves.
+    willChange: settled ? undefined : 'opacity, transform, filter',
+        };
 
   if (gradient) {
     return (
-      <Tag ref={ref as React.Ref<never>} className={`reveal-word ${className}`} style={style(0)}>
+      <Tag
+        ref={ref as React.Ref<never>}
+        className={`reveal-word ${immediate ? 'reveal-word-immediate ' : ''}${className}`}
+        style={style(0)}
+      >
         {text}
       </Tag>
     );
@@ -83,7 +127,11 @@ export const TextReveal: React.FC<Props> = ({
   return (
     <Tag ref={ref as React.Ref<never>} className={className}>
       {words.map((word, i) => (
-        <span key={`${word}-${i}`} className="reveal-word inline-block" style={style(i)}>
+        <span
+          key={`${word}-${i}`}
+          className={`reveal-word inline-block${immediate ? ' reveal-word-immediate' : ''}`}
+          style={style(i)}
+        >
           {word}
           {i < words.length - 1 ? ' ' : ''}
         </span>

@@ -48,12 +48,13 @@ const Company = () => {
 
         <div className="mx-auto max-w-6xl">
           <h1 className="mb-8 text-center text-4xl font-bold text-[#053446] md:text-6xl">
-            <TextReveal as="span" text="A Mauritian technology company" className="block" />
+            <TextReveal as="span" text="A Mauritian technology company" className="block" immediate />
             <TextReveal
               as="span"
               text="that stays to support it"
               delay={0.3}
               gradient
+              immediate
               className="animate-gradient-text block bg-gradient-to-r from-[#053446] via-[#71cff3] to-[#053446] bg-clip-text text-transparent"
             />
           </h1>
